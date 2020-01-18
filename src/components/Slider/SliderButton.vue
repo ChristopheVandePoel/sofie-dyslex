@@ -6,8 +6,10 @@
       </span>
       <input
         @click="returnFalse"
-        v-if="open || notClosable"
         class="slider-tool"
+        :class="{
+          'opened': active || notClosable
+        }"
         step="1"
         type="range"
         data-default="0"
@@ -24,12 +26,12 @@ export default {
   components: { IconButton },
   props: ['name', 'id', 'notClosable'],
   data: () => ({
-    open: false,
+    active: false,
   }),
   name: 'SliderButton',
   methods: {
     toggleOpen() {
-      this.open = !this.open;
+      this.active = !this.active;
     },
     returnFalse(e) {
       e.preventDefault();
@@ -47,6 +49,7 @@ export default {
 
   .tool-name {
     margin-left: 10px;
+    margin-right: 10px;
   }
 
   .slider__buttons-undo {
@@ -65,6 +68,7 @@ export default {
     cursor: pointer;
     transition: background-color 0.2s ease-in;
     margin-left: 5px;
+    margin-right: 5px;
     white-space: nowrap;
     padding: 0;
     display: flex;
@@ -76,12 +80,21 @@ export default {
     }
 
     .slider-tool {
-      margin-left: 10px;
-      margin-right: 10px;
+      margin-left: 0;
+      margin-right: 0;
       display: inline-block;
-      opacity: 1;
       transition: all 0.2s ease-in;
-      width: 100px;
+      width: 0;
+      opacity: 0;
+
+      &.opened {
+        margin-left: 10px;
+        margin-right: 10px;
+        display: inline-block;
+        transition: all 0.2s ease-in;
+        width: 100px;
+        opacity: 1;
+      }
     }
   }
 

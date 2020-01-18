@@ -15,12 +15,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .tool__buttons--row {
     font-size: 13px;
     display: flex;
-    flex-direction: row;
-    margin-bottom: 5px;
+    flex-wrap: wrap;
+     > * {
+       margin-bottom: 5px;
+     }
   }
 
   .row-title {

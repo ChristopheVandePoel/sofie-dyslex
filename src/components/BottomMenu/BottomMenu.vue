@@ -1,8 +1,8 @@
 <template>
-  <div class="bottom-container__buttons">
-    <IconButton icon="arrow-down"/>
-    <div>
-      <ButtonRow title="letters">
+  <div class="bottom-menu__container" :class="{opened: open}">
+    <IconButton class="bottom-close-button" icon="arrow-down" @click.native="handleOpenClick" />
+    <div class="bottom-container__buttons">
+      <ButtonRow class="bottom-menu__button-row" title="letters">
         <SliderButton name="Backwards" id="letters-backwards" />
         <SliderButton name="Diphtongs" id="letters-diphtongs" />
         <SliderButton name="Free rotation" id="free-rotation" />
@@ -16,21 +16,21 @@
         <SliderButton name="Upside-down" id="upside-down" />
       </ButtonRow>
 
-      <ButtonRow title="Words">
+      <ButtonRow class="bottom-menu__button-row" title="Words">
         <SliderButton name="Free tremble" id="free-tremble" />
         <SliderButton name="Hopping" id="hopping" />
         <SliderButton name="Tilting" id="tilting" />
         <SliderButton name="Trembling" id="trembling" />
       </ButtonRow>
 
-      <ButtonRow title="Sentences">
+      <ButtonRow class="bottom-menu__button-row" title="Sentences">
         <SliderButton name="Free tracking" id="free-tracking" />
         <SliderButton name="Interspace" id="interspace" />
         <SliderButton name="Line-spacing" id="line-spacing" />
         <SliderButton name="Tracking" id="tracking" />
       </ButtonRow>
 
-      <ButtonRow title="Typefaces">
+      <ButtonRow class="bottom-menu__button-row" title="Typefaces">
         <SliderButton name="Height" id="height" />
         <SliderButton name="Serifs" id="serifs" />
         <SliderButton name="Weight" id="height" />
@@ -48,18 +48,66 @@ import ButtonRow from '../ButtonRow/ButtonRow.vue';
 export default {
   name: 'BottomMenu',
   components: { ButtonRow, IconButton, SliderButton },
+  data: () => ({
+    open: true,
+  }),
+  methods: {
+    handleOpenClick() {
+      this.open = !this.open;
+    },
+  },
 };
 </script>
 
-<style scoped>
-.bottom-container__buttons {
-  position: absolute;
-  z-index: 100;
-  bottom: 20px;
-  left: 10px;
-  display: flex;
-  height: 100px;
-  transition: height 0.5s ease;
-}
+<style lang="scss" scoped>
+$height: 130px;
 
+.bottom-menu__container {
+  position: absolute;
+  bottom: -$height;
+  left: 10px;
+  transition: all 0.5s ease;
+  padding-bottom: 10px;
+
+  .bottom-menu__button-row {
+    transition: width 0.2s ease;
+    width: 600%;
+  }
+
+  &.opened {
+    transition: all 0.5s ease;
+    bottom: 0;
+
+    .bottom-menu__button-row {
+      width: 100%;
+      transition: width 0.2s ease;
+    }
+
+    .bottom-close-button {
+      top: 0;
+      transition: all 0.5s ease;
+      transform: rotate(0deg);
+    }
+
+    .bottom-container__buttons {
+      transition: all 0.5s ease;
+      opacity: 1;
+    }
+  }
+  .bottom-close-button {
+    position: absolute;
+    top: -40px;
+    transition: all 0.5s ease;
+    transform: rotate(180deg);
+  }
+
+  .bottom-container__buttons {
+    z-index: 100;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.5s ease;
+    opacity: 0;
+  }
+}
 </style>
