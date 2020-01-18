@@ -2,18 +2,18 @@
   <div class="SliderButton">
     <span class="slider-container" @click="toggleOpen">
       <span v-if="name" class="tool-name" :id="id">
-        {{name}}
+        {{ name }}
       </span>
-      <input
-        @click="returnFalse"
+      <span
         class="slider-tool"
         :class="{
-          'opened': active || notClosable
+          opened: active || notClosable,
         }"
-        step="1"
-        type="range"
-        data-default="0"
-      />
+      >
+        <span class="tool-low">100</span>
+        <input @click="returnFalse" step="1" type="range" />
+        <span class="tool-high">100</span>
+      </span>
     </span>
     <IconButton icon="return-arrow" />
   </div>
@@ -56,11 +56,11 @@ export default {
     display: inline-block;
     width: 13px;
     border-radius: 50%;
-    background-image: url("/images/return-11.svg");
+    background-image: url('/images/return-11.svg');
     background-size: 13px;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #DCDCDC;
+    background-color: #dcdcdc;
   }
 
   .slider-container {
@@ -73,7 +73,7 @@ export default {
     padding: 0;
     display: flex;
     align-items: center;
-    background-color: #DCDCDC;
+    background-color: #dcdcdc;
 
     &:hover {
       background-color: darkgray;
@@ -82,7 +82,7 @@ export default {
     .slider-tool {
       margin-left: 0;
       margin-right: 0;
-      display: inline-block;
+      display: flex;
       transition: all 0.2s ease-in;
       width: 0;
       opacity: 0;
@@ -90,7 +90,6 @@ export default {
       &.opened {
         margin-left: 10px;
         margin-right: 10px;
-        display: inline-block;
         transition: all 0.2s ease-in;
         width: 100px;
         opacity: 1;
@@ -98,12 +97,19 @@ export default {
     }
   }
 
-  .tool-low {
+  .tool-low,
+  .tool-high {
     text-align: right;
-    margin-right: 5px;
-    margin-left: 0;
     font-size: 10px;
+    width: 20px;
+  }
+  .tool-low {
+    margin-right: 5px;
+  }
+
+  .tool-high {
+    text-align: left;
+    margin-left: 5px;
   }
 }
-
 </style>

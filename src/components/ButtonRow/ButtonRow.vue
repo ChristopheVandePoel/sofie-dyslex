@@ -26,6 +26,6 @@ export default {
   }
 
   .row-title {
-    background-color: darkgray;
+    background-color: gray;
   }
 </style>

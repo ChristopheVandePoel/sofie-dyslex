@@ -1,5 +1,5 @@
 <template>
-  <span class="Button"><slot/></span>
+  <span class="Button"><slot /></span>
 </template>
 
 <script>
@@ -18,10 +18,10 @@ export default {
   white-space: nowrap;
   display: flex;
   align-items: center;
-  background-color: #bebebe;
+  background-color: #DCDCDC;
 
   &:hover {
-    background-color: lightgray;
+    background-color: darkgray;
     transition: background-color 0.2s ease-in;
   }
 }

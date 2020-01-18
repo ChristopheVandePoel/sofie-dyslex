@@ -1,6 +1,6 @@
 <template>
-  <div class="tools__container">
-    <IconButton />
+  <div class="tools__container" :class="{ opened: open }">
+    <IconButton class="tools-icon-button" @click.native="handleOpenClick" />
     <div class="tools__container--tools">
       <ButtonRow title="Context">
         <Button>Word</Button>
@@ -37,10 +37,10 @@
         <Button>Dark</Button>
       </ButtonRow>
       <div class="tool__buttons--row">
-        <span class="tool__buttons--row-title-last">Play</span>
+        <IconButton icon="play" color="green" />
       </div>
       <div class="tool__buttons--row">
-        <span class="tool__buttons--row-title-last">Random</span>
+        <IconButton icon="shuffle" color="green" />
       </div>
     </div>
   </div>
@@ -60,22 +60,47 @@ export default {
     IconButton,
     Button,
   },
+  data: () => ({
+    open: true,
+  }),
+  methods: {
+    handleOpenClick() {
+      this.open = !this.open;
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .tools__container {
   padding: 10px;
   position: absolute;
   z-index: 100;
-  display: flex;
-}
 
-.tools__container--tools {
-  position: relative;
-  left: 0;
-  overflow: hidden;
-  transition: left 0.5s ease;
-}
+  .tools__container--tools {
+    position: relative;
+    left: -400px;
+    overflow: hidden;
+    transition: left 0.5s ease;
+  }
 
+  .tools-icon-button {
+    position: absolute;
+    transition: transform 0.5s ease;
+    transform: rotate(180deg);
+  }
+
+  &.opened {
+    .tools__container--tools {
+      position: relative;
+      left: 30px;
+      overflow: hidden;
+      transition: left 0.5s ease;
+    }
+    .tools-icon-button {
+      transition: transform 0.5s ease;
+      transform: rotate(0deg);
+    }
+  }
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="close-button toggle-slider">
+    <div class="close-button toggle-slider" :class="color">
       <img :src="image" />
     </div>
   </div>
@@ -10,17 +10,22 @@
 import arrowLeft from '../../assets/images/arrow-1-01.svg';
 import arrowDown from '../../assets/images/arrow_1-02.svg';
 import returnArrow from '../../assets/images/return-11.svg';
+import play from '../../assets/images/play-04.svg';
+import shuffle from '../../assets/images/random-05.svg';
 
 const iconMap = {
   'arrow-left': arrowLeft,
   'arrow-down': arrowDown,
   'return-arrow': returnArrow,
+  play,
+  shuffle,
 };
 
 export default {
   name: 'IconButton',
   props: {
     icon: String,
+    color: String,
   },
   computed: {
     image() {
@@ -30,7 +35,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .close-button {
     background-color: lightgray;
     color: gray;
@@ -48,6 +53,10 @@ export default {
     background-repeat: no-repeat;
     padding: 5px;
     transition: background-color 0.2s ease-in;
+
+    &.green {
+      background-color: #00FF00;
+    }
   }
 
   .close-button:hover {
@@ -55,5 +64,9 @@ export default {
     cursor: pointer;
     background-color: #e9e9e9;
     transition: background-color 0.2s ease-in;
+
+    &.green {
+      background-color: lightgreen;
+    }
   }
 </style>
