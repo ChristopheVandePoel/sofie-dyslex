@@ -14,7 +14,7 @@ export default {
   cursor: pointer;
   transition: background-color 0.2s ease-in;
   padding: 5px;
-  margin-left: 5px;
+  margin-right: 5px;
   white-space: nowrap;
   display: flex;
   align-items: center;

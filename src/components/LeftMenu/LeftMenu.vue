@@ -2,25 +2,25 @@
   <div class="tools__container" :class="{ opened: open }">
     <IconButton class="tools-icon-button" @click.native="handleOpenClick" />
     <div class="tools__container--tools">
-      <ButtonRow title="Context">
+      <ButtonRow title="Context" :expanded="true">
         <Button>Word</Button>
         <Button>Text</Button>
       </ButtonRow>
-      <ButtonRow title="Font">
+      <ButtonRow title="Font" :expanded="true">
         <Button>Serif</Button>
         <Button>Sans-serif</Button>
       </ButtonRow>
-      <ButtonRow title="Letter case">
+      <ButtonRow title="Letter case" :expanded="true">
         <Button>Caps min</Button>
         <Button>Caps max</Button>
       </ButtonRow>
-      <ButtonRow title="Weight">
+      <ButtonRow title="Weight" :expanded="true">
         <SliderButton id="font-weight" :not-closable="true" />
       </ButtonRow>
-      <ButtonRow title="Size">
+      <ButtonRow title="Size" :expanded="true">
         <SliderButton id="font-size" :not-closable="true" />
       </ButtonRow>
-      <ButtonRow title="Alignment">
+      <ButtonRow title="Alignment" :expanded="true">
         <Button>Left</Button>
         <Button>Center</Button>
         <Button>Right</Button>
@@ -32,14 +32,14 @@
       <ButtonRow title="Color">
         <SliderButton id="color" :not-closable="true" :hide-labels="true" />
       </ButtonRow>
-      <ButtonRow title="Interface">
+      <ButtonRow title="Interface" :expanded="true">
         <Button>Bight</Button>
         <Button>Dark</Button>
       </ButtonRow>
-      <div class="tool__buttons--row">
+      <div class="LeftMenu__special-buttons">
         <IconButton icon="play" color="green" />
       </div>
-      <div class="tool__buttons--row">
+      <div class="LeftMenu__special-buttons">
         <IconButton icon="shuffle" color="green" />
       </div>
     </div>
@@ -101,6 +101,9 @@ export default {
       transition: transform 0.5s ease;
       transform: rotate(0deg);
     }
+  }
+  .LeftMenu__special-buttons {
+    margin-bottom: 5px;
   }
 }
 </style>

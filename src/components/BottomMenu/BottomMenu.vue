@@ -2,7 +2,7 @@
   <div class="bottom-menu__container" :class="{opened: open}">
     <IconButton class="bottom-close-button" icon="arrow-down" @click.native="handleOpenClick" />
     <div class="bottom-container__buttons">
-      <ButtonRow class="bottom-menu__button-row" title="letters">
+      <ButtonRow class="bottom-menu__button-row" title="letters" :expanded="true">
         <SliderButton name="Backwards" id="letters-backwards" />
         <SliderButton name="Diphtongs" id="letters-diphtongs" />
         <SliderButton name="Free rotation" id="free-rotation" />
@@ -16,21 +16,21 @@
         <SliderButton name="Upside-down" id="upside-down" />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Words">
+      <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
         <SliderButton name="Free tremble" id="free-tremble" />
         <SliderButton name="Hopping" id="hopping" />
         <SliderButton name="Tilting" id="tilting" />
         <SliderButton name="Trembling" id="trembling" />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Sentences">
+      <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
         <SliderButton name="Free tracking" id="free-tracking" />
         <SliderButton name="Interspace" id="interspace" />
         <SliderButton name="Line-spacing" id="line-spacing" />
         <SliderButton name="Tracking" id="tracking" />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Typefaces">
+      <ButtonRow class="bottom-menu__button-row" title="Typefaces" :expanded="true">
         <SliderButton name="Height" id="height" />
         <SliderButton name="Serifs" id="serifs" />
         <SliderButton name="Weight" id="height" />

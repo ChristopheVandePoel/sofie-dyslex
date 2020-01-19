@@ -12,6 +12,8 @@ import arrowDown from '../../assets/images/arrow_1-02.svg';
 import returnArrow from '../../assets/images/return-11.svg';
 import play from '../../assets/images/play-04.svg';
 import shuffle from '../../assets/images/random-05.svg';
+import minus from '../../assets/images/min-07.svg';
+import plus from '../../assets/images/plus-06.svg';
 
 const iconMap = {
   'arrow-left': arrowLeft,
@@ -19,6 +21,8 @@ const iconMap = {
   'return-arrow': returnArrow,
   play,
   shuffle,
+  minus,
+  plus,
 };
 
 export default {

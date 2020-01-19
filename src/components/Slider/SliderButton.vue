@@ -14,13 +14,13 @@
       >
         <span class="tool-low" v-if="!hideLabels">{{ value }}</span>
         <input
-          class="SliderButton__input"
           @click="returnFalse"
+          @input="setValue"
+          @change="pushValue"
+          class="SliderButton__input"
           :value="value"
           step="1"
           type="range"
-          @input="setValue"
-          @change="pushValue"
           :min="min"
           :max="max"
         />
@@ -62,9 +62,9 @@ export default {
   data() {
     return {
       active: false,
-      value: this.startValue || this.startValue === 0 ? this.startValue : (this.min + this.max) / 2,
+      value: this.startValue || this.startValue === 0 ? this.startValue : this.min,
       resetValue:
-        this.startValue || this.startValue === 0 ? this.startValue : (this.min + this.max) / 2,
+        this.startValue || this.startValue === 0 ? this.startValue : this.min,
       previous: [],
     };
   },
@@ -136,7 +136,6 @@ export default {
     color: black;
     cursor: pointer;
     transition: background-color 0.2s ease-in;
-    margin-left: 5px;
     margin-right: 5px;
     white-space: nowrap;
     padding: 0;
