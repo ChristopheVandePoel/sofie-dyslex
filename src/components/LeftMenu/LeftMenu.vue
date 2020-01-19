@@ -15,10 +15,10 @@
         <Button>Caps max</Button>
       </ButtonRow>
       <ButtonRow title="Weight">
-        <SliderButton id="font-weight" not-closable="true" />
+        <SliderButton id="font-weight" :not-closable="true" />
       </ButtonRow>
       <ButtonRow title="Size">
-        <SliderButton id="font-size" not-closable="true" />
+        <SliderButton id="font-size" :not-closable="true" />
       </ButtonRow>
       <ButtonRow title="Alignment">
         <Button>Left</Button>
@@ -27,10 +27,10 @@
         <Button>Block</Button>
       </ButtonRow>
       <ButtonRow title="Speed">
-        <SliderButton id="speed" not-closable="true" />
+        <SliderButton id="speed" :not-closable="true" />
       </ButtonRow>
       <ButtonRow title="Color">
-        <SliderButton id="color" not-closable="true" />
+        <SliderButton id="color" :not-closable="true" :hide-labels="true" />
       </ButtonRow>
       <ButtonRow title="Interface">
         <Button>Bight</Button>
