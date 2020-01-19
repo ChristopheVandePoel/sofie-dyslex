@@ -1,17 +1,82 @@
 <template>
   <div class="top-container">
-    <div class="text-field__main">
-      <div contenteditable id="main-text" class="textarea-container">
+    <div
+      class="text-field__main"
+      :class="{
+        seriffed: generalState.font === 'serif',
+      }"
+    >
+      <div
+        contenteditable
+        id="main-text"
+        class="textarea-container"
+        :style="{
+          textAlign: generalState.alignment,
+          textTransform: generalState.letterCase === 'upper' ? 'uppercase' : 'none',
+          fontSize: getFontSize(),
+          color: getColor(),
+        }"
+        v-html="currentValue"
+      >
         <!-- This is where the text will come. Leave empty -->
-        Text
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
+import { colorMap } from '../../constants';
+
+const letterTransformMap = {
+  hopping: (letter, index, force) => `translateY(${(index + 1) % 2 ? '-' : ''}${index * force / 10}px)`,
+  'free-tremble': (letter, index, force) => `translateX(${(index + 1) % 2 ? '' : '-'}${index * force / 20}px)`,
+};
+
+const someFunction = (input, transforms) => {
+  console.log(input, transforms);
+  const output = input.split('');
+
+  const transform = output.map((letter, index) => {
+    let transformation = '';
+    transforms.forEach((trans) => {
+      if (letterTransformMap[trans.key]) {
+        transformation += letterTransformMap[trans.key](letter, index, trans.value);
+      }
+    });
+
+    console.log(transformation);
+    return `<span style="transform: ${transformation}; display: inline-block">${letter}</span>`;
+  });
+  console.log(transform);
+  return transform.join('');
+};
+
+const baseFontSize = {
+  word: 400,
+  text: 120,
+};
+
 export default {
   name: 'MainTextArea',
+  computed: {
+    ...mapState(['generalState', 'textField']),
+    ...mapGetters(['getLetterTransforms']),
+    currentValue() {
+      return someFunction(
+        this.textField[this.generalState.type].transformed,
+        this.getLetterTransforms,
+      );
+    },
+  },
+  methods: {
+    getFontSize() {
+      return `${(baseFontSize[this.generalState.type] * this.generalState.size) / 100}px`;
+    },
+    getColor() {
+      return colorMap[this.generalState.color];
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -24,25 +89,10 @@ export default {
   width: 100%;
   position: relative;
   text-align: center;
-  font-family: "Helvetica", sans-serif;
+  font-family: 'Helvetica', sans-serif;
 
   &.seriffed {
-    font-family: "Times New Roman", serif;
-  }
-  &.all-caps {
-    text-transform: uppercase;
-  }
-  &.align-left {
-    text-align: left;
-  }
-  &.align-center {
-    text-align: center;
-  }
-  &.align-right {
-    text-align: right;
-  }
-  &.align-block {
-    text-align: justify;
+    font-family: 'Times New Roman', serif;
   }
 
   &.font-100 div {

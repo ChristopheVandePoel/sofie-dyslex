@@ -1,9 +1,12 @@
 <template>
-  <span class="Button"><slot /></span>
+  <span class="Button" :class="{
+    isActive: active,
+  }"><slot /></span>
 </template>
 
 <script>
 export default {
+  props: ['active'],
   name: 'Button',
 };
 </script>
@@ -23,6 +26,10 @@ export default {
   &:hover {
     background-color: darkgray;
     transition: background-color 0.2s ease-in;
+  }
+
+  &.isActive {
+    background-color: darkgray;
   }
 }
 </style>

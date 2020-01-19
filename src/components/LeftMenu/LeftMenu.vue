@@ -3,38 +3,110 @@
     <IconButton class="tools-icon-button" @click.native="handleOpenClick" />
     <div class="tools__container--tools">
       <ButtonRow title="Context" :expanded="true">
-        <Button>Word</Button>
-        <Button>Text</Button>
+        <Button :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
+          Word
+        </Button>
+        <Button :active="generalState.type === 'text'" @click.native="setGeneral({ type: 'text' })">
+          Text
+        </Button>
       </ButtonRow>
       <ButtonRow title="Font" :expanded="true">
-        <Button>Serif</Button>
-        <Button>Sans-serif</Button>
+        <Button
+          :active="generalState.font === 'serif'"
+          @click.native="setGeneral({ font: 'serif' })"
+        >
+          Serif
+        </Button>
+        <Button :active="generalState.font === 'sans'" @click.native="setGeneral({ font: 'sans' })">
+          Sans-serif
+        </Button>
       </ButtonRow>
       <ButtonRow title="Letter case" :expanded="true">
-        <Button>Caps min</Button>
-        <Button>Caps max</Button>
+        <Button
+          :active="generalState.letterCase === 'lower'"
+          @click.native="setGeneral({ letterCase: 'lower' })"
+        >
+          Caps min
+        </Button>
+        <Button
+          :active="generalState.letterCase === 'upper'"
+          @click.native="setGeneral({ letterCase: 'upper' })"
+        >
+          Caps max
+        </Button>
       </ButtonRow>
       <ButtonRow title="Weight" :expanded="true">
-        <SliderButton id="font-weight" :not-closable="true" />
+        <SliderButton
+          id="font-weight"
+          :not-closable="true"
+          :start-value="generalState.weight"
+          :on-change="weight => setGeneral({ weight })"
+        />
       </ButtonRow>
       <ButtonRow title="Size" :expanded="true">
-        <SliderButton id="font-size" :not-closable="true" />
+        <SliderButton
+          id="font-size"
+          :not-closable="true"
+          :start-value="generalState.size"
+          :on-change="size => setGeneral({ size })"
+        />
       </ButtonRow>
       <ButtonRow title="Alignment" :expanded="true">
-        <Button>Left</Button>
-        <Button>Center</Button>
-        <Button>Right</Button>
-        <Button>Block</Button>
+        <Button
+          :active="generalState.alignment === 'left'"
+          @click.native="setGeneral({ alignment: 'left' })"
+        >
+          Left
+        </Button>
+        <Button
+          :active="generalState.alignment === 'center'"
+          @click.native="setGeneral({ alignment: 'center' })"
+        >
+          Center
+        </Button>
+        <Button
+          :active="generalState.alignment === 'right'"
+          @click.native="setGeneral({ alignment: 'right' })"
+        >
+          Right
+        </Button>
+        <Button
+          :active="generalState.alignment === 'block'"
+          @click.native="setGeneral({ alignment: 'block' })"
+        >
+          Block
+        </Button>
       </ButtonRow>
       <ButtonRow title="Speed">
-        <SliderButton id="speed" :not-closable="true" />
+        <SliderButton
+          id="speed"
+          :not-closable="true"
+          :start-value="generalState.speed"
+          :on-change="speed => setGeneral({ speed })"
+        />
       </ButtonRow>
       <ButtonRow title="Color">
-        <SliderButton id="color" :not-closable="true" :hide-labels="true" />
+        <SliderButton
+          id="color"
+          :not-closable="true"
+          :hide-labels="true"
+          :start-value="generalState.color"
+          :on-change="color => setGeneral({ color })"
+        />
       </ButtonRow>
       <ButtonRow title="Interface" :expanded="true">
-        <Button>Bight</Button>
-        <Button>Dark</Button>
+        <Button
+          :active="generalState.interface === 'bright'"
+          @click.native="setGeneral({ interface: 'bright' })"
+        >
+          Bight
+        </Button>
+        <Button
+          :active="generalState.interface === 'dark'"
+          @click.native="setGeneral({ interface: 'dark' })"
+        >
+          Dark
+        </Button>
       </ButtonRow>
       <div class="LeftMenu__special-buttons">
         <IconButton icon="play" color="green" />
@@ -47,6 +119,7 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
 import Button from '../Button/Button.vue';
 import IconButton from '../Icon/IconButton.vue';
 import SliderButton from '../Slider/SliderButton.vue';
@@ -60,13 +133,17 @@ export default {
     IconButton,
     Button,
   },
-  data: () => ({
-    open: true,
-  }),
+  data() {
+    return {
+      open: true,
+    };
+  },
+  computed: mapState(['generalState']),
   methods: {
     handleOpenClick() {
       this.open = !this.open;
     },
+    ...mapMutations(['setGeneral']),
   },
 };
 </script>

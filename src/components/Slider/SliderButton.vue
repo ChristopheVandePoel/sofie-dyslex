@@ -1,8 +1,12 @@
 <template>
   <div class="SliderButton">
-    <span class="slider-container" @click="toggleOpen" :class="{
-      isActive: active,
-    }">
+    <span
+      class="slider-container"
+      @click="toggleOpen"
+      :class="{
+        isActive: active,
+      }"
+    >
       <span v-if="name" class="tool-name" :id="id">
         {{ name }}
       </span>
@@ -37,11 +41,13 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import IconButton from '../Icon/IconButton.vue';
 
 export default {
   components: { IconButton },
   props: {
+    type: String,
     name: String,
     id: String,
     notClosable: Boolean,
@@ -58,19 +64,23 @@ export default {
       type: Number,
       default: null,
     },
+    onChange: Function,
   },
   data() {
     return {
       active: false,
       value: this.startValue || this.startValue === 0 ? this.startValue : this.min,
-      resetValue:
-        this.startValue || this.startValue === 0 ? this.startValue : this.min,
+      resetValue: this.startValue || this.startValue === 0 ? this.startValue : this.min,
       previous: [],
     };
   },
   name: 'SliderButton',
   methods: {
     toggleOpen() {
+      this.setLetterTransforms({
+        type: this.id,
+        settings: { active: !this.active, value: this.value },
+      });
       this.active = !this.active;
     },
     returnFalse(e) {
@@ -79,13 +89,20 @@ export default {
       return false;
     },
     setValue(input) {
+      const value = input.target ? input.target.value : input;
       if (input.target) {
-        this.value = input.target.value;
         this.active = true;
-      } else {
-        this.value = input;
       }
+
+      this.value = value;
       // todo: set value in store
+      if (this.onChange && !this.type) {
+        this.onChange(parseFloat(value));
+      }
+
+      if (this.type === 'letters') {
+        this.setLetterTransforms({ type: this.id, settings: { active: this.active, value } });
+      }
     },
     pushValue(input) {
       this.previous.push(input.target.value);
@@ -99,6 +116,7 @@ export default {
         this.setValue(this.resetValue);
       }
     },
+    ...mapMutations(['setLetterTransforms']),
   },
 };
 </script>

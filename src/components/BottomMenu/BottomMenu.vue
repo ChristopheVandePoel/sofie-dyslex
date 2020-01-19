@@ -3,38 +3,38 @@
     <IconButton class="bottom-close-button" icon="arrow-down" @click.native="handleOpenClick" />
     <div class="bottom-container__buttons">
       <ButtonRow class="bottom-menu__button-row" title="letters" :expanded="true">
-        <SliderButton name="Backwards" id="letters-backwards" />
-        <SliderButton name="Diphtongs" id="letters-diphtongs" />
-        <SliderButton name="Free rotation" id="free-rotation" />
-        <SliderButton name="Free tremble" id="free-tremble" />
-        <SliderButton name="Hopping" id="hopping" />
-        <SliderButton name="Rotating" id="rotating-slider" />
-        <SliderButton name="Shifting" id="shifting" />
-        <SliderButton name="Swapping" id="swapping" />
-        <SliderButton name="Tilting" id="tilting" />
-        <SliderButton name="Trembling" id="trembling" />
-        <SliderButton name="Upside-down" id="upside-down" />
+        <SliderButton type="letters" name="Backwards" id="letters-backwards" />
+        <SliderButton type="letters" name="Diphtongs" id="letters-diphtongs" />
+        <SliderButton type="letters" name="Free rotation" id="free-rotation" />
+        <SliderButton type="letters" name="Free tremble" id="free-tremble" />
+        <SliderButton type="letters" name="Hopping" id="hopping" />
+        <SliderButton type="letters" name="Rotating" id="rotating-slider" />
+        <SliderButton type="letters" name="Shifting" id="shifting" />
+        <SliderButton type="letters" name="Swapping" id="swapping" />
+        <SliderButton type="letters" name="Tilting" id="tilting" />
+        <SliderButton type="letters" name="Trembling" id="trembling" />
+        <SliderButton type="letters" name="Upside-down" id="upside-down" />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
-        <SliderButton name="Free tremble" id="free-tremble" />
-        <SliderButton name="Hopping" id="hopping" />
-        <SliderButton name="Tilting" id="tilting" />
-        <SliderButton name="Trembling" id="trembling" />
+        <SliderButton type="words" name="Free tremble" id="free-tremble" />
+        <SliderButton type="words" name="Hopping" id="hopping" />
+        <SliderButton type="words" name="Tilting" id="tilting" />
+        <SliderButton type="words" name="Trembling" id="trembling" />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
-        <SliderButton name="Free tracking" id="free-tracking" />
-        <SliderButton name="Interspace" id="interspace" />
-        <SliderButton name="Line-spacing" id="line-spacing" />
-        <SliderButton name="Tracking" id="tracking" />
+        <SliderButton type="sentences" name="Free tracking" id="free-tracking" />
+        <SliderButton type="sentences" name="Interspace" id="interspace" />
+        <SliderButton type="sentences" name="Line-spacing" id="line-spacing" />
+        <SliderButton type="sentences" name="Tracking" id="tracking" />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Typefaces" :expanded="true">
-        <SliderButton name="Height" id="height" />
-        <SliderButton name="Serifs" id="serifs" />
-        <SliderButton name="Weight" id="height" />
-        <SliderButton name="Width" id="width" />
+        <SliderButton type="faces" name="Height" id="height" />
+        <SliderButton type="faces" name="Serifs" id="serifs" />
+        <SliderButton type="faces" name="Weight" id="height" />
+        <SliderButton type="faces" name="Width" id="width" />
       </ButtonRow>
     </div>
   </div>
