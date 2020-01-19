@@ -26,11 +26,11 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { colorMap } from '../../constants';
+import { colorMap, pi } from '../../constants';
 
 const letterTransformMap = {
-  hopping: (letter, index, force) => `translateY(${(index + 1) % 2 ? '-' : ''}${index * force / 10}px)`,
-  'free-tremble': (letter, index, force) => `translateX(${(index + 1) % 2 ? '' : '-'}${index * force / 20}px)`,
+  hopping: (letter, index, force) => `translateY(${(index + 1) % 2 ? '-' : ''}${pi[index] * force / 10}px)`,
+  'free-tremble': (letter, index, force) => `translateX(${(index + 1) % 2 ? '' : '-'}${pi[index] * force / 20}px)`,
 };
 
 const someFunction = (input, transforms) => {

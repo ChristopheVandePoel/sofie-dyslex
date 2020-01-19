@@ -28,8 +28,8 @@ export default new Vuex.Store({
         transformed: 'Text',
       },
       text: {
-        raw: 'This <br /> is a sentence',
-        transformed: 'This <br /> is a sentence',
+        raw: 'This is is a sentence',
+        transformed: 'This is a sentence',
       },
     },
   },
