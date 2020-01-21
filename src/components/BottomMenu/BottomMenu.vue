@@ -1,19 +1,29 @@
 <template>
-  <div class="bottom-menu__container" :class="{opened: open}">
+  <div class="bottom-menu__container" :class="{ opened: open }">
     <IconButton class="bottom-close-button" icon="arrow-down" @click.native="handleOpenClick" />
     <div class="bottom-container__buttons">
       <ButtonRow class="bottom-menu__button-row" title="letters" :expanded="true">
         <SliderButton type="letters" name="Backwards" id="letters-backwards" />
         <SliderButton type="letters" name="Diphtongs" id="letters-diphtongs" />
         <SliderButton type="letters" name="Free rotation" id="free-rotation" />
-        <SliderButton type="letters" name="Free tremble" id="free-tremble" />
-        <SliderButton type="letters" name="Hopping" id="hopping" />
+        <SliderButton
+          type="letters"
+          name="Free tremble"
+          id="free-tremble"
+          :start-value="getLetterValue('free-tremble')"
+        />
+        <SliderButton
+          type="letters"
+          name="Hopping"
+          id="hopping"
+          :start-value="getLetterValue('hopping')"
+        />
         <SliderButton type="letters" name="Rotating" id="rotating-slider" />
         <SliderButton type="letters" name="Shifting" id="shifting" />
         <SliderButton type="letters" name="Swapping" id="swapping" />
         <SliderButton type="letters" name="Tilting" id="tilting" />
         <SliderButton type="letters" name="Trembling" id="trembling" />
-        <SliderButton type="letters" name="Upside&mdash;down" id="upside-down" />
+        <SliderButton type="letters" name="Upside—down" id="upside-down" />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
@@ -26,7 +36,7 @@
       <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
         <SliderButton type="sentences" name="Free tracking" id="free-tracking" />
         <SliderButton type="sentences" name="Interspace" id="interspace" />
-        <SliderButton type="sentences" name="Line&mdash;spacing" id="line-spacing" />
+        <SliderButton type="sentences" name="Line—spacing" id="line-spacing" />
         <SliderButton type="sentences" name="Tracking" id="tracking" />
       </ButtonRow>
 
@@ -41,6 +51,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import IconButton from '../Icon/IconButton.vue';
 import SliderButton from '../Slider/SliderButton.vue';
 import ButtonRow from '../ButtonRow/ButtonRow.vue';
@@ -54,6 +65,24 @@ export default {
   methods: {
     handleOpenClick() {
       this.open = !this.open;
+    },
+    getLetterValue(type) {
+      if (this.letterValues[type]) {
+        return parseFloat(this.letterValues[type].value);
+      }
+      return null;
+    },
+  },
+  computed: {
+    ...mapState(['textTransforms']),
+    letterValues() {
+      return this.textTransforms.letters || {};
+    },
+    wordValues() {
+      return this.textTransforms.words;
+    },
+    sentenceValues() {
+      return this.textTransforms.sentences;
     },
   },
 };

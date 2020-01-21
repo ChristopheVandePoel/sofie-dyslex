@@ -58,10 +58,11 @@ export default new Vuex.Store({
         };
       }
 
-      state.textTransforms.letters[input.type] = {
+      Vue.set(state.textTransforms.letters, input.type, {
         ...currentValue,
         ...input.settings,
-      };
+      });
+
       state.textTransforms.activeLetters = Object.keys(state.textTransforms.letters).filter(
         entry => state.textTransforms.letters[entry].active,
       ) || [];

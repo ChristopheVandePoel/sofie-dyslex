@@ -13,7 +13,7 @@
         :style="{
           textAlign: generalState.alignment,
           textTransform: generalState.letterCase === 'upper' ? 'uppercase' : 'none',
-          fontSize: getFontSize(),
+          fontSize: `${fontSize}px`,
           color: getColor(),
         }"
         v-html="currentValue"
@@ -29,12 +29,12 @@ import { mapGetters, mapState } from 'vuex';
 import { colorMap, pi } from '../../constants';
 
 const letterTransformMap = {
-  hopping: (letter, index, force) => `translateY(${(index + 1) % 2 ? '-' : ''}${pi[index] * force / 10}px)`,
-  'free-tremble': (letter, index, force) => `translateX(${(index + 1) % 2 ? '' : '-'}${pi[index] * force / 20}px)`,
+  hopping: (letter, index, force) => `translateY(${pi[index] % 2 ? '-' : ''}${(pi[index + 1] * pi[index + 2] * force) / 150}%)`,
+  'free-tremble': (letter, index, force) => `translateX(${pi[index] % 2 ? '' : '-'}${pi[index + 1] * pi[index + 2] * force / 50}%)`,
 };
 
 const someFunction = (input, transforms) => {
-  console.log(input, transforms);
+  // console.log(input, transforms);
   const output = input.split('');
 
   const transform = output.map((letter, index) => {
@@ -45,10 +45,9 @@ const someFunction = (input, transforms) => {
       }
     });
 
-    console.log(transformation);
     return `<span style="transform: ${transformation}; display: inline-block">${letter}</span>`;
   });
-  console.log(transform);
+  // console.log(transform);
   return transform.join('');
 };
 
@@ -62,6 +61,7 @@ export default {
   computed: {
     ...mapState(['generalState', 'textField']),
     ...mapGetters(['getLetterTransforms']),
+    fontSize() { return (baseFontSize[this.generalState.type] * this.generalState.size) / 100; },
     currentValue() {
       return someFunction(
         this.textField[this.generalState.type].transformed,
@@ -70,9 +70,6 @@ export default {
     },
   },
   methods: {
-    getFontSize() {
-      return `${(baseFontSize[this.generalState.type] * this.generalState.size) / 100}px`;
-    },
     getColor() {
       return colorMap[this.generalState.color];
     },

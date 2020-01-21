@@ -74,7 +74,23 @@ export default {
     };
   },
   computed: {
-    value() { return this.startValue || this.startValue === 0 ? this.startValue : this.min; },
+    value: {
+      get() {
+        return this.startValue || this.startValue === 0 ? this.startValue : this.min;
+      },
+      set(newValue) {
+        if (this.onChange && !this.type) {
+          this.onChange(parseFloat(newValue));
+        }
+
+        if (this.type === 'letters') {
+          this.setLetterTransforms({
+            type: this.id,
+            settings: { active: this.active, value: newValue },
+          });
+        }
+      },
+    },
   },
   name: 'SliderButton',
   methods: {
@@ -97,13 +113,6 @@ export default {
       }
 
       this.value = value;
-      if (this.onChange && !this.type) {
-        this.onChange(parseFloat(value));
-      }
-
-      if (this.type === 'letters') {
-        this.setLetterTransforms({ type: this.id, settings: { active: this.active, value } });
-      }
     },
     pushValue(input) {
       this.previous.push(input.target.value);
