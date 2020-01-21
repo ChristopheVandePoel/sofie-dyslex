@@ -13,7 +13,7 @@
         <SliderButton type="letters" name="Swapping" id="swapping" />
         <SliderButton type="letters" name="Tilting" id="tilting" />
         <SliderButton type="letters" name="Trembling" id="trembling" />
-        <SliderButton type="letters" name="Upside-down" id="upside-down" />
+        <SliderButton type="letters" name="Upside&mdash;down" id="upside-down" />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
@@ -26,7 +26,7 @@
       <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
         <SliderButton type="sentences" name="Free tracking" id="free-tracking" />
         <SliderButton type="sentences" name="Interspace" id="interspace" />
-        <SliderButton type="sentences" name="Line-spacing" id="line-spacing" />
+        <SliderButton type="sentences" name="Line&mdash;spacing" id="line-spacing" />
         <SliderButton type="sentences" name="Tracking" id="tracking" />
       </ButtonRow>
 

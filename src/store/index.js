@@ -18,18 +18,18 @@ export default new Vuex.Store({
       alignment: 'center',
       interface: 'bright',
       weight: 10,
-      size: 20,
+      size: 60,
       speed: 0,
       color: 0,
     },
     textField: {
       word: {
-        raw: 'Text',
-        transformed: 'Text',
+        raw: 'Type',
+        transformed: 'Type',
       },
       text: {
-        raw: 'This is is a sentence',
-        transformed: 'This is a sentence',
+        raw: 'Type words to see the changes.',
+        transformed: 'Type words to see the changes.',
       },
     },
   },

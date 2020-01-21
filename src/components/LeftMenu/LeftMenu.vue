@@ -18,7 +18,7 @@
           Serif
         </Button>
         <Button :active="generalState.font === 'sans'" @click.native="setGeneral({ font: 'sans' })">
-          Sans-serif
+          Sans&mdash;serif
         </Button>
       </ButtonRow>
       <ButtonRow title="Letter case" :expanded="true">
@@ -99,7 +99,7 @@
           :active="generalState.interface === 'bright'"
           @click.native="setGeneral({ interface: 'bright' })"
         >
-          Bight
+          Bright
         </Button>
         <Button
           :active="generalState.interface === 'dark'"
