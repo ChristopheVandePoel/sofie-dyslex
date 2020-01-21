@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import IconButton from '../Icon/IconButton.vue';
 
 export default {
@@ -71,9 +71,11 @@ export default {
       active: false,
       resetValue: this.startValue || this.startValue === 0 ? this.startValue : this.min,
       previous: [],
+      savedValue: null,
     };
   },
   computed: {
+    ...mapState(['tick', 'isPlaying']),
     value: {
       get() {
         return this.startValue || this.startValue === 0 ? this.startValue : this.min;
@@ -92,6 +94,20 @@ export default {
       },
     },
   },
+  watch: {
+    isPlaying(activeIsSet) {
+      if (activeIsSet) {
+        this.savedValue = this.value;
+      } else {
+        this.savedValue = null;
+      }
+    },
+    tick(newTick, oldTick) {
+      if (this.type && this.isPlaying && newTick !== oldTick) {
+        this.value = this.savedValue * newTick / 100;
+      }
+    },
+  },
   name: 'SliderButton',
   methods: {
     toggleOpen() {
@@ -108,6 +124,10 @@ export default {
     },
     setValue(input) {
       const value = input.target ? input.target.value : input;
+      if (this.isPlaying) {
+        this.setReset();
+        // this.savedValue = value;
+      }
       if (input.target) {
         this.active = true;
       }
@@ -126,7 +146,7 @@ export default {
         this.setValue(this.resetValue);
       }
     },
-    ...mapMutations(['setLetterTransforms']),
+    ...mapMutations(['setLetterTransforms', 'setReset']),
   },
 };
 </script>

@@ -109,10 +109,8 @@
         </Button>
       </ButtonRow>
       <div class="LeftMenu__special-buttons">
-        <IconButton icon="play" color="green" />
-      </div>
-      <div class="LeftMenu__special-buttons">
-        <IconButton icon="shuffle" color="green" />
+        <Button class="green" @click.native="togglePlay">{{isPlaying ? 'Pause' : 'Play'}}</Button>
+        <Button class="green" @click.native="setReset">Random</Button>
       </div>
     </div>
   </div>
@@ -138,12 +136,19 @@ export default {
       open: true,
     };
   },
-  computed: mapState(['generalState']),
+  computed: mapState(['generalState', 'isPlaying']),
   methods: {
     handleOpenClick() {
       this.open = !this.open;
     },
-    ...mapMutations(['setGeneral']),
+    togglePlay() {
+      if (this.isPlaying) {
+        this.setPause();
+      } else {
+        this.setPlay();
+      }
+    },
+    ...mapMutations(['setGeneral', 'setPlay', 'setPause', 'setReset']),
   },
 };
 </script>
@@ -180,7 +185,17 @@ export default {
     }
   }
   .LeftMenu__special-buttons {
-    margin-bottom: 5px;
+    width: 75px;
+    .green {
+      margin-bottom: 5px;
+      background-color: #00FF00;
+      transition: background-color 0.2s ease-in;
+
+      &:hover {
+        background-color: lightgreen;
+        transition: background-color 0.2s ease-in;
+      }
+    }
   }
 }
 </style>

@@ -32,8 +32,42 @@ export default new Vuex.Store({
         transformed: 'Type words to see the changes.',
       },
     },
+    isPlaying: false,
+    up: true,
+    tick: 100,
+    intervalId: null,
   },
   mutations: {
+    setPlay(state) {
+      state.isPlaying = true;
+      if (!this.intervalId) {
+        this.intervalId = setInterval(() => {
+          if (state.tick <= 100 && state.up) {
+            state.tick += 1;
+            if (state.tick >= 100) {
+              state.up = false;
+            }
+          }
+          if (state.tick >= 0 && !state.up) {
+            state.tick -= 1;
+            if (state.tick <= 0) {
+              state.up = true;
+            }
+          }
+        }, 20);
+      }
+    },
+    setPause(state) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+      state.isPlaying = false;
+    },
+    setReset(state) {
+      state.tick = 100;
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+      state.isPlaying = false;
+    },
     setGeneral(state, value = {}) {
       let valueResult = value;
       if (value.interface) {
