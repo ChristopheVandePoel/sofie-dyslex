@@ -1,5 +1,10 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+    :class="{
+      'dark-mode': isDark,
+    }"
+  >
     <!-- Left Menu -->
     <LeftMenu />
 
@@ -12,6 +17,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import LeftMenu from './components/LeftMenu/LeftMenu.vue';
 import BottomMenu from './components/BottomMenu/BottomMenu.vue';
 import MainTextArea from './components/MainTextArea/MainTextArea.vue';
@@ -25,6 +31,12 @@ export default {
     MainTextArea,
     BottomMenu,
     LeftMenu,
+  },
+  computed: {
+    ...mapState(['generalState']),
+    isDark() {
+      return this.generalState.interface !== 'bright';
+    },
   },
 };
 </script>
@@ -191,5 +203,11 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.dark-mode {
+  &.container {
+    background-color: black;
+  }
 }
 </style>

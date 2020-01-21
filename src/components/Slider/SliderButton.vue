@@ -69,10 +69,12 @@ export default {
   data() {
     return {
       active: false,
-      value: this.startValue || this.startValue === 0 ? this.startValue : this.min,
       resetValue: this.startValue || this.startValue === 0 ? this.startValue : this.min,
       previous: [],
     };
+  },
+  computed: {
+    value() { return this.startValue || this.startValue === 0 ? this.startValue : this.min; },
   },
   name: 'SliderButton',
   methods: {
@@ -95,7 +97,6 @@ export default {
       }
 
       this.value = value;
-      // todo: set value in store
       if (this.onChange && !this.type) {
         this.onChange(parseFloat(value));
       }

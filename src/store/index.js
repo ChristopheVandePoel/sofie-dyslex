@@ -35,9 +35,18 @@ export default new Vuex.Store({
   },
   mutations: {
     setGeneral(state, value = {}) {
+      let valueResult = value;
+      if (value.interface) {
+        valueResult = {
+          ...value,
+          color: value.interface === 'bright' ? 0 : 1,
+        };
+      }
+
+      // console.log(letterColor, state.generalState.color, value);
       state.generalState = {
         ...state.generalState,
-        ...value,
+        ...valueResult,
       };
     },
     setLetterTransforms(state, input) {
