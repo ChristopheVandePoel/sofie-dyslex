@@ -152,6 +152,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .SliderButton {
   display: flex;
   flex-direction: row;
@@ -204,7 +205,7 @@ export default {
       margin-right: 0;
       display: flex;
       transition: all 0.2s ease-in;
-      width: 0;
+      width: 1px;
       opacity: 0;
 
       &.opened {
@@ -230,6 +231,25 @@ export default {
 
   .tool-high {
     margin-left: 5px;
+  }
+}
+
+
+/* alles wat specifiek voor de donkere versie is, zet je onderaan,
+  tussen .dark-mode {} tags: (kopieer gewoon de stukken die je wilt veranderen)
+ */
+
+.dark-mode {
+  .slider-container {
+    color: #292929;
+
+    &:hover {
+      background-color: gray;
+    }
+
+    &.isActive {
+      background-color: gray;
+    }
   }
 }
 </style>
