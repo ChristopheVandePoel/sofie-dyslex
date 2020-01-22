@@ -18,7 +18,7 @@ export default new Vuex.Store({
       alignment: 'center',
       interface: 'bright',
       weight: 10,
-      size: 60,
+      size: 70,
       speed: 0,
       color: 0,
     },

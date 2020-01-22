@@ -171,10 +171,10 @@ export default {
 
   .slider__buttons-undo {
     display: inline-block;
-    width: 13px;
+    width: 12px;
     border-radius: 50%;
     background-image: url('/images/return-11.svg');
-    background-size: 13px;
+    background-size: 12px;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #dcdcdc;

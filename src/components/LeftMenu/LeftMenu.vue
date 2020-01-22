@@ -6,8 +6,17 @@
         <Button :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
           Word
         </Button>
-        <Button :active="generalState.type === 'text'" @click.native="setGeneral({ type: 'text' })">
-          Text
+        <Button
+          :active="generalState.type === 'sentence'"
+          @click.native="setGeneral({ type: 'sentence' })"
+        >
+          Sentence
+        </Button>
+        <Button
+          :active="generalState.type === 'paragraph'"
+          @click.native="setGeneral({ type: 'paragraph' })"
+        >
+          Paragraph
         </Button>
       </ButtonRow>
       <ButtonRow title="Font" :expanded="true">
@@ -109,7 +118,7 @@
         </Button>
       </ButtonRow>
       <div class="LeftMenu__special-buttons">
-        <Button class="green" @click.native="togglePlay">{{isPlaying ? 'Pause' : 'Play'}}</Button>
+        <Button class="green" @click.native="togglePlay">{{ isPlaying ? 'Pause' : 'Play' }}</Button>
         <Button class="green" @click.native="setReset">Random</Button>
       </div>
     </div>
@@ -186,13 +195,16 @@ export default {
   }
   .LeftMenu__special-buttons {
     width: 75px;
+    font-size: 12px;
+    display: flex;
     .green {
       margin-bottom: 5px;
-      background-color: #00FF00;
+      background-color: #00ff00;
       transition: background-color 0.2s ease-in;
 
       &:hover {
-        background-color: lightgreen;
+        background-color: black;
+        color: white;
         transition: background-color 0.2s ease-in;
       }
     }

@@ -49,10 +49,10 @@ export default {
     align-items: center;
 
     display: inline-block;
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background-size: 13px;
+    background-size: 12px;
     background-position: center;
     background-repeat: no-repeat;
     padding: 5px;

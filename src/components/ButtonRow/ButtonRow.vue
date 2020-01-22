@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .tool__buttons--row {
-  font-size: 13px;
+  font-size: 12px;
   display: flex;
   flex-wrap: wrap;
 

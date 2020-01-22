@@ -41,6 +41,9 @@
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Typefaces" :expanded="true">
+        <SliderButton type="faces" name="Ascender" id="ascender" />
+        <SliderButton type="faces" name="Baseline" id="Baseline" />
+        <SliderButton type="faces" name="Descender" id="descender" />
         <SliderButton type="faces" name="Height" id="height" />
         <SliderButton type="faces" name="Serifs" id="serifs" />
         <SliderButton type="faces" name="Weight" id="height" />

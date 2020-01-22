@@ -52,8 +52,9 @@ const someFunction = (input, transforms) => {
 };
 
 const baseFontSize = {
-  word: 400,
-  text: 120,
+  word: 350,
+  sentence: 150,
+  paragraph: 100,
 };
 
 export default {
