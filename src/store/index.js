@@ -32,8 +32,8 @@ export default new Vuex.Store({
         transformed: 'Type words to see the changes.',
       },
       paragraph: {
-        raw: 'Type words to see the changes. Type words to see the changes. \n Type words to see the changes.Type words to see the changes.',
-        transformed: 'Type words to see the changes. Type words to see the changes. \n Type words to see the changes.Type words to see the changes.',
+        raw: 'For years, researchers and medical scientists have tried to formulate a clear definition for dyslexia. \n\n Unfortunately, they have failed to reach consensus due to the high variability of symptom patterns between people with dyslexia, which prevents the development of a standard treatment procedure.',
+        transformed: 'For years, researchers and medical scientists have tried to formulate a clear definition for dyslexia. \n\n Unfortunately, they have failed to reach consensus due to the high variability of symptom patterns between people with dyslexia, which prevents the development of a standard treatment procedure.',
       },
     },
     isPlaying: false,
@@ -95,11 +95,13 @@ export default new Vuex.Store({
       const typeText = state.textField[state.generalState.type];
       Vue.set(typeText, 'transformed', typeText.raw);
       let currentValue = state.textTransforms.letters[input.type];
+      let needsUpdate = false;
 
       if (!currentValue) {
         currentValue = {
           active: true,
         };
+        needsUpdate = true;
       }
 
       Vue.set(state.textTransforms.letters, input.type, {
@@ -107,9 +109,12 @@ export default new Vuex.Store({
         ...input.settings,
       });
 
-      state.textTransforms.activeLetters = Object.keys(state.textTransforms.letters).filter(
-        entry => state.textTransforms.letters[entry].active,
-      ) || [];
+      if (needsUpdate || currentValue.active !== input.settings.active) {
+        console.log('updating');
+        state.textTransforms.activeLetters = Object.keys(state.textTransforms.letters).filter(
+          entry => state.textTransforms.letters[entry].active,
+        ) || [];
+      }
     },
     setTextFields(state, input, um) {
       console.log(um, state);

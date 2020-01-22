@@ -45,7 +45,8 @@ export default {
   }
 
   .ButtonRow__expand {
-    display: none;
+    opacity: 0;
+    transition: all ease-in 0.2s;
   }
 
   .ButtonRow__children {
@@ -54,7 +55,8 @@ export default {
 
   &:hover {
     .ButtonRow__expand {
-      display: inline-block;
+      opacity: 1;
+      transition: all ease-in 0.2s;
     }
   }
 }

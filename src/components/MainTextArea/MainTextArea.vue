@@ -31,8 +31,8 @@ import { mapGetters, mapMutations, mapState } from 'vuex';
 import { colorMap, pi } from '../../constants';
 
 const letterTransformMap = {
-  hopping: (letter, index, force) => `translateY(${pi[index] % 2 ? '-' : ''}${(pi[index + 1] * pi[index + 2] * force) / 150}%)`,
-  'free-tremble': (letter, index, force) => `translateX(${pi[index + 1] % 2 ? '' : '-'}${(pi[index + 2] * pi[index + 3] * force) / 50}%)`,
+  hopping: (letter, index, force) => `translateY(${pi[index] % 2 ? '-' : ''}${(pi[index + 1] * force) / 20}%)`,
+  'free-tremble': (letter, index, force) => `translateX(${pi[index + 1] % 2 ? '' : '-'}${(pi[index + 2] * force) / 10}%)`,
 };
 
 const someFunction = (input, transforms) => {

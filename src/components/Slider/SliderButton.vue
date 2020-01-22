@@ -82,7 +82,7 @@ export default {
       },
       set(newValue) {
         if (this.onChange && !this.type) {
-          this.onChange(parseFloat(newValue));
+          this.onChange(parseInt(newValue, 10));
         }
 
         if (this.type === 'letters') {
@@ -104,7 +104,7 @@ export default {
     },
     tick(newTick, oldTick) {
       if (this.type && this.isPlaying && newTick !== oldTick) {
-        this.value = this.savedValue * newTick / 100;
+        this.value = Math.floor(this.savedValue * newTick / 100);
       }
     },
   },
