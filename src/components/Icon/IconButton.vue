@@ -47,8 +47,7 @@ export default {
     flex: 0;
     justify-content: center;
     align-items: center;
-
-    display: inline-block;
+    display: flex;
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -57,6 +56,11 @@ export default {
     background-repeat: no-repeat;
     padding: 5px;
     transition: background-color 0.2s ease-in;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
 
     &.green {
       background-color: #00FF00;

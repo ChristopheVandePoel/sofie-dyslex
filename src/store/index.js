@@ -27,9 +27,13 @@ export default new Vuex.Store({
         raw: 'Type',
         transformed: 'Type',
       },
-      text: {
+      sentence: {
         raw: 'Type words to see the changes.',
         transformed: 'Type words to see the changes.',
+      },
+      paragraph: {
+        raw: 'Type words to see the changes. Type words to see the changes. \n Type words to see the changes.Type words to see the changes.',
+        transformed: 'Type words to see the changes. Type words to see the changes. \n Type words to see the changes.Type words to see the changes.',
       },
     },
     isPlaying: false,
@@ -39,6 +43,8 @@ export default new Vuex.Store({
   },
   mutations: {
     setPlay(state) {
+      const typeText = state.textField[state.generalState.type];
+      Vue.set(typeText, 'transformed', typeText.raw);
       state.isPlaying = true;
       if (!this.intervalId) {
         this.intervalId = setInterval(() => {
@@ -69,6 +75,8 @@ export default new Vuex.Store({
       state.isPlaying = false;
     },
     setGeneral(state, value = {}) {
+      const typeText = state.textField[state.generalState.type];
+      Vue.set(typeText, 'transformed', typeText.raw);
       let valueResult = value;
       if (value.interface) {
         valueResult = {
@@ -84,6 +92,8 @@ export default new Vuex.Store({
       };
     },
     setLetterTransforms(state, input) {
+      const typeText = state.textField[state.generalState.type];
+      Vue.set(typeText, 'transformed', typeText.raw);
       let currentValue = state.textTransforms.letters[input.type];
 
       if (!currentValue) {
@@ -100,6 +110,13 @@ export default new Vuex.Store({
       state.textTransforms.activeLetters = Object.keys(state.textTransforms.letters).filter(
         entry => state.textTransforms.letters[entry].active,
       ) || [];
+    },
+    setTextFields(state, input, um) {
+      console.log(um, state);
+      const typeText = state.textField[state.generalState.type];
+      if (input !== typeText.raw) {
+        Vue.set(typeText, 'raw', input);
+      }
     },
   },
   getters: {

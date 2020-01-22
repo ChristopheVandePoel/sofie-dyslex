@@ -17,6 +17,8 @@
           color: getColor(),
         }"
         v-html="currentValue"
+        @focus="onFocus"
+        @input="onInput"
       >
         <!-- This is where the text will come. Leave empty -->
       </div>
@@ -25,12 +27,12 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapMutations, mapState } from 'vuex';
 import { colorMap, pi } from '../../constants';
 
 const letterTransformMap = {
   hopping: (letter, index, force) => `translateY(${pi[index] % 2 ? '-' : ''}${(pi[index + 1] * pi[index + 2] * force) / 150}%)`,
-  'free-tremble': (letter, index, force) => `translateX(${pi[index] % 2 ? '' : '-'}${pi[index + 1] * pi[index + 2] * force / 50}%)`,
+  'free-tremble': (letter, index, force) => `translateX(${pi[index + 1] % 2 ? '' : '-'}${(pi[index + 2] * pi[index + 3] * force) / 50}%)`,
 };
 
 const someFunction = (input, transforms) => {
@@ -38,14 +40,24 @@ const someFunction = (input, transforms) => {
   const output = input.split('');
 
   const transform = output.map((letter, index) => {
+    if (letter === '\n') {
+      return '<br />';
+    }
     let transformation = '';
+    if (letter === ' ') {
+      return '<span>&nbsp</span>';
+    }
     transforms.forEach((trans) => {
       if (letterTransformMap[trans.key]) {
         transformation += letterTransformMap[trans.key](letter, index, trans.value);
       }
     });
 
-    return `<span style="transform: ${transformation}; display: inline-block">${letter}</span>`;
+    const style = `${
+      transformation ? `transform: ${transformation};` : ''
+    } display: inline-block;`;
+
+    return `<span style="${style}">${letter}</span>`;
   });
   // console.log(transform);
   return transform.join('');
@@ -62,15 +74,26 @@ export default {
   computed: {
     ...mapState(['generalState', 'textField']),
     ...mapGetters(['getLetterTransforms']),
-    fontSize() { return (baseFontSize[this.generalState.type] * this.generalState.size) / 100; },
+    fontSize() {
+      return (baseFontSize[this.generalState.type] * this.generalState.size) / 100;
+    },
     currentValue() {
       return someFunction(
         this.textField[this.generalState.type].transformed,
         this.getLetterTransforms,
+        this.fontSize,
       );
     },
   },
   methods: {
+    ...mapMutations(['setPause', 'setTextFields', 'updateField']),
+    onFocus() {
+      this.setPause();
+    },
+    onInput(event) {
+      console.log(event);
+      this.setTextFields(event.target.innerText);
+    },
     getColor() {
       return colorMap[this.generalState.color];
     },
@@ -131,5 +154,13 @@ export default {
   &:focus {
     outline: none;
   }
+}
+
+span {
+  background-color: blue;
+}
+
+.space {
+  width: 10px;
 }
 </style>

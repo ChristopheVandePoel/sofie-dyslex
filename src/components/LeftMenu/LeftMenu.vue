@@ -194,9 +194,8 @@ export default {
     }
   }
   .LeftMenu__special-buttons {
-    width: 75px;
+    width: 65px;
     font-size: 12px;
-    display: flex;
     .green {
       margin-bottom: 5px;
       background-color: #00ff00;
