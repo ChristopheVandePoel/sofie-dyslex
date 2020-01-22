@@ -110,14 +110,12 @@ export default new Vuex.Store({
       });
 
       if (needsUpdate || currentValue.active !== input.settings.active) {
-        console.log('updating');
         state.textTransforms.activeLetters = Object.keys(state.textTransforms.letters).filter(
           entry => state.textTransforms.letters[entry].active,
         ) || [];
       }
     },
-    setTextFields(state, input, um) {
-      console.log(um, state);
+    setTextFields(state, input) {
       const typeText = state.textField[state.generalState.type];
       if (input !== typeText.raw) {
         Vue.set(typeText, 'raw', input);

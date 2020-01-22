@@ -91,7 +91,6 @@ export default {
       this.setPause();
     },
     onInput(event) {
-      console.log(event);
       this.setTextFields(event.target.innerText);
     },
     getColor() {
