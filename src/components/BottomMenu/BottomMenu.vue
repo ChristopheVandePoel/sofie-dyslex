@@ -2,9 +2,9 @@
   <div class="bottom-menu__container" :class="{ opened: open }">
     <IconButton class="bottom-close-button" icon="arrow-down" @click.native="handleOpenClick" />
     <div class="bottom-container__buttons">
-      <ButtonRow class="bottom-menu__button-row" title="letters" :expanded="true">
+      <ButtonRow class="bottom-menu__button-row" title="Letters" :expanded="true">
         <SliderButton type="letters" name="Backwards" id="letters-backwards" />
-        <SliderButton type="letters" name="Diphtongs" id="letters-diphtongs" />
+        <SliderButton type="letters" name="Diphtong" id="letters-diphtong" />
         <SliderButton type="letters" name="Free rotation" id="free-rotation" />
         <SliderButton
           type="letters"
@@ -40,7 +40,7 @@
         <SliderButton type="sentences" name="Tracking" id="tracking" />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Typefaces" :expanded="true">
+      <ButtonRow class="bottom-menu__button-row" title="Typeface" :expanded="true">
         <SliderButton type="faces" name="Ascender" id="ascender" />
         <SliderButton type="faces" name="Baseline" id="Baseline" />
         <SliderButton type="faces" name="Descender" id="descender" />
@@ -97,9 +97,9 @@ $height: 130px;
 .bottom-menu__container {
   position: absolute;
   bottom: -$height;
-  left: 10px;
+  left: 8px;
   transition: all 0.5s ease;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 
   .bottom-menu__button-row {
     transition: width 0.2s ease;
@@ -128,7 +128,7 @@ $height: 130px;
   }
   .bottom-close-button {
     position: absolute;
-    top: -40px;
+    top: -53px;
     transition: all 0.5s ease;
     transform: rotate(180deg);
   }

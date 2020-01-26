@@ -178,26 +178,25 @@ export default {
     background-size: 12px;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #dcdcdc;
+    background-color: #ffffff;
   }
 
   .slider-container {
     color: black;
     cursor: pointer;
-    transition: background-color 0.2s ease-in;
-    margin-right: 5px;
+    margin-right: 3px;
     white-space: nowrap;
     padding: 0;
     display: flex;
     align-items: center;
-    background-color: #dcdcdc;
+    background-color: #ffffff;
 
     &:hover {
-      background-color: darkgray;
+      background-color: #cccccc;
     }
 
     &.isActive {
-      background-color: darkgray;
+      background-color: #cccccc;
     }
 
     .slider-tool {
@@ -209,8 +208,8 @@ export default {
       opacity: 0;
 
       &.opened {
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 9px;
+        margin-right: 9px;
         transition: all 0.2s ease-in;
         width: 155px;
         opacity: 1;
@@ -241,15 +240,19 @@ export default {
 
 .dark-mode {
   .slider-container {
-    color: #292929;
+    background-color: #cccccc;
 
     &:hover {
-      background-color: gray;
+      background-color: #999999;
     }
 
     &.isActive {
-      background-color: gray;
+      background-color: #999999;
     }
+  }
+
+  .close-button {
+    background-color: #cccccc;
   }
 }
 </style>

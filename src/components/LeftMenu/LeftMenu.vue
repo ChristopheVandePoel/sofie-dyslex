@@ -2,55 +2,61 @@
   <div class="tools__container" :class="{ opened: open }">
     <IconButton class="tools-icon-button" @click.native="handleOpenClick" />
     <div class="tools__container--tools">
-      <ButtonRow title="Context" :expanded="true">
-        <Button :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
+      <ButtonRow title="Content" :expanded="true">
+        <Button
+          :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
           Word
         </Button>
         <Button
-          :active="generalState.type === 'sentence'"
-          @click.native="setGeneral({ type: 'sentence' })"
-        >
+          :active="generalState.type === 'sentence'" @click.native="setGeneral({ type: 'sentence' })">
           Sentence
         </Button>
         <Button
-          :active="generalState.type === 'paragraph'"
-          @click.native="setGeneral({ type: 'paragraph' })"
-        >
+          :active="generalState.type === 'paragraph'" @click.native="setGeneral({ type: 'paragraph' })">
           Paragraph
         </Button>
       </ButtonRow>
       <ButtonRow title="Font" :expanded="true">
         <Button
-          :active="generalState.font === 'serif'"
-          @click.native="setGeneral({ font: 'serif' })"
-        >
+          :active="generalState.font === 'serif'" @click.native="setGeneral({ font: 'serif' })">
           Serif
         </Button>
-        <Button :active="generalState.font === 'sans'" @click.native="setGeneral({ font: 'sans' })">
+        <Button
+          :active="generalState.font === 'sans'" @click.native="setGeneral({ font: 'sans' })">
           Sans&mdash;serif
         </Button>
-      </ButtonRow>
-      <ButtonRow title="Letter case" :expanded="true">
         <Button
-          :active="generalState.letterCase === 'lower'"
-          @click.native="setGeneral({ letterCase: 'lower' })"
-        >
-          Caps min
+          :active="generalState.font === 'monotype'" @click.native="setGeneral({ font: 'monotype' })">
+          Monotype
         </Button>
         <Button
-          :active="generalState.letterCase === 'upper'"
-          @click.native="setGeneral({ letterCase: 'upper' })"
-        >
-          Caps max
+          :active="generalState.font === 'script'" @click.native="setGeneral({ font: 'script' })">
+          Script
+        </Button>
+      </ButtonRow>
+      <ButtonRow title="Case" :expanded="true">
+        <Button
+          :active="generalState.letterCase === 'lower'" @click.native="setGeneral({ letterCase: 'lower' })">
+          Lowercase
+        </Button>
+        <Button
+          :active="generalState.letterCase === 'upper'" @click.native="setGeneral({ letterCase: 'upper' })">
+          Uppercase
         </Button>
       </ButtonRow>
       <ButtonRow title="Weight" :expanded="true">
-        <SliderButton
-          id="font-weight"
-          :not-closable="true"
-          :start-value="generalState.weight"
-          :on-change="weight => setGeneral({ weight })"
-        />
+        <Button
+          :active="generalState.type === 'regular'" @click.native="setGeneral({ type: 'regular' })">
+          Regular
+        </Button>
+        <Button
+          :active="generalState.font === 'bold'" @click.native="setGeneral({ font: 'bold' })">
+          Bold
+        </Button>
+        <Button
+          :active="generalState.font === 'italic'" @click.native="setGeneral({ font: 'italic' })">
+          Italic
+        </Button>
       </ButtonRow>
       <ButtonRow title="Size" :expanded="true">
         <SliderButton
@@ -165,6 +171,7 @@ export default {
 <style lang="scss" scoped>
 .tools__container {
   padding: 10px;
+  left: -2px;
   position: absolute;
   z-index: 100;
 
@@ -194,18 +201,36 @@ export default {
     }
   }
   .LeftMenu__special-buttons {
-    width: 65px;
+    width: 50px;
     font-size: 12px;
     .green {
-      margin-bottom: 5px;
-      background-color: #00ff00;
-      transition: background-color 0.2s ease-in;
+      margin-bottom: 3px;
+      background-color: #00FF00;
+      color: black;
+      display: inline-block;
+    }
+  }
+}
+
+/* alles wat specifiek voor de donkere versie is, zet je onderaan,
+  tussen .dark-mode {} tags: (kopieer gewoon de stukken die je wilt veranderen)
+ */
+
+.dark-mode {
+    .Button {
+      background-color: #cccccc;
 
       &:hover {
-        background-color: black;
-        color: white;
-        transition: background-color 0.2s ease-in;
-      }
+      background-color: #999999;
+    }
+
+      &.isActive {
+      background-color: #999999;
+    }
+
+      &.green {
+      background-color: #0000ff;
+      color: #ffffff;
     }
   }
 }

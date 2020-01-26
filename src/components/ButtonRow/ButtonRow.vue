@@ -41,12 +41,12 @@ export default {
   flex-wrap: wrap;
 
   > * {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
   }
 
   .ButtonRow__expand {
     opacity: 0;
-    transition: all ease-in 0.2s;
+    transition: all ease-in 0.5s;
   }
 
   .ButtonRow__children {
@@ -56,12 +56,27 @@ export default {
   &:hover {
     .ButtonRow__expand {
       opacity: 1;
-      transition: all ease-in 0.2s;
+      transition: all ease-in 0.5s;
     }
   }
 }
 
 .row-title {
-  background-color: gray;
+  background-color: #999999;
+
+  &:hover {
+    background-color: #999999;
+    }
+  }
+
+/* alles wat specifiek voor de donkere versie is, zet je onderaan,
+  tussen .dark-mode {} tags: (kopieer gewoon de stukken die je wilt veranderen)
+ */
+
+.dark-mode {
+  .row-title {
+  background-color: #ffffff;
+  }
 }
+
 </style>

@@ -41,8 +41,7 @@ export default {
 
 <style lang="scss" scoped>
   .close-button {
-    background-color: lightgray;
-    color: gray;
+    background-color: #ffffff;
     border: 0 solid transparent;
     flex: 0;
     justify-content: center;
@@ -55,7 +54,6 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     padding: 5px;
-    transition: background-color 0.2s ease-in;
 
     img {
       width: 100%;
@@ -70,11 +68,16 @@ export default {
   .close-button:hover {
     color: black;
     cursor: pointer;
-    background-color: #e9e9e9;
-    transition: background-color 0.2s ease-in;
-
-    &.green {
-      background-color: lightgreen;
-    }
+    background-color: #ffffff;
   }
+
+/* alles wat specifiek voor de donkere versie is, zet je onderaan,
+  tussen .dark-mode {} tags: (kopieer gewoon de stukken die je wilt veranderen)
+ */
+
+.dark-mode {
+  .close-button {
+    background-color: #cccccc;
+  }
+}
 </style>

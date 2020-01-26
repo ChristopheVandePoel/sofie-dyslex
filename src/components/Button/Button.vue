@@ -15,21 +15,19 @@ export default {
 .Button {
   color: black;
   cursor: pointer;
-  transition: background-color 0.2s ease-in;
   padding: 5px;
-  margin-right: 5px;
+  margin-right: 3px;
   white-space: nowrap;
   display: flex;
   align-items: center;
-  background-color: #DCDCDC;
+  background-color: #ffffff;
 
   &:hover {
-    background-color: darkgray;
-    transition: background-color 0.2s ease-in;
+    background-color: #cccccc;
   }
 
   &.isActive {
-    background-color: darkgray;
+    background-color: #cccccc;
   }
 }
 </style>

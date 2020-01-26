@@ -32,8 +32,8 @@ export default new Vuex.Store({
         transformed: 'Type words to see the changes.',
       },
       paragraph: {
-        raw: 'For years, researchers and medical scientists have tried to formulate a clear definition for dyslexia. \n\n Unfortunately, they have failed to reach consensus due to the high variability of symptom patterns between people with dyslexia, which prevents the development of a standard treatment procedure.',
-        transformed: 'For years, researchers and medical scientists have tried to formulate a clear definition for dyslexia. \n\n Unfortunately, they have failed to reach consensus due to the high variability of symptom patterns between people with dyslexia, which prevents the development of a standard treatment procedure.',
+        raw: 'Type words to see the changes and discover your type of dyslexia.',
+        transformed: 'Type words to see the changes and discover your type of dyslexia.',
       },
     },
     isPlaying: false,

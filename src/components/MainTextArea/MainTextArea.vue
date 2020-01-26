@@ -31,8 +31,10 @@ import { mapGetters, mapMutations, mapState } from 'vuex';
 import { colorMap, pi } from '../../constants';
 
 const letterTransformMap = {
-  hopping: (letter, index, force) => `translateY(${pi[index] % 2 ? '-' : ''}${(pi[index + 1] * force) / 20}%)`,
-  'free-tremble': (letter, index, force) => `translateX(${pi[index + 1] % 2 ? '' : '-'}${(pi[index + 2] * force) / 10}%)`,
+  hopping: (letter, index, force) =>
+    `translateY(${pi[index] % 2 ? '-' : ''}${(pi[index + 1] * force) / 20}%)`,
+  'free-tremble': (letter, index, force) =>
+    `translateX(${pi[index + 1] % 2 ? '' : '-'}${(pi[index + 2] * force) / 10}%)`,
 };
 
 const someFunction = (input, transforms) => {
@@ -47,15 +49,13 @@ const someFunction = (input, transforms) => {
     if (letter === ' ') {
       return '<span>&nbsp</span>';
     }
-    transforms.forEach((trans) => {
+    transforms.forEach(trans => {
       if (letterTransformMap[trans.key]) {
         transformation += letterTransformMap[trans.key](letter, index, trans.value);
       }
     });
 
-    const style = `${
-      transformation ? `transform: ${transformation};` : ''
-    } display: inline-block;`;
+    const style = `${transformation ? `transform: ${transformation};` : ''} display: inline-block;`;
 
     return `<span style="${style}">${letter}</span>`;
   });
@@ -65,8 +65,8 @@ const someFunction = (input, transforms) => {
 
 const baseFontSize = {
   word: 350,
-  sentence: 150,
-  paragraph: 100,
+  sentence: 130,
+  paragraph: 130,
 };
 
 export default {
@@ -156,7 +156,7 @@ export default {
 }
 
 span {
-  background-color: blue;
+  background-color: #00ff00;
 }
 
 .space {
