@@ -26,8 +26,8 @@
           Sans&mdash;serif
         </Button>
         <Button
-          :active="generalState.font === 'monotype'" @click.native="setGeneral({ font: 'monotype' })">
-          Monotype
+          :active="generalState.font === 'monospace'" @click.native="setGeneral({ font: 'monospace' })">
+          Monospace
         </Button>
         <Button
           :active="generalState.font === 'script'" @click.native="setGeneral({ font: 'script' })">
@@ -92,14 +92,6 @@
           Block
         </Button>
       </ButtonRow>
-      <ButtonRow title="Speed">
-        <SliderButton
-          id="speed"
-          :not-closable="true"
-          :start-value="generalState.speed"
-          :on-change="speed => setGeneral({ speed })"
-        />
-      </ButtonRow>
       <ButtonRow title="Color">
         <SliderButton
           id="color"
@@ -122,6 +114,14 @@
         >
           Dark
         </Button>
+      </ButtonRow>
+            <ButtonRow title="Speed">
+        <SliderButton
+          id="speed"
+          :not-closable="true"
+          :start-value="generalState.speed"
+          :on-change="speed => setGeneral({ speed })"
+        />
       </ButtonRow>
       <div class="LeftMenu__special-buttons">
         <Button class="green" @click.native="togglePlay">{{ isPlaying ? 'Pause' : 'Play' }}</Button>
@@ -205,6 +205,8 @@ export default {
     font-size: 12px;
     .green {
       margin-bottom: 3px;
+      padding-top: 4px;
+      padding-bottom: 6px;
       background-color: #00FF00;
       color: black;
       display: inline-block;

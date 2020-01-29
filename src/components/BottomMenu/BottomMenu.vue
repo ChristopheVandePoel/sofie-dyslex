@@ -27,6 +27,7 @@
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
+        <SliderButton type="words" name="Article" id="article" />
         <SliderButton type="words" name="Free tremble" id="free-tremble" />
         <SliderButton type="words" name="Hopping" id="hopping" />
         <SliderButton type="words" name="Tilting" id="tilting" />

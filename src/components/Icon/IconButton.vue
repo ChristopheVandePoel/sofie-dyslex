@@ -7,20 +7,16 @@
 </template>
 
 <script>
-import arrowLeft from '../../assets/images/arrow-1-01.svg';
-import arrowDown from '../../assets/images/arrow_1-02.svg';
-import returnArrow from '../../assets/images/return-11.svg';
-import play from '../../assets/images/play-04.svg';
-import shuffle from '../../assets/images/random-05.svg';
-import minus from '../../assets/images/min-07.svg';
-import plus from '../../assets/images/plus-06.svg';
+import arrowLeft from '../../assets/images/arrow-1.svg';
+import arrowDown from '../../assets/images/arrow-2.svg';
+import returnArrow from '../../assets/images/return-5.svg';
+import minus from '../../assets/images/min-3.svg';
+import plus from '../../assets/images/plus-4.svg';
 
 const iconMap = {
   'arrow-left': arrowLeft,
   'arrow-down': arrowDown,
   'return-arrow': returnArrow,
-  play,
-  shuffle,
   minus,
   plus,
 };

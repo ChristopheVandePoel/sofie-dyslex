@@ -195,7 +195,7 @@ body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'RobotoMono-Medium', monospace;
   background-color: whitesmoke;
 }
 
