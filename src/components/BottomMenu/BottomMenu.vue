@@ -100,8 +100,22 @@
       <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
         <SliderButton disable type="sentences" name="Free tracking" id="free-tracking" />
         <SliderButton disable type="sentences" name="Interspace" id="interspace" />
-        <SliderButton disable type="sentences" name="Line—spacing" id="line-spacing" />
-        <SliderButton disable type="sentences" name="Tracking" id="tracking" />
+        <SliderButton
+          :min="-100"
+          :max="100"
+          type="sentences"
+          name="Line—spacing"
+          id="line-spacing"
+          :start-value="getSentenceValue('line-spacing') || 0"
+        />
+        <SliderButton
+          type="sentences"
+          name="Tracking"
+          id="tracking"
+          :min="-100"
+          :max="100"
+          :start-value="getSentenceValue('tracking') || 0"
+        />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Typeface" :expanded="true">
@@ -145,6 +159,12 @@ export default {
       }
       return null;
     },
+    getSentenceValue(type) {
+      if (this.sentenceValues[type]) {
+        return parseFloat(this.sentenceValues[type].value);
+      }
+      return null;
+    },
   },
   computed: {
     ...mapState(['textTransforms']),
@@ -155,6 +175,7 @@ export default {
       return this.textTransforms.words;
     },
     sentenceValues() {
+      console.log(this.textTransforms.sentences);
       return this.textTransforms.sentences;
     },
   },

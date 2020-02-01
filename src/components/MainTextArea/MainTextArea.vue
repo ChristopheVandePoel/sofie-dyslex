@@ -15,6 +15,8 @@
           textTransform: generalState.letterCase === 'upper' ? 'uppercase' : 'none',
           fontSize: `${fontSize}px`,
           color: getColor(),
+          lineHeight: `${containerData.lineHeight}`,
+          letterSpacing: `${containerData.letterSpacing}px`
         }"
         v-html="currentValue"
         @focus="onFocus"
@@ -30,7 +32,7 @@
 import { mapGetters, mapMutations, mapState } from 'vuex';
 import { colorMap } from '../../constants';
 import { letterTransformMap } from '../../letter-helpers';
-import { wordTransformMap } from '../../word-helpers';
+import { sentencesTransformMap, wordTransformMap } from '../../word-helpers';
 
 const someFunction = (input, transforms) => {
   // console.log(input, transforms);
@@ -129,11 +131,35 @@ const baseFontSize = {
 
 export default {
   name: 'MainTextArea',
+  data() {
+    return {
+      lineHeight: 0,
+    };
+  },
   computed: {
     ...mapState(['generalState', 'textField']),
-    ...mapGetters(['getLetterTransforms', 'getWordTransforms']),
+    ...mapGetters(['getLetterTransforms', 'getWordTransforms', 'getSentencesTransforms']),
     fontSize() {
       return (baseFontSize[this.generalState.type] * this.generalState.size) / 100;
+    },
+    containerData() {
+      let container = {
+        lineHeight: 1,
+        letterSpacing: 0,
+      };
+      if (this.getSentencesTransforms.length) {
+        this.getSentencesTransforms.forEach(trans => {
+          if (sentencesTransformMap[trans.key]) {
+            container = sentencesTransformMap[trans.key](
+              trans.value,
+              container,
+            );
+          }
+        });
+      }
+      return {
+        ...container,
+      };
     },
     currentValue() {
       if (this.generalState.type === 'word') {

@@ -8,10 +8,12 @@ export default new Vuex.Store({
     textTransforms: {
       letters: {},
       activeLetters: [],
-      activeWords: [],
       words: {},
+      activeWords: [],
       sentences: {},
+      activeSentences: [],
       faces: {},
+      activeFaces: [],
     },
     generalState: {
       type: 'word',
@@ -115,14 +117,18 @@ export default new Vuex.Store({
       });
 
       if (needsUpdate || currentValue.active !== input.settings.active) {
-        const activeChanged = input.kind === 'letters' ? 'activeLetters' : 'activeWords';
+        const activeMap = {
+          letters: 'activeLetters',
+          words: 'activeWords',
+          sentences: 'activeSentences',
+        };
+        const activeChanged = activeMap[input.kind];
         state.textTransforms[activeChanged] = Object.keys(state.textTransforms[input.kind]).filter(
           entry => state.textTransforms[input.kind][entry].active,
         ) || [];
       }
     },
     setTextFields(state, input) {
-      console.log('euh');
       const typeText = state.textField[state.generalState.type];
       if (input !== typeText.raw) {
         Vue.set(typeText, 'raw', input);
@@ -136,6 +142,10 @@ export default new Vuex.Store({
     })),
     getWordTransforms: state => state.textTransforms.activeWords.map(key => ({
       ...state.textTransforms.words[key],
+      key,
+    })),
+    getSentencesTransforms: state => state.textTransforms.activeSentences.map(key => ({
+      ...state.textTransforms.sentences[key],
       key,
     })),
   },
