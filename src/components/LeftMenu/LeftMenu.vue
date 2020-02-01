@@ -3,58 +3,73 @@
     <IconButton class="tools-icon-button" @click.native="handleOpenClick" />
     <div class="tools__container--tools">
       <ButtonRow title="Content" :expanded="true">
-        <Button
-          :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
+        <Button :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
           Word
         </Button>
         <Button
-          :active="generalState.type === 'sentence'" @click.native="setGeneral({ type: 'sentence' })">
+          :active="generalState.type === 'sentence'"
+          @click.native="setGeneral({ type: 'sentence' })"
+        >
           Sentence
         </Button>
         <Button
-          :active="generalState.type === 'paragraph'" @click.native="setGeneral({ type: 'paragraph' })">
+          :active="generalState.type === 'paragraph'"
+          @click.native="setGeneral({ type: 'paragraph' })"
+        >
           Paragraph
         </Button>
       </ButtonRow>
       <ButtonRow title="Font" :expanded="true">
         <Button
-          :active="generalState.font === 'serif'" @click.native="setGeneral({ font: 'serif' })">
+          :active="generalState.font === 'serif'"
+          @click.native="setGeneral({ font: 'serif' })"
+        >
           Serif
         </Button>
-        <Button
-          :active="generalState.font === 'sans'" @click.native="setGeneral({ font: 'sans' })">
+        <Button :active="generalState.font === 'sans'" @click.native="setGeneral({ font: 'sans' })">
           Sans&mdash;serif
         </Button>
         <Button
-          :active="generalState.font === 'monospace'" @click.native="setGeneral({ font: 'monospace' })">
+          :active="generalState.font === 'monospace'"
+          @click.native="setGeneral({ font: 'monospace' })"
+        >
           Monospace
         </Button>
         <Button
-          :active="generalState.font === 'script'" @click.native="setGeneral({ font: 'script' })">
+          :active="generalState.font === 'script'"
+          @click.native="setGeneral({ font: 'script' })"
+        >
           Script
         </Button>
       </ButtonRow>
       <ButtonRow title="Case" :expanded="true">
         <Button
-          :active="generalState.letterCase === 'lower'" @click.native="setGeneral({ letterCase: 'lower' })">
+          :active="generalState.letterCase === 'lower'"
+          @click.native="setGeneral({ letterCase: 'lower' })"
+        >
           Lowercase
         </Button>
         <Button
-          :active="generalState.letterCase === 'upper'" @click.native="setGeneral({ letterCase: 'upper' })">
+          :active="generalState.letterCase === 'upper'"
+          @click.native="setGeneral({ letterCase: 'upper' })"
+        >
           Uppercase
         </Button>
       </ButtonRow>
       <ButtonRow title="Weight" :expanded="true">
         <Button
-          :active="generalState.type === 'regular'" @click.native="setGeneral({ type: 'regular' })">
+          :active="generalState.type === 'regular'"
+          @click.native="setGeneral({ type: 'regular' })"
+        >
           Regular
         </Button>
-        <Button
-          :active="generalState.font === 'bold'" @click.native="setGeneral({ font: 'bold' })">
+        <Button :active="generalState.font === 'bold'" @click.native="setGeneral({ font: 'bold' })">
           Bold
         </Button>
         <Button
-          :active="generalState.font === 'italic'" @click.native="setGeneral({ font: 'italic' })">
+          :active="generalState.font === 'italic'"
+          @click.native="setGeneral({ font: 'italic' })"
+        >
           Italic
         </Button>
       </ButtonRow>
@@ -115,7 +130,7 @@
           Dark
         </Button>
       </ButtonRow>
-            <ButtonRow title="Speed">
+      <ButtonRow title="Speed">
         <SliderButton
           id="speed"
           :not-closable="true"
@@ -207,7 +222,7 @@ export default {
       margin-bottom: 3px;
       padding-top: 4px;
       padding-bottom: 6px;
-      background-color: #00FF00;
+      background-color: #00ff00;
       color: black;
       display: inline-block;
     }
@@ -219,18 +234,18 @@ export default {
  */
 
 .dark-mode {
-    .Button {
-      background-color: #cccccc;
+  .Button {
+    background-color: #cccccc;
 
-      &:hover {
+    &:hover {
       background-color: #999999;
     }
 
-      &.isActive {
+    &.isActive {
       background-color: #999999;
     }
 
-      &.green {
+    &.green {
       background-color: #0000ff;
       color: #ffffff;
     }

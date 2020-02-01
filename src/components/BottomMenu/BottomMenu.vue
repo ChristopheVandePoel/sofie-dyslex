@@ -3,7 +3,12 @@
     <IconButton class="bottom-close-button" icon="arrow-down" @click.native="handleOpenClick" />
     <div class="bottom-container__buttons">
       <ButtonRow class="bottom-menu__button-row" title="Letters" :expanded="true">
-        <SliderButton type="letters" name="Backwards" id="letters-backwards" />
+        <SliderButton
+          type="letters"
+          name="Backwards"
+          id="letters-backwards"
+          :start-value="getLetterValue('letters-backwards')"
+        />
         <SliderButton type="letters" name="Diphtong" id="letters-diphtong" />
         <SliderButton type="letters" name="Free rotation" id="free-rotation" />
         <SliderButton
@@ -22,7 +27,12 @@
         <SliderButton type="letters" name="Shifting" id="shifting" />
         <SliderButton type="letters" name="Swapping" id="swapping" />
         <SliderButton type="letters" name="Tilting" id="tilting" />
-        <SliderButton type="letters" name="Trembling" id="trembling" />
+        <SliderButton
+          type="letters"
+          name="Trembling"
+          id="trembling"
+          :start-value="getLetterValue('trembling')"
+        />
         <SliderButton type="letters" name="Upside—down" id="upside-down" />
       </ButtonRow>
 

@@ -28,14 +28,8 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from 'vuex';
-import { colorMap, pi } from '../../constants';
-
-const letterTransformMap = {
-  hopping: (letter, index, force) =>
-    `translateY(${pi[index] % 2 ? '-' : ''}${(pi[index + 1] * force) / 20}%)`,
-  'free-tremble': (letter, index, force) =>
-    `translateX(${pi[index + 1] % 2 ? '' : '-'}${(pi[index + 2] * force) / 10}%)`,
-};
+import { colorMap } from '../../constants';
+import { letterTransformMap } from '../../helpers';
 
 const someFunction = (input, transforms) => {
   // console.log(input, transforms);
@@ -45,17 +39,26 @@ const someFunction = (input, transforms) => {
     if (letter === '\n') {
       return '<br />';
     }
-    let transformation = '';
+    // let transformation = '';
+    let translate = {
+      x: 0,
+      y: 0,
+      scaleX: 1,
+      scaleY: 1,
+    };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
     }
     transforms.forEach(trans => {
       if (letterTransformMap[trans.key]) {
-        transformation += letterTransformMap[trans.key](letter, index, trans.value);
+        translate = letterTransformMap[trans.key](letter, index, trans.value, translate);
       }
     });
 
-    const style = `${transformation ? `transform: ${transformation};` : ''} display: inline-block;`;
+    const style = `
+    transform: translate(${translate.x}%,${translate.y}%)
+    scale(${translate.scaleX},${translate.scaleY}); display: inline-block;
+    `;
 
     return `<span style="${style}">${letter}</span>`;
   });
