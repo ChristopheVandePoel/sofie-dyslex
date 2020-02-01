@@ -1,5 +1,5 @@
 <template>
-  <div class="SliderButton" :class="{disable}">
+  <div class="SliderButton" :class="{ disable }">
     <span
       class="slider-container"
       @click="toggleOpen"
@@ -86,10 +86,11 @@ export default {
           this.onChange(parseInt(newValue, 10));
         }
 
-        if (this.type === 'letters') {
+        if (this.type) {
           this.setLetterTransforms({
             type: this.id,
             settings: { active: this.active, value: newValue },
+            kind: this.type,
           });
         }
       },
@@ -105,7 +106,7 @@ export default {
     },
     tick(newTick, oldTick) {
       if (this.type && this.isPlaying && newTick !== oldTick) {
-        this.value = Math.floor(this.savedValue * newTick / 100);
+        this.value = Math.floor((this.savedValue * newTick) / 100);
       }
     },
   },
@@ -115,6 +116,7 @@ export default {
       this.setLetterTransforms({
         type: this.id,
         settings: { active: !this.active, value: this.value },
+        kind: this.type,
       });
       this.active = !this.active;
     },
@@ -153,7 +155,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .SliderButton {
   &.disable {
     opacity: 0.2;
@@ -239,7 +240,6 @@ export default {
     margin-left: 5px;
   }
 }
-
 
 /* alles wat specifiek voor de donkere versie is, zet je onderaan,
   tussen .dark-mode {} tags: (kopieer gewoon de stukken die je wilt veranderen)

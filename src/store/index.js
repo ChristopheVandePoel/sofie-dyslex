@@ -8,8 +8,10 @@ export default new Vuex.Store({
     textTransforms: {
       letters: {},
       activeLetters: [],
+      activeWords: [],
       words: {},
       sentences: {},
+      faces: {},
     },
     generalState: {
       type: 'word',
@@ -89,7 +91,6 @@ export default new Vuex.Store({
         };
       }
 
-      // console.log(letterColor, state.generalState.color, value);
       state.generalState = {
         ...state.generalState,
         ...valueResult,
@@ -98,7 +99,7 @@ export default new Vuex.Store({
     setLetterTransforms(state, input) {
       const typeText = state.textField[state.generalState.type];
       Vue.set(typeText, 'transformed', typeText.raw);
-      let currentValue = state.textTransforms.letters[input.type];
+      let currentValue = state.textTransforms[input.kind][input.type];
       let needsUpdate = false;
 
       if (!currentValue) {
@@ -108,18 +109,20 @@ export default new Vuex.Store({
         needsUpdate = true;
       }
 
-      Vue.set(state.textTransforms.letters, input.type, {
+      Vue.set(state.textTransforms[input.kind], input.type, {
         ...currentValue,
         ...input.settings,
       });
 
       if (needsUpdate || currentValue.active !== input.settings.active) {
-        state.textTransforms.activeLetters = Object.keys(state.textTransforms.letters).filter(
-          entry => state.textTransforms.letters[entry].active,
+        const activeChanged = input.kind === 'letters' ? 'activeLetters' : 'activeWords';
+        state.textTransforms[activeChanged] = Object.keys(state.textTransforms[input.kind]).filter(
+          entry => state.textTransforms[input.kind][entry].active,
         ) || [];
       }
     },
     setTextFields(state, input) {
+      console.log('euh');
       const typeText = state.textField[state.generalState.type];
       if (input !== typeText.raw) {
         Vue.set(typeText, 'raw', input);
@@ -129,6 +132,10 @@ export default new Vuex.Store({
   getters: {
     getLetterTransforms: state => state.textTransforms.activeLetters.map(key => ({
       ...state.textTransforms.letters[key],
+      key,
+    })),
+    getWordTransforms: state => state.textTransforms.activeWords.map(key => ({
+      ...state.textTransforms.words[key],
       key,
     })),
   },

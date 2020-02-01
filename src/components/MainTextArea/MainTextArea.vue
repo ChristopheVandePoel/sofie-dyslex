@@ -29,7 +29,8 @@
 <script>
 import { mapGetters, mapMutations, mapState } from 'vuex';
 import { colorMap } from '../../constants';
-import { letterTransformMap } from '../../helpers';
+import { letterTransformMap } from '../../letter-helpers';
+import { wordTransformMap } from '../../word-helpers';
 
 const someFunction = (input, transforms) => {
   // console.log(input, transforms);
@@ -78,6 +79,48 @@ const someFunction = (input, transforms) => {
   return transform.join('');
 };
 
+const wordFunction = (input, letterTransforms, wordTransforms) => {
+  const output = input.split(' ');
+
+  let result = '';
+
+  output.forEach((entry, index) => {
+    let yay = {
+      x: 0,
+      y: 0,
+      scaleX: 1,
+      scaleY: 1,
+      rotate: 0,
+      diphClass: '',
+      swapClass: '',
+    };
+
+    wordTransforms.forEach(trans => {
+      if (wordTransformMap[trans.key]) {
+        yay = wordTransformMap[trans.key](
+          entry,
+          index,
+          trans.value,
+          yay,
+          output[index - 1],
+          output[index + 1],
+        );
+      }
+    });
+
+    const style = `transform: translate(${yay.x}%,${yay.y}%)
+    scale(${yay.scaleX},${yay.scaleY})
+    rotate(${yay.rotate}deg);
+    display: inline-block;`;
+
+    result += `<div class="word"  style="${style}">`;
+    result += someFunction(entry, letterTransforms);
+    result += '&nbsp;</div>';
+  });
+
+  return result;
+};
+
 const baseFontSize = {
   word: 350,
   sentence: 130,
@@ -88,15 +131,18 @@ export default {
   name: 'MainTextArea',
   computed: {
     ...mapState(['generalState', 'textField']),
-    ...mapGetters(['getLetterTransforms']),
+    ...mapGetters(['getLetterTransforms', 'getWordTransforms']),
     fontSize() {
       return (baseFontSize[this.generalState.type] * this.generalState.size) / 100;
     },
     currentValue() {
-      return someFunction(
+      if (this.generalState.type === 'word') {
+        return someFunction(this.textField.word.transformed, this.getLetterTransforms);
+      }
+      return wordFunction(
         this.textField[this.generalState.type].transformed,
         this.getLetterTransforms,
-        this.fontSize,
+        this.getWordTransforms,
       );
     },
   },
@@ -215,34 +261,37 @@ export default {
 
 // plain letters
 .swap-b:after {
-  content: 'd'
+  content: 'd';
 }
 .swap-d:after {
-  content: 'b'
+  content: 'b';
 }
 .swap-p:after {
-  content: 'q'
+  content: 'q';
 }
 .swap-q:after {
-  content: 'p'
+  content: 'p';
 }
 .swap-m:after {
-  content: 'w'
+  content: 'w';
 }
 .swap-w:after {
-  content: 'm'
+  content: 'm';
 }
 .swap-a:after {
-  content: 'e'
+  content: 'e';
 }
 .swap-e:after {
-  content: 'a'
+  content: 'a';
 }
 .swap-f:after {
-  content: 'v'
+  content: 'v';
 }
 .swap-v:after {
-  content: 'f'
+  content: 'f';
+}
+div.word {
+  display: inline-block;
 }
 </style>
 

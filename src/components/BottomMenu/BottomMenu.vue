@@ -64,11 +64,37 @@
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
-        <SliderButton disable type="words" name="Article" id="article" />
-        <SliderButton disable type="words" name="Free tremble" id="free-tremble" />
-        <SliderButton disable type="words" name="Hopping" id="hopping" />
-        <SliderButton disable type="words" name="Tilting" id="tilting" />
-        <SliderButton disable type="words" name="Trembling" id="trembling" />
+        <SliderButton
+          disable
+          type="words"
+          name="Article"
+          id="article"
+          :start-value="getWordValue('article')"
+        />
+        <SliderButton
+          type="words"
+          name="Free tremble"
+          id="free-tremble"
+          :start-value="getWordValue('free-tremble')"
+        />
+        <SliderButton
+          type="words"
+          name="Hopping"
+          id="hopping"
+          :start-value="getWordValue('hopping')"
+        />
+        <SliderButton
+          type="words"
+          name="Tilting"
+          id="tilting"
+          :start-value="getWordValue('tilting')"
+        />
+        <SliderButton
+          type="words"
+          name="Trembling"
+          id="trembling"
+          :start-value="getWordValue('trembling')"
+        />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
@@ -110,6 +136,12 @@ export default {
     getLetterValue(type) {
       if (this.letterValues[type]) {
         return parseFloat(this.letterValues[type].value);
+      }
+      return null;
+    },
+    getWordValue(type) {
+      if (this.wordValues[type]) {
+        return parseFloat(this.wordValues[type].value);
       }
       return null;
     },
