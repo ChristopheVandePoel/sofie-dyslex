@@ -9,7 +9,12 @@
           id="letters-backwards"
           :start-value="getLetterValue('letters-backwards')"
         />
-        <SliderButton disable type="letters" name="Diphtong" id="letters-diphtong" />
+        <SliderButton
+          type="letters"
+          name="Diphtong"
+          id="letters-diphtong"
+          :start-value="getLetterValue('letters-diphtong')"
+        />
         <SliderButton
           type="letters"
           name="Free rotation"
@@ -34,10 +39,15 @@
           id="letters-rotating"
           :min="-100"
           :max="100"
-          :start-value="getLetterValue('letters-rotating')"
+          :start-value="getLetterValue('letters-rotating') || 0"
         />
         <SliderButton disable type="letters" name="Shifting" id="shifting" />
-        <SliderButton disable type="letters" name="Swapping" id="swapping" />
+        <SliderButton
+          type="letters"
+          name="Swapping"
+          id="letters-swapping"
+          :start-value="getLetterValue('letters-swapping')"
+        />
         <SliderButton disable type="letters" name="Tilting" id="tilting" />
         <SliderButton
           type="letters"

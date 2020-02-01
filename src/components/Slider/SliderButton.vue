@@ -79,11 +79,7 @@ export default {
     ...mapState(['tick', 'isPlaying']),
     value: {
       get() {
-        let number = this.min;
-        if (this.min && this.min < 0) {
-          number = 0;
-        }
-        return this.startValue || this.startValue === 0 ? this.startValue : number;
+        return this.startValue || this.startValue === 0 ? this.startValue : this.min;
       },
       set(newValue) {
         if (this.onChange && !this.type) {

@@ -38,8 +38,55 @@ const rotate = (letter, index, force, current) => ({
 
 const freeRotate = (letter, index, force, current) => ({
   ...current,
-  rotate: ((pi[index + 20] % 2 ? -1 : 1)) * ((force * 30) / 100) + Math.abs(current.rotate),
+  rotate: (pi[index + 20] % 2 ? -1 : 1) * ((force * 30) / 100) + Math.abs(current.rotate),
 });
+
+const diphtong = (letter, index, force, current, prev, next) => {
+  // verander de volgorde hier voor belangrijkheid:
+  const map = {
+    au: 'ua',
+    ou: 'uo',
+    ei: 'ij',
+    ij: 'ei',
+    eu: 'ue',
+    ui: 'iu',
+    aa: 'ee',
+    ee: 'aa',
+    oe: 'eo',
+  };
+
+  const keys = Object.keys(map);
+  const filteredMap = keys.slice(0, Math.ceil((force * keys.length) / 100) + 1);
+
+  let diphClass = '';
+  if (filteredMap.includes(letter + next)) {
+    diphClass = map[letter + next] + 1;
+  } else if (filteredMap.includes(prev + letter)) {
+    diphClass = map[prev + letter] + 2;
+  }
+
+  // we geven deze prioriteit over gewone swaps
+  return {
+    ...current,
+    diphClass,
+    swapClass: diphClass ? '' : current.swapClass,
+  };
+};
+
+const swapping = (letter, index, force, current) => {
+  const swappers = ['b', 'd', 'p', 'q', 'm', 'w', 'a', 'e', 'f', 'v'];
+  let swapClass = '';
+  const filteredMap = swappers.slice(0, Math.ceil((force * swappers.length) / 100) + 1);
+
+  if (filteredMap.includes(letter)) {
+    swapClass = `swap-${letter}`;
+  }
+
+  return {
+    ...current,
+    swapClass,
+  };
+};
 
 export const letterTransformMap = {
   hopping: hop,
@@ -49,4 +96,6 @@ export const letterTransformMap = {
   'upside-down-letters': upsideDown,
   'letters-rotating': rotate,
   'free-rotation': freeRotate,
+  'letters-diphtong': diphtong,
+  'letters-swapping': swapping,
 };

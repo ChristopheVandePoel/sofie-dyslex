@@ -46,24 +46,33 @@ const someFunction = (input, transforms) => {
       scaleX: 1,
       scaleY: 1,
       rotate: 0,
+      diphClass: '',
+      swapClass: '',
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
     }
     transforms.forEach(trans => {
       if (letterTransformMap[trans.key]) {
-        yay = letterTransformMap[trans.key](letter, index, trans.value, yay);
+        yay = letterTransformMap[trans.key](
+          letter,
+          index,
+          trans.value,
+          yay,
+          output[index - 1],
+          output[index + 1],
+        );
       }
     });
 
-    const style = `
-    transform: translate(${yay.x}%,${yay.y}%)
+    const style = `transform: translate(${yay.x}%,${yay.y}%)
     scale(${yay.scaleX},${yay.scaleY})
     rotate(${yay.rotate}deg);
-    display: inline-block;
-    `;
+    display: inline-block;`;
 
-    return `<span style="${style}">${letter}</span>`;
+    const extraClass = `${yay.diphClass} ${yay.swapClass} `;
+
+    return `<span style="${style}" class="${extraClass}">${letter}</span>`;
   });
   // console.log(transform);
   return transform.join('');
@@ -105,6 +114,138 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+// swapping classes:
+.swap-b,
+.swap-d,
+.swap-p,
+.swap-q,
+.swap-m,
+.swap-w,
+.swap-a,
+.swap-e,
+.swap-f,
+.swap-v,
+.aa2,
+.aa1,
+.ua1,
+.ua2,
+.uo1,
+.uo2,
+.ij1,
+.ij2,
+.ei1,
+.ei2,
+.ue1,
+.ue2,
+.iu1,
+.iu2,
+.ee1,
+.ee2,
+.eo1,
+.eo2 {
+  position: relative;
+  color: transparent;
+  z-index: 10;
+  caret-color: black;
+
+  &:after {
+    position: absolute;
+    color: initial;
+    left: 0;
+    pointer-events: none;
+  }
+}
+
+// diphthongs:
+.aa2,
+.aa1 {
+  &:after {
+    content: 'a';
+  }
+}
+.ua1:after {
+  content: 'u';
+}
+.ua2:after {
+  content: 'a';
+}
+.uo1:after {
+  content: 'u';
+}
+.uo2:after {
+  content: 'o';
+}
+.ij1:after {
+  content: 'i';
+}
+.ij2:after {
+  content: 'j';
+}
+.ei1:after {
+  content: 'e';
+}
+.ei2:after {
+  content: 'i';
+}
+.ue1:after {
+  content: 'u';
+}
+.ue2:after {
+  content: 'e';
+}
+.iu1:after {
+  content: 'i';
+}
+.iu2:after {
+  content: 'u';
+}
+.ee1:after {
+  content: 'e';
+}
+.ee2:after {
+  content: 'e';
+}
+.eo1:after {
+  content: 'e';
+}
+.eo2:after {
+  content: 'o';
+}
+
+// plain letters
+.swap-b:after {
+  content: 'd'
+}
+.swap-d:after {
+  content: 'b'
+}
+.swap-p:after {
+  content: 'q'
+}
+.swap-q:after {
+  content: 'p'
+}
+.swap-m:after {
+  content: 'w'
+}
+.swap-w:after {
+  content: 'm'
+}
+.swap-a:after {
+  content: 'e'
+}
+.swap-e:after {
+  content: 'a'
+}
+.swap-f:after {
+  content: 'v'
+}
+.swap-v:after {
+  content: 'f'
+}
+</style>
+
 <style lang="scss" scoped>
 .top-container {
   flex: 20 0;
