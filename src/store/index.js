@@ -32,8 +32,8 @@ export default new Vuex.Store({
         transformed: 'Type',
       },
       sentence: {
-        raw: 'Type words to see the changes.',
-        transformed: 'Type words to see the changes.',
+        raw: 'Type words to see the changes',
+        transformed: 'Type words to see the changes',
       },
       // paragraph: {
       //   raw: 'Typie woerds taa see the chauges and discouver your type of dyslexia.',
