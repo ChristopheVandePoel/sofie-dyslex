@@ -1,5 +1,5 @@
 <template>
-  <div class="SliderButton">
+  <div class="SliderButton" :class="{disable}">
     <span
       class="slider-container"
       @click="toggleOpen"
@@ -65,6 +65,7 @@ export default {
       default: null,
     },
     onChange: Function,
+    disable: Boolean,
   },
   data() {
     return {
@@ -78,7 +79,11 @@ export default {
     ...mapState(['tick', 'isPlaying']),
     value: {
       get() {
-        return this.startValue || this.startValue === 0 ? this.startValue : this.min;
+        let number = this.min;
+        if (this.min && this.min < 0) {
+          number = 0;
+        }
+        return this.startValue || this.startValue === 0 ? this.startValue : number;
       },
       set(newValue) {
         if (this.onChange && !this.type) {
@@ -154,6 +159,11 @@ export default {
 <style lang="scss" scoped>
 
 .SliderButton {
+  &.disable {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
   display: flex;
   flex-direction: row;
 

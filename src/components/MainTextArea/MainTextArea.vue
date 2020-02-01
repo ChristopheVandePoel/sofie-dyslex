@@ -39,25 +39,28 @@ const someFunction = (input, transforms) => {
     if (letter === '\n') {
       return '<br />';
     }
-    // let transformation = '';
-    let translate = {
+
+    let yay = {
       x: 0,
       y: 0,
       scaleX: 1,
       scaleY: 1,
+      rotate: 0,
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
     }
     transforms.forEach(trans => {
       if (letterTransformMap[trans.key]) {
-        translate = letterTransformMap[trans.key](letter, index, trans.value, translate);
+        yay = letterTransformMap[trans.key](letter, index, trans.value, yay);
       }
     });
 
     const style = `
-    transform: translate(${translate.x}%,${translate.y}%)
-    scale(${translate.scaleX},${translate.scaleY}); display: inline-block;
+    transform: translate(${yay.x}%,${yay.y}%)
+    scale(${yay.scaleX},${yay.scaleY})
+    rotate(${yay.rotate}deg);
+    display: inline-block;
     `;
 
     return `<span style="${style}">${letter}</span>`;

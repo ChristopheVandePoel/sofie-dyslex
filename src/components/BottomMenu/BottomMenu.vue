@@ -9,8 +9,13 @@
           id="letters-backwards"
           :start-value="getLetterValue('letters-backwards')"
         />
-        <SliderButton type="letters" name="Diphtong" id="letters-diphtong" />
-        <SliderButton type="letters" name="Free rotation" id="free-rotation" />
+        <SliderButton disable type="letters" name="Diphtong" id="letters-diphtong" />
+        <SliderButton
+          type="letters"
+          name="Free rotation"
+          id="free-rotation"
+          :start-value="getLetterValue('free-rotation')"
+        />
         <SliderButton
           type="letters"
           name="Free tremble"
@@ -23,42 +28,54 @@
           id="hopping"
           :start-value="getLetterValue('hopping')"
         />
-        <SliderButton type="letters" name="Rotating" id="rotating-slider" />
-        <SliderButton type="letters" name="Shifting" id="shifting" />
-        <SliderButton type="letters" name="Swapping" id="swapping" />
-        <SliderButton type="letters" name="Tilting" id="tilting" />
+        <SliderButton
+          type="letters"
+          name="Rotating"
+          id="letters-rotating"
+          :min="-100"
+          :max="100"
+          :start-value="getLetterValue('letters-rotating')"
+        />
+        <SliderButton disable type="letters" name="Shifting" id="shifting" />
+        <SliderButton disable type="letters" name="Swapping" id="swapping" />
+        <SliderButton disable type="letters" name="Tilting" id="tilting" />
         <SliderButton
           type="letters"
           name="Trembling"
           id="trembling"
           :start-value="getLetterValue('trembling')"
         />
-        <SliderButton type="letters" name="Upside—down" id="upside-down" />
+        <SliderButton
+          type="letters"
+          name="Upside—down"
+          id="upside-down-letters"
+          :start-value="getLetterValue('upside-down-letters')"
+        />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
-        <SliderButton type="words" name="Article" id="article" />
-        <SliderButton type="words" name="Free tremble" id="free-tremble" />
-        <SliderButton type="words" name="Hopping" id="hopping" />
-        <SliderButton type="words" name="Tilting" id="tilting" />
-        <SliderButton type="words" name="Trembling" id="trembling" />
+        <SliderButton disable type="words" name="Article" id="article" />
+        <SliderButton disable type="words" name="Free tremble" id="free-tremble" />
+        <SliderButton disable type="words" name="Hopping" id="hopping" />
+        <SliderButton disable type="words" name="Tilting" id="tilting" />
+        <SliderButton disable type="words" name="Trembling" id="trembling" />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
-        <SliderButton type="sentences" name="Free tracking" id="free-tracking" />
-        <SliderButton type="sentences" name="Interspace" id="interspace" />
-        <SliderButton type="sentences" name="Line—spacing" id="line-spacing" />
-        <SliderButton type="sentences" name="Tracking" id="tracking" />
+        <SliderButton disable type="sentences" name="Free tracking" id="free-tracking" />
+        <SliderButton disable type="sentences" name="Interspace" id="interspace" />
+        <SliderButton disable type="sentences" name="Line—spacing" id="line-spacing" />
+        <SliderButton disable type="sentences" name="Tracking" id="tracking" />
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Typeface" :expanded="true">
-        <SliderButton type="faces" name="Ascender" id="ascender" />
-        <SliderButton type="faces" name="Baseline" id="Baseline" />
-        <SliderButton type="faces" name="Descender" id="descender" />
-        <SliderButton type="faces" name="Height" id="height" />
-        <SliderButton type="faces" name="Serifs" id="serifs" />
-        <SliderButton type="faces" name="Weight" id="height" />
-        <SliderButton type="faces" name="Width" id="width" />
+        <SliderButton disable type="faces" name="Ascender" id="ascender" />
+        <SliderButton disable type="faces" name="Baseline" id="Baseline" />
+        <SliderButton disable type="faces" name="Descender" id="descender" />
+        <SliderButton disable type="faces" name="Height" id="height" />
+        <SliderButton disable type="faces" name="Serifs" id="serifs" />
+        <SliderButton disable type="faces" name="Weight" id="height" />
+        <SliderButton disable type="faces" name="Width" id="width" />
       </ButtonRow>
     </div>
   </div>
