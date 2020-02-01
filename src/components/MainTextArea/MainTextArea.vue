@@ -82,7 +82,7 @@ const someFunction = (input, transforms) => {
 };
 
 const wordFunction = (input, letterTransforms, wordTransforms) => {
-  const output = input.split(' ');
+  const output = input.split(/\s+/);
 
   let result = '';
 
@@ -115,7 +115,7 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
     rotate(${yay.rotate}deg);
     display: inline-block;`;
 
-    result += `<div class="word"  style="${style}">`;
+    result += `<div class="word" style="${style}">`;
     result += someFunction(entry, letterTransforms);
     result += '&nbsp;</div>';
   });

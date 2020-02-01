@@ -175,7 +175,6 @@ export default {
       return this.textTransforms.words;
     },
     sentenceValues() {
-      console.log(this.textTransforms.sentences);
       return this.textTransforms.sentences;
     },
   },
