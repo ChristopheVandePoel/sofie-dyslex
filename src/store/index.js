@@ -21,7 +21,7 @@ export default new Vuex.Store({
       letterCase: 'lower',
       alignment: 'center',
       interface: 'bright',
-      weight: 10,
+      weight: 'regular',
       size: 70,
       speed: 0,
       color: 0,
@@ -56,14 +56,15 @@ export default new Vuex.Store({
       state.isPlaying = true;
       if (!this.intervalId) {
         this.intervalId = setInterval(() => {
+          const speed = 1 + (state.generalState.speed / 30);
           if (state.tick <= 100 && state.up) {
-            state.tick += 1;
+            state.tick += speed;
             if (state.tick >= 100) {
               state.up = false;
             }
           }
           if (state.tick >= 0 && !state.up) {
-            state.tick -= 1;
+            state.tick -= speed;
             if (state.tick <= 0) {
               state.up = true;
             }

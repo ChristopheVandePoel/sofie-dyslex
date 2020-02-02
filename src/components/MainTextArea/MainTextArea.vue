@@ -4,9 +4,13 @@
       class="text-field__main"
       :class="{
         seriffed: generalState.font === 'serif',
+        monospace: generalState.font === 'monospace',
+        bold: generalState.weight === 'bold',
+        italic: generalState.weight === 'italic',
       }"
     >
       <div
+        ref="editableField"
         contenteditable
         id="main-text"
         class="textarea-container"
@@ -16,7 +20,7 @@
           fontSize: `${fontSize}px`,
           color: getColor(),
           lineHeight: `${containerData.lineHeight}`,
-          letterSpacing: `${containerData.letterSpacing}px`
+          letterSpacing: `${containerData.letterSpacing}px`,
         }"
         v-html="currentValue"
         @focus="onFocus"
@@ -75,7 +79,13 @@ const someFunction = (input, transforms) => {
 
     const extraClass = `${yay.diphClass} ${yay.swapClass} `;
 
-    return `<span style="${style}" class="${extraClass}">${letter}</span>`;
+    let result = letter;
+
+    if (yay.diphClass || yay.swapClass) {
+      result = `<span class="conv">${letter}</span>`;
+    }
+
+    return `<span style="${style}" class="${extraClass}">${result}</span>`;
   });
   // console.log(transform);
   return transform.join('');
@@ -134,10 +144,11 @@ export default {
   data() {
     return {
       lineHeight: 0,
+      cursorTimer: null,
     };
   },
   computed: {
-    ...mapState(['generalState', 'textField']),
+    ...mapState(['generalState', 'textField', 'isPlaying']),
     ...mapGetters(['getLetterTransforms', 'getWordTransforms', 'getSentencesTransforms']),
     fontSize() {
       return (baseFontSize[this.generalState.type] * this.generalState.size) / 100;
@@ -150,10 +161,7 @@ export default {
       if (this.getSentencesTransforms.length) {
         this.getSentencesTransforms.forEach(trans => {
           if (sentencesTransformMap[trans.key]) {
-            container = sentencesTransformMap[trans.key](
-              trans.value,
-              container,
-            );
+            container = sentencesTransformMap[trans.key](trans.value, container);
           }
         });
       }
@@ -172,10 +180,13 @@ export default {
       );
     },
   },
+  mounted() {
+    this.setCaret();
+  },
   methods: {
     ...mapMutations(['setPause', 'setTextFields', 'updateField']),
     onFocus() {
-      this.setPause();
+      // this.setPause();
     },
     onInput(event) {
       this.setTextFields(event.target.innerText);
@@ -183,10 +194,41 @@ export default {
     getColor() {
       return colorMap[this.generalState.color];
     },
+    setCaret() {
+      if (!this.isPlaying) {
+        // dit is mss te zwaar, maar het werkt atm.
+        if (this.cursorTimer !== null) {
+          clearTimeout(this.cursorTimer);
+        }
+
+        this.cursorTimer = setTimeout(() => {
+          const p = this.$refs.editableField;
+          const s = window.getSelection();
+          const r = document.createRange();
+
+          r.setStart(p, p.childElementCount);
+          r.setEnd(p, p.childElementCount);
+          s.removeAllRanges();
+          s.addRange(r);
+        }, 200);
+      }
+    },
+  },
+  watch: {
+    currentValue() {
+      this.setCaret();
+    },
   },
 };
 </script>
 <style lang="scss">
+body {
+  caret-color: black !important;
+  .dark-mode {
+    caret-color: whitesmoke !important;
+  }
+}
+
 // swapping classes:
 .swap-b,
 .swap-d,
@@ -204,10 +246,10 @@ export default {
 .ua2,
 .uo1,
 .uo2,
-.ij1,
-.ij2,
-.ei1,
-.ei2,
+.ji1,
+.ji2,
+.ie1,
+.ie2,
 .ue1,
 .ue2,
 .iu1,
@@ -217,14 +259,16 @@ export default {
 .eo1,
 .eo2 {
   position: relative;
-  color: transparent;
-  z-index: 10;
-  caret-color: black;
+
+  span.conv {
+    color: transparent;
+    display: inline-block;
+  }
 
   &:after {
     position: absolute;
-    color: initial;
     left: 0;
+    text-align: left;
     pointer-events: none;
   }
 }
@@ -248,30 +292,74 @@ export default {
 .uo2:after {
   content: 'o';
 }
-.ij1:after {
-  content: 'i';
-}
-.ij2:after {
-  content: 'j';
-}
-.ei1:after {
-  content: 'e';
-}
-.ei2:after {
-  content: 'i';
-}
 .ue1:after {
   content: 'u';
 }
 .ue2:after {
   content: 'e';
 }
+
+.ji1:after {
+  content: 'j';
+}
+.ji2:after {
+  content: 'i';
+}
+.ie1:after {
+  content: 'i';
+}
+.ie2:after {
+  content: 'e';
+}
+
 .iu1:after {
   content: 'i';
 }
+
 .iu2:after {
   content: 'u';
 }
+
+// font & letter-specific widths:
+
+.iu1,
+.ie1 {
+  span.conv {
+    letter-spacing: -0.35em;
+  }
+}
+
+.iu2,
+.ie2 {
+  span.conv {
+    letter-spacing: 0.35em;
+  }
+}
+
+.seriffed {
+  .iu1 {
+    span.conv {
+      letter-spacing: -0.25em;
+    }
+  }
+  .ie1 {
+    span.conv {
+      letter-spacing: -0.18em;
+    }
+  }
+
+  .iu2 {
+    span.conv {
+      letter-spacing: 0.25em;
+    }
+  }
+  .ie2 {
+    span.conv {
+      letter-spacing: 0.18em;
+    }
+  }
+}
+
 .ee1:after {
   content: 'e';
 }
@@ -303,6 +391,7 @@ export default {
 }
 .swap-w:after {
   content: 'm';
+  left: -5px;
 }
 .swap-a:after {
   content: 'e';
@@ -318,6 +407,12 @@ export default {
 }
 div.word {
   display: inline-block;
+}
+
+.monospace {
+  span.conv {
+    letter-spacing: 0 !important;
+  }
 }
 </style>
 
@@ -337,23 +432,16 @@ div.word {
     font-family: 'Times New Roman', serif;
   }
 
-  &.font-100 div {
-    font-weight: 100;
+  &.monospace {
+    font-family: 'RobotoMono-Medium', monospace;
   }
-  &.font-200 div {
-    font-weight: 200;
-  }
-  &.font-300 div {
-    font-weight: 300;
-  }
-  &.font-400 div {
-    font-weight: 400;
-  }
-  &.font-500 div {
-    font-weight: 500;
-  }
-  &.font-600 div {
+
+  &.bold {
     font-weight: 600;
+  }
+
+  &.italic {
+    font-style: italic;
   }
 }
 

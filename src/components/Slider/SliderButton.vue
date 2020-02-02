@@ -14,6 +14,7 @@
         class="slider-tool"
         :class="{
           opened: active || notClosable,
+          hideLables: hideLabels
         }"
       >
         <span class="tool-low" v-if="!hideLabels">{{ value }}</span>
@@ -127,7 +128,7 @@ export default {
     },
     setValue(input) {
       const value = input.target ? input.target.value : input;
-      if (this.isPlaying) {
+      if (this.isPlaying && this.id !== 'speed') {
         this.setReset();
         // this.savedValue = value;
       }
@@ -221,6 +222,10 @@ export default {
         transition: all 0.2s ease-in;
         width: 155px;
         opacity: 1;
+      }
+
+      &.hideLables {
+        width: 97px;
       }
     }
   }

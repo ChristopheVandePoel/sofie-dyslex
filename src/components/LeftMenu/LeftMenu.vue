@@ -36,6 +36,7 @@
           Monospace
         </Button>
         <Button
+          disable
           :active="generalState.font === 'script'"
           @click.native="setGeneral({ font: 'script' })"
         >
@@ -58,17 +59,17 @@
       </ButtonRow>
       <ButtonRow title="Weight" :expanded="true">
         <Button
-          :active="generalState.type === 'regular'"
-          @click.native="setGeneral({ type: 'regular' })"
+          :active="generalState.weight === 'regular'"
+          @click.native="setGeneral({ weight: 'regular' })"
         >
           Regular
         </Button>
-        <Button :active="generalState.font === 'bold'" @click.native="setGeneral({ font: 'bold' })">
+        <Button :active="generalState.weight === 'bold'" @click.native="setGeneral({ weight: 'bold' })">
           Bold
         </Button>
         <Button
-          :active="generalState.font === 'italic'"
-          @click.native="setGeneral({ font: 'italic' })"
+          :active="generalState.weight === 'italic'"
+          @click.native="setGeneral({ weight: 'italic' })"
         >
           Italic
         </Button>
@@ -101,6 +102,7 @@
           Right
         </Button>
         <Button
+          disable
           :active="generalState.alignment === 'block'"
           @click.native="setGeneral({ alignment: 'block' })"
         >
@@ -140,7 +142,7 @@
       </ButtonRow>
       <div class="LeftMenu__special-buttons">
         <Button class="green" @click.native="togglePlay">{{ isPlaying ? 'Pause' : 'Play' }}</Button>
-        <Button class="green" @click.native="setReset">Random</Button>
+        <Button disable class="green" @click.native="setReset">Random</Button>
       </div>
     </div>
   </div>

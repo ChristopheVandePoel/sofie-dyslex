@@ -1,12 +1,17 @@
 <template>
-  <span class="Button" :class="{
-    isActive: active,
-  }"><slot /></span>
+  <span
+    class="Button"
+    :class="{
+      isActive: active,
+      disable,
+    }"
+    ><slot
+  /></span>
 </template>
 
 <script>
 export default {
-  props: ['active'],
+  props: { active: Boolean, disable: Boolean },
   name: 'Button',
 };
 </script>
@@ -29,6 +34,11 @@ export default {
 
   &.isActive {
     background-color: #cccccc;
+  }
+
+  &.disable {
+    opacity: 0.3;
+    pointer-events: none;
   }
 }
 </style>

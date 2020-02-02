@@ -10,12 +10,12 @@ export const hop = (letter, index, force, current) => ({
 export const tremble = (letter, index, force, current) => ({
   ...current,
   x:
-    (((getRandom(index, 2) + Math.floor(force)) % 2 ? -1 : 1) * (getRandom(index, 4) * force)) / 200
+    (((getRandom(index, 2) + Math.floor(force)) % 2 ? -1 : 1) * (getRandom(index, 4) * force)) / 100
     + current.x,
 });
 
 export const freeTremble = (letter, index, force, current) => {
-  const amount = (((getRandom(index, 2) + Math.floor(force)) % 2 ? -1 : 1) * (getRandom(index, 4) * force)) / 200;
+  const amount = (((getRandom(index, 2) + Math.floor(force)) % 2 ? -1 : 1) * (getRandom(index, 4) * force)) / 100;
   return {
     ...current,
     y: amount + current.y,
@@ -46,14 +46,14 @@ export const freeRotate = (letter, index, force, current) => ({
 const diphtong = (letter, index, force, current, prev, next) => {
   // verander de volgorde hier voor belangrijkheid:
   const map = {
-    au: 'ua',
-    ou: 'uo',
-    ei: 'ij',
-    ij: 'ei',
-    eu: 'ue',
-    ui: 'iu',
     aa: 'ee',
     ee: 'aa',
+    au: 'ua',
+    ou: 'uo',
+    ei: 'ie',
+    ij: 'ji',
+    eu: 'ue',
+    ui: 'iu',
     oe: 'eo',
   };
 
