@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="close-button toggle-slider" :class="color">
-      <img :src="image" />
+      <img :src="iconUrl" />
     </div>
   </div>
 </template>
 
 <script>
-import arrowLeft from '../../assets/images/arrow-1.svg';
-import arrowDown from '../../assets/images/arrow-2.svg';
+import arrowLeft from '../../assets/images/arrow-1b.svg';
+import arrowDown from '../../assets/images/arrow-2b.svg';
 import returnArrow from '../../assets/images/return-5.svg';
 import minus from '../../assets/images/min-3.svg';
 import plus from '../../assets/images/plus-4.svg';
@@ -28,7 +28,7 @@ export default {
     color: String,
   },
   computed: {
-    image() {
+    iconUrl() {
       return iconMap[this.icon || 'arrow-left'];
     },
   },
