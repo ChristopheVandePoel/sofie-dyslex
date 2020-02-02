@@ -220,12 +220,12 @@ export default {
         margin-left: 9px;
         margin-right: 9px;
         transition: all 0.2s ease-in;
-        width: 155px;
+        width: 162px;
         opacity: 1;
       }
 
       &.hideLables {
-        width: 97px;
+        width: 106px;
       }
     }
   }

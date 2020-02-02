@@ -57,7 +57,7 @@
           Uppercase
         </Button>
       </ButtonRow>
-      <ButtonRow title="Weight" :expanded="true">
+      <ButtonRow title="Style" :expanded="true">
         <Button
           :active="generalState.weight === 'regular'"
           @click.native="setGeneral({ weight: 'regular' })"

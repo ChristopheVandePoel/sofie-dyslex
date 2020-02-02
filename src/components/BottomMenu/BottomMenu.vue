@@ -124,7 +124,7 @@
         <SliderButton disable type="faces" name="Descender" id="descender" />
         <SliderButton disable type="faces" name="Height" id="height" />
         <SliderButton disable type="faces" name="Serifs" id="serifs" />
-        <SliderButton disable type="faces" name="Weight" id="height" />
+        <SliderButton disable type="faces" name="Weight" id="weight" />
         <SliderButton disable type="faces" name="Width" id="width" />
       </ButtonRow>
     </div>
