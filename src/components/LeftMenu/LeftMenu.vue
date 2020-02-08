@@ -1,6 +1,6 @@
 <template>
-  <div class="tools__container" :class="{ opened: open }">
-    <IconButton class="tools-icon-button" @click.native="handleOpenClick" />
+  <div class="tools__container" :class="{ opened: menusOpen }">
+    <IconButton class="tools-icon-button" @click.native="toggleMenusOpen" />
     <div class="tools__container--tools">
       <ButtonRow title="Content" :expanded="true">
         <Button :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
@@ -163,12 +163,7 @@ export default {
     IconButton,
     Button,
   },
-  data() {
-    return {
-      open: true,
-    };
-  },
-  computed: mapState(['generalState', 'isPlaying']),
+  computed: mapState(['generalState', 'isPlaying', 'menusOpen']),
   methods: {
     handleOpenClick() {
       this.open = !this.open;
@@ -180,7 +175,7 @@ export default {
         this.setPlay();
       }
     },
-    ...mapMutations(['setGeneral', 'setPlay', 'setPause', 'setReset']),
+    ...mapMutations(['setGeneral', 'setPlay', 'setPause', 'setReset', 'toggleMenusOpen']),
   },
 };
 </script>

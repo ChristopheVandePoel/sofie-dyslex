@@ -48,6 +48,7 @@ export default new Vuex.Store({
     up: true,
     tick: 100,
     intervalId: null,
+    menusOpen: true,
   },
   mutations: {
     setPlay(state) {
@@ -135,6 +136,9 @@ export default new Vuex.Store({
         Vue.set(typeText, 'raw', input);
       }
     },
+    toggleMenusOpen(state) {
+      state.menusOpen = !state.menusOpen;
+    }
   },
   getters: {
     getLetterTransforms: state => state.textTransforms.activeLetters.map(key => ({

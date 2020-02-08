@@ -1,6 +1,6 @@
 <template>
-  <div class="bottom-menu__container" :class="{ opened: open }">
-    <IconButton class="bottom-close-button" icon="arrow-down" @click.native="handleOpenClick" />
+  <div class="bottom-menu__container" :class="{ opened: menusOpen }">
+    <IconButton class="bottom-close-button" icon="arrow-down" @click.native="toggleMenusOpen" />
     <div class="bottom-container__buttons">
       <ButtonRow class="bottom-menu__button-row" title="Letters" :expanded="true">
         <SliderButton
@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import IconButton from '../Icon/IconButton.vue';
 import SliderButton from '../Slider/SliderButton.vue';
 import ButtonRow from '../ButtonRow/ButtonRow.vue';
@@ -139,13 +139,8 @@ import ButtonRow from '../ButtonRow/ButtonRow.vue';
 export default {
   name: 'BottomMenu',
   components: { ButtonRow, IconButton, SliderButton },
-  data: () => ({
-    open: true,
-  }),
   methods: {
-    handleOpenClick() {
-      this.open = !this.open;
-    },
+    ...mapMutations(['toggleMenusOpen']),
     getLetterValue(type) {
       if (this.letterValues[type]) {
         return parseFloat(this.letterValues[type].value);
@@ -166,7 +161,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['textTransforms']),
+    ...mapState(['textTransforms', 'menusOpen']),
     letterValues() {
       return this.textTransforms.letters || {};
     },
