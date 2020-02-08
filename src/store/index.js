@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { words } from '../random-content/words';
+import { sentences } from '../random-content/sentences';
+import { paragraphs } from '../random-content/paragraphs';
 
 Vue.use(Vuex);
 
@@ -35,10 +38,6 @@ export default new Vuex.Store({
         raw: 'Type words to see the changes',
         transformed: 'Type words to see the changes',
       },
-      // paragraph: {
-      //   raw: 'Typie woerds taa see the chauges and discouver your type of dyslexia.',
-      //   transformed: 'Typie woerds taa see the chauges and discouver your type of dyslexia.',
-      // },
       paragraph: {
         raw: 'Type words to see the changes and discover your type of dyslexia.',
         transformed: 'Type words to see the changes and discover your type of dyslexia.',
@@ -59,7 +58,7 @@ export default new Vuex.Store({
       state.isPlaying = true;
       if (!this.intervalId) {
         this.intervalId = setInterval(() => {
-          const speed = 1 + (state.generalState.speed / 30);
+          const speed = 1 + state.generalState.speed / 30;
           if (state.tick <= 100 && state.up) {
             state.tick += speed;
             if (state.tick >= 100) {
@@ -88,8 +87,20 @@ export default new Vuex.Store({
       state.isPlaying = false;
     },
     setGeneral(state, value = {}) {
-      const typeText = state.textField[state.generalState.type];
-      Vue.set(typeText, 'transformed', typeText.raw);
+      if (value.type) {
+        const typeText = state.textField[value.type];
+        let list = words;
+
+        if (value.type === 'sentence') {
+          list = sentences;
+        }
+
+        if (value.type === 'paragraph') {
+          list = paragraphs;
+        }
+        Vue.set(typeText, 'raw', list[Math.floor(Math.random() * list.length)]);
+        Vue.set(typeText, 'transformed', typeText.raw);
+      }
       let valueResult = value;
       if (value.interface) {
         valueResult = {
@@ -147,18 +158,21 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    getLetterTransforms: state => state.textTransforms.activeLetters.map(key => ({
-      ...state.textTransforms.letters[key],
-      key,
-    })),
-    getWordTransforms: state => state.textTransforms.activeWords.map(key => ({
-      ...state.textTransforms.words[key],
-      key,
-    })),
-    getSentencesTransforms: state => state.textTransforms.activeSentences.map(key => ({
-      ...state.textTransforms.sentences[key],
-      key,
-    })),
+    getLetterTransforms: state =>
+      state.textTransforms.activeLetters.map(key => ({
+        ...state.textTransforms.letters[key],
+        key,
+      })),
+    getWordTransforms: state =>
+      state.textTransforms.activeWords.map(key => ({
+        ...state.textTransforms.words[key],
+        key,
+      })),
+    getSentencesTransforms: state =>
+      state.textTransforms.activeSentences.map(key => ({
+        ...state.textTransforms.sentences[key],
+        key,
+      })),
   },
   actions: {},
   modules: {},
