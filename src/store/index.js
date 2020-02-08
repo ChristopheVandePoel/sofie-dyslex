@@ -49,6 +49,7 @@ export default new Vuex.Store({
     tick: 100,
     intervalId: null,
     menusOpen: true,
+    infoOpen: false,
   },
   mutations: {
     setPlay(state) {
@@ -138,6 +139,9 @@ export default new Vuex.Store({
     },
     toggleMenusOpen(state) {
       state.menusOpen = !state.menusOpen;
+    },
+    toggleInfoOpen(state) {
+      state.infoOpen = !state.infoOpen;
     }
   },
   getters: {

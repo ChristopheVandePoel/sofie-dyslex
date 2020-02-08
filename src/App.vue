@@ -5,6 +5,11 @@
       'dark-mode': isDark,
     }"
   >
+    <!-- Info Section, hidden by default -->
+    <InfoSection v-if="infoOpen" />
+
+    <SquareButton class="open-info-button" @click.native="toggleInfoOpen">info</SquareButton>
+
     <!-- Left Menu -->
     <LeftMenu />
 
@@ -17,27 +22,32 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import LeftMenu from './components/LeftMenu/LeftMenu.vue';
 import BottomMenu from './components/BottomMenu/BottomMenu.vue';
 import MainTextArea from './components/MainTextArea/MainTextArea.vue';
+import InfoSection from './components/InfoSection/InfoSection.vue';
 import './assets/fonts/inter.css';
 import './assets/fonts/ibm.css';
 import './assets/css/slider.css';
+import SquareButton from './components/Button/SquareButton';
 
 export default {
   name: 'app',
   components: {
+    SquareButton,
     MainTextArea,
     BottomMenu,
     LeftMenu,
+    InfoSection,
   },
   computed: {
-    ...mapState(['generalState']),
+    ...mapState(['generalState', 'infoOpen']),
     isDark() {
       return this.generalState.interface !== 'bright';
     },
   },
+  methods: mapMutations(['toggleInfoOpen']),
 };
 </script>
 
@@ -203,6 +213,10 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.open-info-button {
+  z-index: 999;
 }
 
 .dark-mode {

@@ -15,6 +15,7 @@ module.exports = {
     'arrow-parens': 'off',
     'comma-dangle': 'warn',
     'import/prefer-default-export': 'off',
+    'import/extensions': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',
