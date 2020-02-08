@@ -74,6 +74,7 @@ export default {
       resetValue: this.startValue || this.startValue === 0 ? this.startValue : this.min,
       previous: [],
       savedValue: null,
+      amountCounter: 0,
     };
   },
   computed: {
@@ -90,7 +91,7 @@ export default {
         if (this.type) {
           this.setLetterTransforms({
             type: this.id,
-            settings: { active: this.active, value: newValue },
+            settings: { active: this.active, value: newValue, tick: this.amountCounter },
             kind: this.type,
           });
         }
@@ -108,6 +109,10 @@ export default {
     tick(newTick, oldTick) {
       if (this.type && this.isPlaying && newTick !== oldTick) {
         this.value = Math.floor((this.savedValue * newTick) / 100);
+
+        if (parseInt(this.value, 10) <= 0) {
+          this.amountCounter = this.amountCounter + 1;
+        }
       }
     },
   },
@@ -116,7 +121,7 @@ export default {
     toggleOpen() {
       this.setLetterTransforms({
         type: this.id,
-        settings: { active: !this.active, value: this.value },
+        settings: { active: !this.active, value: this.value, tick: this.amountCounter },
         kind: this.type,
       });
       this.active = !this.active;
@@ -139,6 +144,9 @@ export default {
       this.value = value;
     },
     pushValue(input) {
+      if (input.target.value === '0' || input.target.value === 0) {
+        this.amountCounter = this.amountCounter + 1;
+      }
       this.previous.push(input.target.value);
     },
     setPreviousValue() {

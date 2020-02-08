@@ -2,20 +2,24 @@ import { pi } from './constants';
 
 export const getRandom = (index, seed = 0) => parseInt(pi[index + seed], 10) + 1;
 
-export const hop = (letter, index, force, current) => ({
+export const hop = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  y: ((getRandom(index) % 2 ? -1 : 1) * (getRandom(index, 1) * force)) / 20 + current.y,
+  y: ((getRandom(index + tick) % 2 ? -1 : 1) * (getRandom(index, tick) * force)) / 20 + current.y,
 });
 
-export const tremble = (letter, index, force, current) => ({
+export const tremble = (letter, index, force, current, prev, next, tick) => ({
   ...current,
   x:
-    (((getRandom(index, 2) + Math.floor(force)) % 2 ? -1 : 1) * (getRandom(index, 4) * force)) / 100
+    (((getRandom(index, tick) + Math.floor(force)) % 2 ? -1 : 1)
+      * (getRandom(index, tick + 2) * force))
+      / 100
     + current.x,
 });
 
-export const freeTremble = (letter, index, force, current) => {
-  const amount = (((getRandom(index, 2) + Math.floor(force)) % 2 ? -1 : 1) * (getRandom(index, 4) * force)) / 100;
+export const freeTremble = (letter, index, force, current, prev, next, tick) => {
+  const amount = (((getRandom(index, tick) + Math.floor(force)) % 2 ? -1 : 1)
+      * (getRandom(index, tick + 2) * force))
+    / 100;
   return {
     ...current,
     y: amount + current.y,
@@ -23,14 +27,14 @@ export const freeTremble = (letter, index, force, current) => {
   };
 };
 
-const backwards = (letter, index, force, current) => ({
+const backwards = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  scaleX: getRandom(index) * 10 + parseInt(force, 10) > 100 ? -1 : 1,
+  scaleX: getRandom(index, tick) * 10 + parseInt(force, 10) > 100 ? -1 : 1,
 });
 
-const upsideDown = (letter, index, force, current) => ({
+const upsideDown = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  scaleY: parseInt(getRandom(index, 3), 10) * 10 + parseInt(force, 10) > 100 ? -1 : 1,
+  scaleY: parseInt(getRandom(index, tick), 10) * 10 + parseInt(force, 10) > 100 ? -1 : 1,
 });
 
 const rotate = (letter, index, force, current) => ({
@@ -38,9 +42,11 @@ const rotate = (letter, index, force, current) => ({
   rotate: (current.rotate < 0 ? -1 : 1) * ((force * 30) / 100) + Math.abs(current.rotate),
 });
 
-export const freeRotate = (letter, index, force, current) => ({
+export const freeRotate = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  rotate: (getRandom(index, 20) % 2 ? -1 : 1) * ((force * 30) / 100) + Math.abs(current.rotate),
+  rotate:
+    (getRandom(index, tick) % 2 ? -1 : 1) * ((getRandom(index + tick) * force * 30) / 1000)
+    + Math.abs(current.rotate),
 });
 
 const diphtong = (letter, index, force, current, prev, next) => {
@@ -90,11 +96,10 @@ const swapping = (letter, index, force, current) => {
   };
 };
 
-const freeLetters = (letter, index, force, current) => ({
+const freeLetters = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  letterSpace: (getRandom(index, 1) * force) / 1500 + current.letterSpace,
+  letterSpace: (getRandom(index, tick) * force) / 1500 + current.letterSpace,
 });
-
 
 export const letterTransformMap = {
   hopping: hop,

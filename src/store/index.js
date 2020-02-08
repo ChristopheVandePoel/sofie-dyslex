@@ -47,6 +47,7 @@ export default new Vuex.Store({
     isPlaying: false,
     up: true,
     tick: 100,
+    tickCounter: 0,
     intervalId: null,
     menusOpen: true,
     infoOpen: false,
@@ -63,6 +64,7 @@ export default new Vuex.Store({
             state.tick += speed;
             if (state.tick >= 100) {
               state.up = false;
+              state.tickCounter += 1;
             }
           }
           if (state.tick >= 0 && !state.up) {
@@ -142,7 +144,7 @@ export default new Vuex.Store({
     },
     toggleInfoOpen(state) {
       state.infoOpen = !state.infoOpen;
-    }
+    },
   },
   getters: {
     getLetterTransforms: state => state.textTransforms.activeLetters.map(key => ({

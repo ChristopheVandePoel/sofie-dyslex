@@ -69,6 +69,7 @@ const someFunction = (input, transforms) => {
           yay,
           output[index - 1],
           output[index + 1],
+          trans.tick,
         );
       }
     });
@@ -119,6 +120,7 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
           yay,
           output[index - 1],
           output[index + 1],
+          trans.tick,
         );
       }
     });
@@ -152,7 +154,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['generalState', 'textField', 'isPlaying']),
+    ...mapState(['generalState', 'textField', 'isPlaying', 'tickCounter']),
     ...mapGetters(['getLetterTransforms', 'getWordTransforms', 'getSentencesTransforms']),
     fontSize() {
       return (baseFontSize[this.generalState.type] * this.generalState.size) / 100;
