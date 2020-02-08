@@ -97,8 +97,20 @@
       </ButtonRow>
 
       <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
-        <SliderButton disable type="sentences" name="Free tracking" id="free-tracking" />
-        <SliderButton disable type="sentences" name="Interspace" id="interspace" />
+        <SliderButton
+          type="letters"
+          name="Free tracking"
+          id="free-tracking"
+          :start-value="getLetterValue('free-tracking') || 0"
+        />
+        <SliderButton
+          :min="-100"
+          :max="100"
+          type="words"
+          name="Interspace"
+          id="interspace"
+          :start-value="getWordValue('interspace') || 0"
+        />
         <SliderButton
           :min="-100"
           :max="100"
@@ -108,11 +120,11 @@
           :start-value="getSentenceValue('line-spacing') || 0"
         />
         <SliderButton
+          :min="-100"
+          :max="100"
           type="sentences"
           name="Tracking"
           id="tracking"
-          :min="-100"
-          :max="100"
           :start-value="getSentenceValue('tracking') || 0"
         />
       </ButtonRow>

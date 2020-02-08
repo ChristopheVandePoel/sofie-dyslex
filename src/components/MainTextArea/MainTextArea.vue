@@ -55,6 +55,7 @@ const someFunction = (input, transforms) => {
       rotate: 0,
       diphClass: '',
       swapClass: '',
+      letterSpace: 0,
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
@@ -75,7 +76,8 @@ const someFunction = (input, transforms) => {
     const style = `transform: translate(${yay.x}%,${yay.y}%)
     scale(${yay.scaleX},${yay.scaleY})
     rotate(${yay.rotate}deg);
-    display: inline-block;`;
+    display: inline-block;
+    letter-spacing: ${yay.letterSpace}em`;
 
     const extraClass = `${yay.diphClass} ${yay.swapClass} `;
 
@@ -105,6 +107,7 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
       rotate: 0,
       diphClass: '',
       swapClass: '',
+      marginRight: 0,
     };
 
     wordTransforms.forEach(trans => {
@@ -123,7 +126,8 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
     const style = `transform: translate(${yay.x}%,${yay.y}%)
     scale(${yay.scaleX},${yay.scaleY})
     rotate(${yay.rotate}deg);
-    display: inline-block;`;
+    display: inline-block;
+    margin-right: ${yay.marginRight}em`;
 
     result += `<div class="word" style="${style}">`;
     result += someFunction(entry, letterTransforms);

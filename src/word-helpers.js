@@ -1,5 +1,5 @@
 import {
-  freeRotate, freeTremble, hop, tremble,
+  freeRotate, freeTremble, getRandom, hop, tremble,
 } from './letter-helpers';
 
 const lineSpace = (force, current) => ({
@@ -12,11 +12,17 @@ const letterSpace = (force, current) => ({
   letterSpacing: force / 10,
 });
 
+const interspace = (letter, index, force, current) => ({
+  ...current,
+  marginRight: (getRandom(index, 1) * force) / 1500 + current.marginRight,
+});
+
 export const wordTransformMap = {
   'free-tremble': freeTremble,
   trembling: tremble,
   hopping: hop,
   tilting: freeRotate,
+  interspace,
 };
 
 export const sentencesTransformMap = {

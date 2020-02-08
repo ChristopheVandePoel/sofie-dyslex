@@ -90,6 +90,12 @@ const swapping = (letter, index, force, current) => {
   };
 };
 
+const freeLetters = (letter, index, force, current) => ({
+  ...current,
+  letterSpace: (getRandom(index, 1) * force) / 1500 + current.letterSpace,
+});
+
+
 export const letterTransformMap = {
   hopping: hop,
   'free-tremble': freeTremble,
@@ -100,4 +106,5 @@ export const letterTransformMap = {
   'free-rotation': freeRotate,
   'letters-diphtong': diphtong,
   'letters-swapping': swapping,
+  'free-tracking': freeLetters,
 };
