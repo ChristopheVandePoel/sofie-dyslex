@@ -62,7 +62,7 @@
         />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Words" :expanded="true">
+      <ButtonRow :disabled="!enabledWords" class="bottom-menu__button-row" title="Words" :expanded="true">
         <SliderButton
           disable
           type="words"
@@ -96,14 +96,16 @@
         />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
+      <ButtonRow :disabled="!enabledSentences" class="bottom-menu__button-row" title="Sentences" :expanded="true">
         <SliderButton
+          row-override="sentences"
           type="letters"
           name="Free tracking"
           id="free-tracking"
           :start-value="getLetterValue('free-tracking') || 0"
         />
         <SliderButton
+          row-override="sentences"
           :min="-100"
           :max="100"
           type="words"
@@ -173,7 +175,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['textTransforms', 'menusOpen']),
+    ...mapState(['textTransforms', 'menusOpen', 'enabledSentences', 'enabledWords']),
     letterValues() {
       return this.textTransforms.letters || {};
     },

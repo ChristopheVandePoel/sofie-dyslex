@@ -1,5 +1,5 @@
 <template>
-  <div class="tool__buttons--row">
+  <div class="tool__buttons--row" :class="{disabled}">
     <Button @click.native="toggleActive" class="row-title">{{ title }}</Button>
     <div class="button-container">
       <slot v-if="isExpanded" />
@@ -22,6 +22,7 @@ export default {
   props: {
     title: String,
     expanded: Boolean,
+    disabled: Boolean,
   },
   data() {
     return {
@@ -41,6 +42,11 @@ export default {
   font-size: 12px;
   display: flex;
   flex-wrap: nowrap;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
   > * {
     margin-bottom: 3px;

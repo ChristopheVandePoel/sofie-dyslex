@@ -14,7 +14,7 @@
         class="slider-tool"
         :class="{
           opened: active || notClosable,
-          hideLables: hideLabels
+          hideLables: hideLabels,
         }"
       >
         <span class="tool-low" v-if="!hideLabels">{{ value }}</span>
@@ -48,6 +48,7 @@ import IconButton from '../Icon/IconButton.vue';
 export default {
   components: { IconButton },
   props: {
+    rowOverride: String,
     type: String,
     name: String,
     id: String,
@@ -78,7 +79,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['tick', 'isPlaying']),
+    ...mapState(['tick', 'isPlaying', 'enabledWords', 'enabledSentences']),
     value: {
       get() {
         return this.startValue || this.startValue === 0 ? this.startValue : this.min;
@@ -99,6 +100,21 @@ export default {
     },
   },
   watch: {
+    enabledWords(isEnabled, wasEnabled) {
+      if (this.active && this.type === 'words' && wasEnabled && !isEnabled) {
+        this.toggleOpen();
+      }
+    },
+    enabledSentences(isEnabled, wasEnabled) {
+      if (
+        this.active
+        && (this.type === 'sentences' || this.rowOverride === 'sentences')
+        && wasEnabled
+        && !isEnabled
+      ) {
+        this.toggleOpen();
+      }
+    },
     isPlaying(activeIsSet) {
       if (activeIsSet) {
         this.savedValue = this.value;

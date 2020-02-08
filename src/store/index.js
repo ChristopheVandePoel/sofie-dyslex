@@ -34,14 +34,18 @@ export default new Vuex.Store({
         raw: 'Type',
         transformed: 'Type',
       },
-      sentence: {
-        raw: 'Type words to see the changes',
-        transformed: 'Type words to see the changes',
+      input: {
+        raw: 'Type',
+        transformed: 'Type',
       },
-      paragraph: {
-        raw: 'Type words to see the changes and discover your type of dyslexia.',
-        transformed: 'Type words to see the changes and discover your type of dyslexia.',
-      },
+      // sentence: {
+      //   raw: 'Type words to see the changes',
+      //   transformed: 'Type words to see the changes',
+      // },
+      // paragraph: {
+      //   raw: 'Type words to see the changes and discover your type of dyslexia.',
+      //   transformed: 'Type words to see the changes and discover your type of dyslexia.',
+      // },
     },
     isPlaying: false,
     up: true,
@@ -50,10 +54,12 @@ export default new Vuex.Store({
     intervalId: null,
     menusOpen: true,
     infoOpen: false,
+    enabledSentences: false,
+    enabledWords: false,
   },
   mutations: {
     setPlay(state) {
-      const typeText = state.textField[state.generalState.type];
+      const typeText = state.textField.input;
       Vue.set(typeText, 'transformed', typeText.raw);
       state.isPlaying = true;
       if (!this.intervalId) {
@@ -86,20 +92,48 @@ export default new Vuex.Store({
       this.intervalId = null;
       state.isPlaying = false;
     },
+    switchBySentences(state, { toValue, text }) {
+      if (toValue === 'letters') {
+        state.enabledWords = false;
+        state.enabledSentences = false;
+        state.generalState.type = 'word';
+        state.textField.input.transformed = text;
+      }
+      if (toValue === 'words') {
+        state.enabledWords = true;
+        state.enabledSentences = false;
+        state.generalState.type = 'sentence';
+        state.textField.input.transformed = text;
+      }
+      if (toValue === 'sentences') {
+        state.enabledWords = true;
+        state.enabledSentences = true;
+        state.generalState.type = 'paragraph';
+        state.textField.input.transformed = text;
+      }
+    },
     setGeneral(state, value = {}) {
-      if (value.type) {
-        const typeText = state.textField[value.type];
+      if (value.type && value.type !== state.generalState.type) {
+        const typeText = state.textField.input;
         let list = words;
 
+        state.enabledWords = false;
+        state.enabledSentences = false;
+
         if (value.type === 'sentence') {
+          state.enabledWords = true;
+          state.enabledSentences = false;
           list = sentences;
         }
 
         if (value.type === 'paragraph') {
+          state.enabledWords = true;
+          state.enabledSentences = true;
           list = paragraphs;
         }
-        Vue.set(typeText, 'raw', list[Math.floor(Math.random() * list.length)]);
-        Vue.set(typeText, 'transformed', typeText.raw);
+        const newText = list[Math.floor(Math.random() * list.length)];
+        Vue.set(typeText, 'raw', newText);
+        Vue.set(typeText, 'transformed', newText);
       }
       let valueResult = value;
       if (value.interface) {
@@ -115,7 +149,7 @@ export default new Vuex.Store({
       };
     },
     setLetterTransforms(state, input) {
-      const typeText = state.textField[state.generalState.type];
+      const typeText = state.textField.input;
       Vue.set(typeText, 'transformed', typeText.raw);
       let currentValue = state.textTransforms[input.kind][input.type];
       let needsUpdate = false;
@@ -145,7 +179,7 @@ export default new Vuex.Store({
       }
     },
     setTextFields(state, input) {
-      const typeText = state.textField[state.generalState.type];
+      const typeText = state.textField.input;
       if (input !== typeText.raw) {
         Vue.set(typeText, 'raw', input);
       }

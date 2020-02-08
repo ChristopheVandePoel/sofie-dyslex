@@ -43,10 +43,6 @@ const someFunction = (input, transforms) => {
   const output = input.split('');
 
   const transform = output.map((letter, index) => {
-    if (letter === '\n') {
-      return '<br />';
-    }
-
     let yay = {
       x: 0,
       y: 0,
@@ -95,7 +91,7 @@ const someFunction = (input, transforms) => {
 };
 
 const wordFunction = (input, letterTransforms, wordTransforms) => {
-  const output = input.split(/\s+/);
+  const output = input.split(/\s/);
 
   let result = '';
 
@@ -133,11 +129,23 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
 
     result += `<div class="word" style="${style}">`;
     result += someFunction(entry, letterTransforms);
-    result += '&nbsp;</div>';
+    result += `${index >= output.length - 1 ? '' : '&nbsp;'}</div>`;
   });
 
   return result;
 };
+
+const sentenceFunction = (input, letterTransforms, wordTransforms) => {
+  const output = input.split(/\n/);
+
+  const transform = output.map(entry => wordFunction(
+    entry,
+    letterTransforms,
+    wordTransforms,
+  ));
+  return transform.join('<br />');
+};
+
 
 const baseFontSize = {
   word: 350,
@@ -177,10 +185,17 @@ export default {
     },
     currentValue() {
       if (this.generalState.type === 'word') {
-        return someFunction(this.textField.word.transformed, this.getLetterTransforms);
+        return someFunction(this.textField.input.transformed, this.getLetterTransforms);
       }
-      return wordFunction(
-        this.textField[this.generalState.type].transformed,
+      if (this.generalState.type === 'sentence') {
+        return wordFunction(
+          this.textField.input.transformed,
+          this.getLetterTransforms,
+          this.getWordTransforms,
+        );
+      }
+      return sentenceFunction(
+        this.textField.input.transformed,
         this.getLetterTransforms,
         this.getWordTransforms,
       );
@@ -190,12 +205,23 @@ export default {
     this.setCaret();
   },
   methods: {
-    ...mapMutations(['setPause', 'setTextFields', 'updateField']),
+    ...mapMutations(['setPause', 'setTextFields', 'updateField', 'switchBySentences']),
     onFocus() {
-      // this.setPause();
+      this.setPause();
     },
     onInput(event) {
-      this.setTextFields(event.target.innerText);
+      const hasLineBreaks = event.target.innerText.trim(/\s+/).match(/\n/);
+      const hasSpaces = event.target.innerText.trim(/\s+/).match(/\s+/);
+
+      if (this.generalState.type !== 'paragraph' && hasLineBreaks) {
+        this.switchBySentences({ toValue: 'sentences', text: event.target.innerText });
+      } else if (!hasLineBreaks && this.generalState.type !== 'sentence' && hasSpaces) {
+        this.switchBySentences({ toValue: 'words', text: event.target.innerText });
+      } else if (!hasSpaces && !hasLineBreaks && this.generalState.type !== 'word') {
+        this.switchBySentences({ toValue: 'letters', text: event.target.innerText });
+      } else {
+        this.setTextFields(event.target.innerText);
+      }
     },
     getColor() {
       return colorMap[this.generalState.color];
@@ -216,7 +242,7 @@ export default {
           r.setEnd(p, p.childElementCount);
           s.removeAllRanges();
           s.addRange(r);
-        }, 200);
+        }, 1);
       }
     },
   },
