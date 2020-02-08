@@ -48,7 +48,6 @@
           id="letters-swapping"
           :start-value="getLetterValue('letters-swapping')"
         />
-        <SliderButton disable type="letters" name="Tilting" id="tilting" />
         <SliderButton
           type="letters"
           name="Trembling"
