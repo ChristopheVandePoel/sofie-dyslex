@@ -20,9 +20,6 @@ export default {
     justify-content: center;
     cursor: pointer;
     transition: background-color 0.2s ease-in;
-    position: absolute;
-    right: 2px;
-    top: 2px;
 
     &:hover {
       background-color: #bebebe;

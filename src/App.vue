@@ -217,6 +217,9 @@ body {
 
 .open-info-button {
   z-index: 999;
+  position: absolute;
+  right: 2px;
+  top: 2px;
 }
 
 .dark-mode {

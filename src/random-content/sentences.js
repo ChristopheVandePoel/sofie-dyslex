@@ -63,7 +63,7 @@ export const sentences = [
   'In naturalistic colors',
   'A spiritless reply to criticism',
   'Felt tongue-tied with embarrassment',
-  '• Harmless bacteria',
+  'Harmless bacteria',
   'Untufted ears',
   'They work hand in glove',
   'We live in a cybernated age',

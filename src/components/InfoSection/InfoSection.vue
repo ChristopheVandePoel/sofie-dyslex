@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <SquareButton @click.native="toggleInfoOpen">x</SquareButton>
-    Info here
+    <SquareButton class="close-button" @click.native="toggleInfoOpen">x</SquareButton>
+    <div>
+      Info here
+    </div>
   </div>
 </template>
 <script>
@@ -22,5 +24,11 @@ export default {
     color: black;
     z-index: 9999;
     background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .close-button {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
   }
 </style>

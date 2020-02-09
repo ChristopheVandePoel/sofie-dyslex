@@ -38,14 +38,6 @@ export default new Vuex.Store({
         raw: 'Type',
         transformed: 'Type',
       },
-      // sentence: {
-      //   raw: 'Type words to see the changes',
-      //   transformed: 'Type words to see the changes',
-      // },
-      // paragraph: {
-      //   raw: 'Type words to see the changes and discover your type of dyslexia.',
-      //   transformed: 'Type words to see the changes and discover your type of dyslexia.',
-      // },
     },
     isPlaying: false,
     up: true,
@@ -113,7 +105,7 @@ export default new Vuex.Store({
       }
     },
     setGeneral(state, value = {}) {
-      if (value.type && value.type !== state.generalState.type) {
+      if (value.type) {
         const typeText = state.textField.input;
         let list = words;
 
