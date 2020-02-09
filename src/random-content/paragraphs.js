@@ -18,10 +18,10 @@ export const paragraphs = [
   'The computer wouldn’t start. She banged on the side and tried again. Nothing.',
   'There was no time. He ran out of the door without half the stuff he needed for work, but it '
   + "didn't matter.",
-  "I’m going to hire professional help tomorrow. I can't handle this anymore.",
-  "Don’t be scared. The things out there that are unknown aren't scary in themselves.",
+  'I’m going to hire professional help tomorrow. I can’t handle this anymore.',
+  'Don’t be scared. The things out there that are unknown aren’t scary in themselves.',
   'Sometimes there isn’t a good answer. No matter how you try to rationalize the outcome, it '
-  + "doesn't make sense.",
+  + 'doesn’t make sense.',
   'To her surprise she found what she least expected to see.',
   'There is a beautiful shaded lane that runs down there from the house.',
   'Both were curious but only one was brave enough to want to explore. That was the problem.',
@@ -34,19 +34,19 @@ export const paragraphs = [
   'It was time to decide which way to go.',
   'Her face was captivating by reason of a certain frankness of expression and a\n'
     + 'contradictory subtle play of features.',
-  'He couldn’t move. His head throbbed and spun.',
+  'She couldn’t move. Her head throbbed and spun.',
   'He couldn’t decide if it was the flu or the drinking last night. It was probably a combination '
   + 'of both.',
   'She doesn’t have anything to prove but she is going to anyway. That’s just her character.',
   'The weather forecast didn’t say that it was going to rain but the steel plate in his hip did.',
-  'The robot clicked disapprovingly, gurgled briefly inside its cubical interior and extruded\n'
+  'The robot clicked disapprovingly, gurgled briefly inside its cubical interior and crushed '
     + 'a pony glass of brownish liquid.',
   'Eating raw fish for lunch didn’t sound like a good idea.',
-  'The red ball sat proudly at the top of the toy-box. Waiting to be chosen.',
+  'The red ball sat proudly at the top of the toy–box. Waiting to be chosen.',
   'Give it freely and as much as you want. This is your moment.',
-  'It was the easy choice to make. The safe choice.',
+  'It was an easy choice to make. The safe choice.',
   'The odds of you existing are less than winning the lottery but here you are.',
-  'One dollar and eighty-seven cents. That was all it cost.',
+  'One dollar and eighty–seven cents, that was all it cost.',
   'The chair sat in the corner where it had been for over the past decade.',
   'At that moment he read the random paragraph and realized it was about random paragraphs and '
   + 'his world would never be the same.',

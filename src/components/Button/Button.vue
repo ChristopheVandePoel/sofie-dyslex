@@ -21,12 +21,12 @@ export default {
   color: black;
   cursor: pointer;
   padding: 5px;
-  padding-top: 3px;
   margin-right: 3px;
   white-space: nowrap;
   display: flex;
   align-items: center;
   background-color: #ffffff;
+  margin-bottom: 3px;
 
   &:hover {
     background-color: #cccccc;

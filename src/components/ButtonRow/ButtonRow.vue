@@ -48,10 +48,6 @@ export default {
     pointer-events: none;
   }
 
-  > * {
-    margin-bottom: 3px;
-  }
-
   .ButtonRow__expand {
     opacity: 0;
     transition: all ease-in 0.5s;
@@ -71,16 +67,20 @@ export default {
 
 .row-title {
   background-color: #999999;
-  max-height: 14px;
+  max-height: 12px;
 
   &:hover {
     background-color: #999999;
     }
   }
+
 .button-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  > * {
+    margin-bottom: 3px;
+  }
 }
 
 /* alles wat specifiek voor de donkere versie is, zet je onderaan,

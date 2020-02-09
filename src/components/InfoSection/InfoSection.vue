@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <SquareButton class="close-button" @click.native="toggleInfoOpen">x</SquareButton>
-    <div>
+    <SquareButton class="close-button" @click.native="toggleInfoOpen">close</SquareButton>
+    <div class="info-text">
       Info here
     </div>
   </div>
@@ -31,4 +31,24 @@ export default {
     right: 2px;
     bottom: 2px;
   }
+
+  .info-text {
+    margin: 8px;
+    font-size: 12px;
+  }
+
+/* alles wat specifiek voor de donkere versie is, zet je onderaan,
+  tussen .dark-mode {} tags: (kopieer gewoon de stukken die je wilt veranderen)
+ */
+
+.dark-mode {
+    .container {
+    color:#ffffff;
+    background-color: #000000;
+  }
+
+  .close-button {
+    color: #ffffff;
+  }
+}
 </style>
