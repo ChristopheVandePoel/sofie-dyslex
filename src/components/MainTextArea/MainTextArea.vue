@@ -450,6 +450,7 @@ div.word {
 
 <style lang="scss" scoped>
 .top-container {
+  padding: 40px;
   flex: 20 0;
   display: flex;
 }
