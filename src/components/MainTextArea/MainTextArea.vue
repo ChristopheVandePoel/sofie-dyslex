@@ -459,14 +459,14 @@ div.word {
   width: 100%;
   position: relative;
   text-align: center;
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'Suisse Intl', sans-serif;
 
   &.seriffed {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Suisse Works', serif;
   }
 
   &.monospace {
-    font-family: 'RobotoMono-Medium', monospace;
+    font-family: 'Suisse Intl Mono', monospace;
   }
 
   &.bold {
