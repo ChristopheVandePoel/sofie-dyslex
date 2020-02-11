@@ -27,7 +27,6 @@ import LeftMenu from './components/LeftMenu/LeftMenu.vue';
 import BottomMenu from './components/BottomMenu/BottomMenu.vue';
 import MainTextArea from './components/MainTextArea/MainTextArea.vue';
 import InfoSection from './components/InfoSection/InfoSection.vue';
-import './assets/fonts/inter.css';
 import './assets/fonts/ibm.css';
 import './assets/fonts/stylesheet.css';
 import './assets/css/slider.css';
