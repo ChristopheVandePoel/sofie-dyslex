@@ -131,10 +131,10 @@
         <SliderButton
           :min="-100"
           :max="100"
-          type="sentences"
+          type="letters"
           name="Tracking"
           id="tracking"
-          :start-value="getSentenceValue('tracking') || 0"
+          :start-value="getLetterValue('tracking') || 0"
         />
       </ButtonRow>
 

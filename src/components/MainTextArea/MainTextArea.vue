@@ -20,7 +20,7 @@
           fontSize: `${fontSize}px`,
           color: getColor(),
           lineHeight: `${containerData.lineHeight}`,
-          letterSpacing: `${containerData.letterSpacing}20px`,
+          letterSpacing: `${containerData.letterSpacing}px`,
           fontWeight: containerData.weight,
         }"
         v-html="currentValue"

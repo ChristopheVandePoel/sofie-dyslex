@@ -111,6 +111,11 @@ const width = (letter, index, force, current) => ({
   scaleX: (current.scaleX || 1) * (1 + (force / 250)),
 });
 
+const letterSpace = (letter, index, force, current) => ({
+  ...current,
+  letterSpace: (force / 1000) + current.letterSpace,
+});
+
 export const letterTransformMap = {
   hopping: hop,
   'free-tremble': freeTremble,
@@ -124,4 +129,5 @@ export const letterTransformMap = {
   'free-tracking': freeLetters,
   height,
   width,
+  tracking: letterSpace,
 };

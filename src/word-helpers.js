@@ -7,11 +7,6 @@ const lineSpace = (force, current) => ({
   lineHeight: 1 + force / 100,
 });
 
-const letterSpace = (force, current) => ({
-  ...current,
-  letterSpacing: force / 10,
-});
-
 const interspace = (letter, index, force, current) => ({
   ...current,
   marginRight: (getRandom(index, 1) * force) / 1500 + current.marginRight,
@@ -32,6 +27,5 @@ export const wordTransformMap = {
 
 export const sentencesTransformMap = {
   'line-spacing': lineSpace,
-  tracking: letterSpace,
   weight,
 };
