@@ -3,12 +3,12 @@
     <Button @click.native="toggleActive" class="row-title">{{ title }}</Button>
     <div class="button-container">
       <slot v-if="isExpanded" />
+      <IconButton
+        class="ButtonRow__expand"
+        :icon="isExpanded ? 'minus' : 'plus'"
+        @click.native="toggleActive"
+      />
     </div>
-    <IconButton
-      class="ButtonRow__expand"
-      :icon="isExpanded ? 'minus' : 'plus'"
-      @click.native="toggleActive"
-    />
   </div>
 </template>
 
