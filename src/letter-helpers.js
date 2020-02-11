@@ -101,6 +101,16 @@ const freeLetters = (letter, index, force, current, prev, next, tick) => ({
   letterSpace: (getRandom(index, tick) * force) / 1500 + current.letterSpace,
 });
 
+const height = (letter, index, force, current) => ({
+  ...current,
+  scaleY: (current.scaleY || 1) * (1 + (force / 150)),
+});
+
+const width = (letter, index, force, current) => ({
+  ...current,
+  scaleX: (current.scaleX || 1) * (1 + (force / 250)),
+});
+
 export const letterTransformMap = {
   hopping: hop,
   'free-tremble': freeTremble,
@@ -112,4 +122,6 @@ export const letterTransformMap = {
   'letters-diphtong': diphtong,
   'letters-swapping': swapping,
   'free-tracking': freeLetters,
+  height,
+  width,
 };

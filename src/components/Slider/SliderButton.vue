@@ -24,7 +24,7 @@
           @change="pushValue"
           class="SliderButton__input"
           :value="value"
-          step="1"
+          :step="step"
           type="range"
           :min="min"
           :max="max"
@@ -65,6 +65,10 @@ export default {
     startValue: {
       type: Number,
       default: null,
+    },
+    step: {
+      type: Number,
+      default: 1,
     },
     onChange: Function,
     disable: Boolean,

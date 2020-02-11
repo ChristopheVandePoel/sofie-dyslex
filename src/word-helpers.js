@@ -17,6 +17,11 @@ const interspace = (letter, index, force, current) => ({
   marginRight: (getRandom(index, 1) * force) / 1500 + current.marginRight,
 });
 
+const weight = (force, current) => ({
+  ...current,
+  weight: force,
+});
+
 export const wordTransformMap = {
   'free-tremble': freeTremble,
   trembling: tremble,
@@ -28,4 +33,5 @@ export const wordTransformMap = {
 export const sentencesTransformMap = {
   'line-spacing': lineSpace,
   tracking: letterSpace,
+  weight,
 };

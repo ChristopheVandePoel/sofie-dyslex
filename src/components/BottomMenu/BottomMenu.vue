@@ -62,7 +62,12 @@
         />
       </ButtonRow>
 
-      <ButtonRow :disabled="!enabledWords" class="bottom-menu__button-row" title="Words" :expanded="true">
+      <ButtonRow
+        :disabled="!enabledWords"
+        class="bottom-menu__button-row"
+        title="Words"
+        :expanded="true"
+      >
         <SliderButton
           disable
           type="words"
@@ -96,7 +101,7 @@
         />
       </ButtonRow>
 
-      <ButtonRow :disabled="!enabledSentences" class="bottom-menu__button-row" title="Sentences" :expanded="true">
+      <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
         <SliderButton
           row-override="sentences"
           type="letters"
@@ -105,6 +110,7 @@
           :start-value="getLetterValue('free-tracking') || 0"
         />
         <SliderButton
+          :disable="!enabledSentences && !enabledWords"
           row-override="sentences"
           :min="-100"
           :max="100"
@@ -114,6 +120,7 @@
           :start-value="getWordValue('interspace') || 0"
         />
         <SliderButton
+          :disable="!enabledSentences"
           :min="-100"
           :max="100"
           type="sentences"
@@ -135,10 +142,32 @@
         <SliderButton disable type="faces" name="Ascender" id="ascender" />
         <SliderButton disable type="faces" name="Baseline" id="Baseline" />
         <SliderButton disable type="faces" name="Descender" id="descender" />
-        <SliderButton disable type="faces" name="Height" id="height" />
+        <SliderButton
+          :min="-100"
+          :max="100"
+          type="letters"
+          name="Height"
+          id="height"
+          :start-value="getLetterValue('height') || 0"
+        />
         <SliderButton disable type="faces" name="Serifs" id="serifs" />
-        <SliderButton disable type="faces" name="Weight" id="weight" />
-        <SliderButton disable type="faces" name="Width" id="width" />
+        <SliderButton
+          :min="100"
+          :max="800"
+          :step="100"
+          type="sentences"
+          name="Weight"
+          id="weight"
+          :start-value="getSentenceValue('weight')"
+        />
+        <SliderButton
+          :min="-100"
+          :max="100"
+          type="letters"
+          name="Width"
+          id="width"
+          :start-value="getLetterValue('width') || 0"
+        />
       </ButtonRow>
     </div>
   </div>
