@@ -8,38 +8,42 @@
           name="Backwards"
           id="letters-backwards"
           :start-value="getLetterValue('letters-backwards')"
+          :active="getLetterActivity('letters-backwards')"
         />
         <SliderButton
           type="letters"
           name="Diphtong"
           id="letters-diphtong"
           :start-value="getLetterValue('letters-diphtong')"
-        />
-        <SliderButton
-          type="letters"
-          name="Free rotation"
-          id="free-rotation"
-          :start-value="getLetterValue('free-rotation')"
+          :active="getLetterActivity('letters-diphtong')"
         />
         <SliderButton
           type="letters"
           name="Free tremble"
           id="free-tremble"
           :start-value="getLetterValue('free-tremble')"
+          :active="getLetterActivity('free-tremble')"
         />
         <SliderButton
           type="letters"
           name="Hopping"
           id="hopping"
           :start-value="getLetterValue('hopping')"
+          :active="getLetterActivity('hopping')"
         />
         <SliderButton
           type="letters"
-          name="Rotating"
-          id="letters-rotating"
-          :min="-100"
-          :max="100"
-          :start-value="getLetterValue('letters-rotating') || 0"
+          name="Multiply"
+          id="multiply"
+          :start-value="getLetterValue('multiply')"
+          :active="getLetterActivity('multiply')"
+        />
+        <SliderButton
+          type="letters"
+          name="Rotation"
+          id="rotation"
+          :start-value="getLetterValue('rotation')"
+          :active="getLetterActivity('rotation')"
         />
         <SliderButton disable type="letters" name="Shifting" id="shifting" />
         <SliderButton
@@ -47,18 +51,21 @@
           name="Swapping"
           id="letters-swapping"
           :start-value="getLetterValue('letters-swapping')"
+          :active="getLetterActivity('letters-swapping')"
         />
         <SliderButton
           type="letters"
           name="Trembling"
           id="trembling"
           :start-value="getLetterValue('trembling')"
+          :active="getLetterActivity('trembling')"
         />
         <SliderButton
           type="letters"
           name="Upside—down"
           id="upside-down-letters"
           :start-value="getLetterValue('upside-down-letters')"
+          :active="getLetterActivity('upside-down-letters')"
         />
       </ButtonRow>
 
@@ -74,30 +81,39 @@
           name="Article"
           id="article"
           :start-value="getWordValue('article')"
+          :active="getWordActivity('article')"
         />
         <SliderButton
           type="words"
           name="Free tremble"
           id="free-tremble"
           :start-value="getWordValue('free-tremble')"
+          :active="getWordActivity('free-tremble')"
+
         />
         <SliderButton
           type="words"
           name="Hopping"
           id="hopping"
           :start-value="getWordValue('hopping')"
+          :active="getWordActivity('hopping')"
+
         />
         <SliderButton
           type="words"
           name="Tilting"
           id="tilting"
           :start-value="getWordValue('tilting')"
+          :active="getWordActivity('tilting')"
+
         />
         <SliderButton
           type="words"
           name="Trembling"
           id="trembling"
           :start-value="getWordValue('trembling')"
+          :active="getWordActivity('trembling')"
+
         />
       </ButtonRow>
 
@@ -108,6 +124,7 @@
           name="Free tracking"
           id="free-tracking"
           :start-value="getLetterValue('free-tracking') || 0"
+          :active="getLetterActivity('free-tracking')"
         />
         <SliderButton
           :disable="!enabledSentences && !enabledWords"
@@ -118,6 +135,7 @@
           name="Interspace"
           id="interspace"
           :start-value="getWordValue('interspace') || 0"
+          :active="getWordActivity('interspace') && (enabledSentences || enabledWords)"
         />
         <SliderButton
           :disable="!enabledSentences"
@@ -127,6 +145,7 @@
           name="Line—spacing"
           id="line-spacing"
           :start-value="getSentenceValue('line-spacing') || 0"
+          :active="getSentenceActivity('line-spacing') && enabledSentences"
         />
         <SliderButton
           :min="-100"
@@ -135,6 +154,7 @@
           name="Tracking"
           id="tracking"
           :start-value="getLetterValue('tracking') || 0"
+          :active="getLetterActivity('tracking')"
         />
       </ButtonRow>
 
@@ -149,6 +169,7 @@
           name="Height"
           id="height"
           :start-value="getLetterValue('height') || 0"
+          :active="getLetterActivity('height')"
         />
         <SliderButton disable type="faces" name="Serifs" id="serifs" />
         <SliderButton
@@ -159,6 +180,7 @@
           name="Weight"
           id="weight"
           :start-value="getSentenceValue('weight')"
+          :active="getSentenceActivity('weight')"
         />
         <SliderButton
           :min="-100"
@@ -167,7 +189,24 @@
           name="Width"
           id="width"
           :start-value="getLetterValue('width') || 0"
+          :active="getLetterActivity('width')"
         />
+      </ButtonRow>
+      <ButtonRow title="Speed" expanded>
+        <SliderButton
+          id="speed"
+          :not-closable="true"
+          :start-value="generalState.speed"
+          :on-change="speed => setGeneral({ speed })"
+        />
+      </ButtonRow>
+      <ButtonRow title="Interface" :expanded="true">
+        <Button :active="isPlaying" @click.native="setPlay">
+          Play
+        </Button>
+        <Button :active="!isPlaying" @click.native="setPause">
+          Pause
+        </Button>
       </ButtonRow>
     </div>
   </div>
@@ -178,17 +217,29 @@ import { mapState, mapMutations } from 'vuex';
 import IconButton from '../Icon/IconButton.vue';
 import SliderButton from '../Slider/SliderButton.vue';
 import ButtonRow from '../ButtonRow/ButtonRow.vue';
+import Button from '../Button/Button.vue';
 
 export default {
   name: 'BottomMenu',
-  components: { ButtonRow, IconButton, SliderButton },
+  components: {
+    ButtonRow,
+    IconButton,
+    SliderButton,
+    Button,
+  },
   methods: {
-    ...mapMutations(['toggleMenusOpen']),
+    ...mapMutations(['toggleMenusOpen', 'setGeneral', 'setPlay', 'setPause']),
     getLetterValue(type) {
       if (this.letterValues[type]) {
         return parseFloat(this.letterValues[type].value);
       }
       return null;
+    },
+    getLetterActivity(type) {
+      if (this.letterValues[type]) {
+        return this.letterValues[type].active;
+      }
+      return false;
     },
     getWordValue(type) {
       if (this.wordValues[type]) {
@@ -196,15 +247,37 @@ export default {
       }
       return null;
     },
+    getWordActivity(type) {
+      if (this.wordValues[type]) {
+        return this.wordValues[type].active;
+      }
+      return false;
+    },
     getSentenceValue(type) {
       if (this.sentenceValues[type]) {
         return parseFloat(this.sentenceValues[type].value);
       }
       return null;
     },
+    getSentenceActivity(type) {
+      if (this.sentenceValues[type]) {
+        return this.sentenceValues[type].active;
+      }
+      return false;
+    },
   },
   computed: {
-    ...mapState(['textTransforms', 'menusOpen', 'enabledSentences', 'enabledWords']),
+    ...mapState([
+      'textTransforms',
+      'menusOpen',
+      'enabledSentences',
+      'enabledWords',
+      'generalState',
+      'isPlaying',
+      'activeLetters',
+      'activeWords',
+      'activeSentences',
+    ]),
     letterValues() {
       return this.textTransforms.letters || {};
     },
@@ -219,7 +292,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$height: 130px;
+$height: 180px;
 
 .bottom-menu__container {
   position: absolute;

@@ -36,11 +36,11 @@ const upsideDown = (letter, index, force, current, prev, next, tick) => ({
   ...current,
   scaleY: parseInt(getRandom(index, tick), 10) * 10 + parseInt(force, 10) > 100 ? -1 : 1,
 });
-
-const rotate = (letter, index, force, current) => ({
-  ...current,
-  rotate: (current.rotate < 0 ? -1 : 1) * ((force * 30) / 100) + Math.abs(current.rotate),
-});
+//
+// const rotate = (letter, index, force, current) => ({
+//   ...current,
+//   rotate: (current.rotate < 0 ? -1 : 1) * ((force * 30) / 100) + Math.abs(current.rotate),
+// });
 
 export const freeRotate = (letter, index, force, current, prev, next, tick) => ({
   ...current,
@@ -122,8 +122,7 @@ export const letterTransformMap = {
   trembling: tremble,
   'letters-backwards': backwards,
   'upside-down-letters': upsideDown,
-  'letters-rotating': rotate,
-  'free-rotation': freeRotate,
+  rotation: freeRotate,
   'letters-diphtong': diphtong,
   'letters-swapping': swapping,
   'free-tracking': freeLetters,

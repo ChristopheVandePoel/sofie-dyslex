@@ -33,7 +33,7 @@
           :active="generalState.font === 'monospace'"
           @click.native="setGeneral({ font: 'monospace' })"
         >
-          Monospace
+          Monotype
         </Button>
         <Button
           disable
@@ -132,17 +132,9 @@
           Dark
         </Button>
       </ButtonRow>
-      <ButtonRow title="Speed">
-        <SliderButton
-          id="speed"
-          :not-closable="true"
-          :start-value="generalState.speed"
-          :on-change="speed => setGeneral({ speed })"
-        />
-      </ButtonRow>
       <div class="LeftMenu__special-buttons">
-        <Button class="green" @click.native="togglePlay">{{ isPlaying ? 'Pause' : 'Play' }}</Button>
-        <Button disable class="green" @click.native="setReset">Random</Button>
+        <Button class="green" @click.native="setPreset">Example</Button>
+        <Button class="green" @click.native="outputState">Save</Button>
       </div>
     </div>
   </div>
@@ -163,19 +155,15 @@ export default {
     IconButton,
     Button,
   },
-  computed: mapState(['generalState', 'isPlaying', 'menusOpen']),
+  computed: mapState(['generalState', 'menusOpen', 'textTransforms']),
   methods: {
     handleOpenClick() {
       this.open = !this.open;
     },
-    togglePlay() {
-      if (this.isPlaying) {
-        this.setPause();
-      } else {
-        this.setPlay();
-      }
+    outputState() {
+      console.log(JSON.stringify(this.textTransforms));
     },
-    ...mapMutations(['setGeneral', 'setPlay', 'setPause', 'setReset', 'toggleMenusOpen']),
+    ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen', 'setPreset']),
   },
 };
 </script>

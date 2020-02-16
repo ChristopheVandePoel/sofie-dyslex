@@ -49,6 +49,7 @@ export default {
   components: { IconButton },
   props: {
     rowOverride: String,
+    active: Boolean,
     type: String,
     name: String,
     id: String,
@@ -75,7 +76,6 @@ export default {
   },
   data() {
     return {
-      active: false,
       resetValue: this.startValue || this.startValue === 0 ? this.startValue : this.min,
       previous: [],
       savedValue: null,
@@ -144,7 +144,7 @@ export default {
         settings: { active: !this.active, value: this.value, tick: this.amountCounter },
         kind: this.type,
       });
-      this.active = !this.active;
+      // this.active = !this.active;
     },
     returnFalse(e) {
       e.preventDefault();
@@ -156,9 +156,6 @@ export default {
       if (this.isPlaying && this.id !== 'speed') {
         this.setReset();
         // this.savedValue = value;
-      }
-      if (input.target) {
-        this.active = true;
       }
 
       this.value = value;

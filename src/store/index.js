@@ -3,32 +3,22 @@ import Vuex from 'vuex';
 import { words } from '../random-content/words';
 import { sentences } from '../random-content/sentences';
 import { paragraphs } from '../random-content/paragraphs';
+import { presets } from './presets';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     textTransforms: {
-      letters: {},
-      activeLetters: [],
-      words: {},
-      activeWords: [],
-      sentences: {},
-      activeSentences: [],
-      faces: {},
-      activeFaces: [],
+      ...presets[0],
     },
-    generalState: {
-      type: 'word',
-      font: 'sans',
-      letterCase: 'lower',
-      alignment: 'center',
-      interface: 'bright',
-      weight: 'regular',
-      size: 60,
-      speed: 0,
-      color: 0,
-    },
+    isPlaying: false,
+    up: true,
+    tick: 100,
+    tickCounter: 0,
+    intervalId: null,
+    menusOpen: true,
+    infoOpen: false,
     textField: {
       word: {
         raw: 'Type',
@@ -39,15 +29,20 @@ export default new Vuex.Store({
         transformed: 'Type',
       },
     },
-    isPlaying: false,
-    up: true,
-    tick: 100,
-    tickCounter: 0,
-    intervalId: null,
-    menusOpen: true,
-    infoOpen: false,
+    generalState: {
+      type: 'word',
+      font: 'sans',
+      letterCase: 'lower',
+      alignment: 'center',
+      interface: 'bright',
+      weight: 'regular',
+      size: 70,
+      speed: 0,
+      color: 0,
+    },
     enabledSentences: false,
     enabledWords: false,
+    preset: 0,
   },
   mutations: {
     setPlay(state) {
@@ -181,6 +176,52 @@ export default new Vuex.Store({
     },
     toggleInfoOpen(state) {
       state.infoOpen = !state.infoOpen;
+    },
+    setPreset(state) {
+      const preset = state.preset === presets.length - 1 ? 0 : state.preset + 1;
+      state.preset = preset;
+
+      const activePreset = presets[preset];
+
+
+      // set letter presets
+      Object.keys(state.textTransforms.letters).forEach(letter => {
+        if (!activePreset.activeLetters.includes(letter)) {
+          Vue.set(state.textTransforms.letters[letter], 'active', false);
+        }
+      });
+
+      activePreset.activeLetters.forEach(letter => {
+        Vue.set(state.textTransforms.letters, letter, { ...activePreset.letters[letter] });
+      });
+
+      Vue.set(state.textTransforms, 'activeLetters', [...activePreset.activeLetters]);
+
+      // set word presets
+      Object.keys(state.textTransforms.words).forEach(word => {
+        if (!activePreset.activeWords.includes(word)) {
+          Vue.set(state.textTransforms.words[word], 'active', false);
+        }
+      });
+
+      activePreset.activeWords.forEach(word => {
+        Vue.set(state.textTransforms.words, word, { ...activePreset.words[word] });
+      });
+
+      Vue.set(state.textTransforms, 'activeWords', [...activePreset.activeWords]);
+
+      // set sentence presets
+      Object.keys(state.textTransforms.sentences).forEach(sentence => {
+        if (!activePreset.activeSentences.includes(sentence)) {
+          Vue.set(state.textTransforms.sentences[sentence], 'active', false);
+        }
+      });
+
+      activePreset.activeSentences.forEach(sentence => {
+        Vue.set(state.textTransforms.sentences, sentence, { ...activePreset.sentences[sentence] });
+      });
+
+      Vue.set(state.textTransforms, 'activeSentences', [...activePreset.activeSentences]);
     },
   },
   getters: {
