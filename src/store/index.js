@@ -177,12 +177,14 @@ export default new Vuex.Store({
     toggleInfoOpen(state) {
       state.infoOpen = !state.infoOpen;
     },
-    setPreset(state) {
-      const preset = state.preset === presets.length - 1 ? 0 : state.preset + 1;
+    setPreset(state, toPreset) {
+      const randomPreset = state.preset === presets.length - 1 ? 0 : state.preset + 1;
+      const preset = (toPreset || toPreset === 0) ? toPreset : randomPreset;
       state.preset = preset;
 
       const activePreset = presets[preset];
 
+      console.log(preset, activePreset);
 
       // set letter presets
       Object.keys(state.textTransforms.letters).forEach(letter => {

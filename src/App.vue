@@ -9,6 +9,7 @@
     <InfoSection v-if="infoOpen" />
 
     <SquareButton class="open-info-button" @click.native="toggleInfoOpen">info</SquareButton>
+    <SquareButton class="reset-info-button" @click.native="resetState">RESET</SquareButton>
 
     <!-- Left Menu -->
     <LeftMenu />
@@ -42,12 +43,17 @@ export default {
     InfoSection,
   },
   computed: {
-    ...mapState(['generalState', 'infoOpen']),
+    ...mapState(['generalState', 'infoOpen', 'preset']),
     isDark() {
       return this.generalState.interface !== 'bright';
     },
   },
-  methods: mapMutations(['toggleInfoOpen']),
+  methods: {
+    ...mapMutations(['toggleInfoOpen', 'setPreset']),
+    resetState() {
+      this.setPreset(this.preset);
+    },
+  },
 };
 </script>
 
@@ -219,6 +225,13 @@ body {
   z-index: 999;
   position: absolute;
   right: -2px;
+}
+
+.reset-info-button {
+  z-index: 999;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
 }
 
 .dark-mode {
