@@ -76,7 +76,7 @@
         :expanded="true"
       >
         <SliderButton
-          disable
+          :disable="enabledWords"
           type="words"
           name="Article"
           id="article"
@@ -89,7 +89,6 @@
           id="free-tremble"
           :start-value="getWordValue('free-tremble')"
           :active="getWordActivity('free-tremble')"
-
         />
         <SliderButton
           type="words"
@@ -97,7 +96,14 @@
           id="hopping"
           :start-value="getWordValue('hopping')"
           :active="getWordActivity('hopping')"
-
+        />
+        <SliderButton
+          :disable="enabledWords"
+          type="words"
+          name="Pronoun"
+          id="pronoun"
+          :start-value="getWordValue('pronoun')"
+          :active="getWordActivity('pronoun')"
         />
         <SliderButton
           type="words"
@@ -105,7 +111,6 @@
           id="tilting"
           :start-value="getWordValue('tilting')"
           :active="getWordActivity('tilting')"
-
         />
         <SliderButton
           type="words"
@@ -113,7 +118,6 @@
           id="trembling"
           :start-value="getWordValue('trembling')"
           :active="getWordActivity('trembling')"
-
         />
       </ButtonRow>
 
@@ -160,7 +164,6 @@
 
       <ButtonRow class="bottom-menu__button-row" title="Typeface" :expanded="true">
         <SliderButton disable type="faces" name="Ascender" id="ascender" />
-        <SliderButton disable type="faces" name="Baseline" id="Baseline" />
         <SliderButton disable type="faces" name="Descender" id="descender" />
         <SliderButton
           :min="-100"
@@ -200,7 +203,7 @@
           :on-change="speed => setGeneral({ speed })"
         />
       </ButtonRow>
-      <ButtonRow title="Interface" :expanded="true">
+      <ButtonRow title="Motion" :expanded="true">
         <Button :active="isPlaying" @click.native="setPlay">
           Play
         </Button>

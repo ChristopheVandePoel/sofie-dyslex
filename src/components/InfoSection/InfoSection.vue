@@ -23,7 +23,7 @@ export default {
     height: 100vh;
     color: black;
     z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: #ffffff;
   }
 
   .close-button {

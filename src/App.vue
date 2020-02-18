@@ -9,7 +9,7 @@
     <InfoSection v-if="infoOpen" />
 
     <SquareButton class="open-info-button" @click.native="toggleInfoOpen">info</SquareButton>
-    <SquareButton class="reset-info-button" @click.native="resetState">RESET</SquareButton>
+    <SquareButton class="reset-info-button" @click.native="resetState">reset</SquareButton>
 
     <!-- Left Menu -->
     <LeftMenu />
@@ -58,6 +58,7 @@ export default {
 </script>
 
 <style lang="scss">
+  @import url("https://use.typekit.net/zso7zcf.css");
 /* http://meyerweb.com/eric/tools/css/reset/
   v2.0 | 20110126
   License: none (public domain) */
@@ -211,7 +212,7 @@ body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'roboto-mono', monospace;
   background-color: whitesmoke;
 }
 
@@ -230,8 +231,8 @@ body {
 .reset-info-button {
   z-index: 999;
   position: absolute;
-  right: -2px;
-  bottom: -2px;
+  right: 2px;
+  bottom: 2px;
 }
 
 .dark-mode {

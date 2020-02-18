@@ -183,7 +183,7 @@ export default {
 <style lang="scss" scoped>
 .SliderButton {
   &.disable {
-    opacity: 0.2;
+    opacity: 0.5;
     pointer-events: none;
   }
 
@@ -201,7 +201,6 @@ export default {
   .tool-name {
     margin-left: 10px;
     margin-right: 10px;
-    padding-bottom: 3px;
   }
 
   .slider__buttons-undo {

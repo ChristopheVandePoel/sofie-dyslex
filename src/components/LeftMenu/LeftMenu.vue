@@ -133,7 +133,7 @@
         </Button>
       </ButtonRow>
       <div class="LeftMenu__special-buttons">
-        <Button class="green" @click.native="() => setPreset()">Example</Button>
+        <Button class="green" @click.native="() => setPreset()">Sample</Button>
         <Button class="green" @click.native="outputState">Save</Button>
       </div>
     </div>
