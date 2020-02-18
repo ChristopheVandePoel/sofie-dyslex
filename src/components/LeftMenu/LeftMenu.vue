@@ -76,6 +76,7 @@
       </ButtonRow>
       <ButtonRow title="Size" :expanded="true">
         <SliderButton
+          active
           id="font-size"
           :not-closable="true"
           :start-value="generalState.size"
@@ -111,6 +112,7 @@
       </ButtonRow>
       <ButtonRow title="Color">
         <SliderButton
+          active
           id="color"
           :not-closable="true"
           :hide-labels="true"
@@ -133,7 +135,6 @@
         </Button>
       </ButtonRow>
       <div class="LeftMenu__special-buttons">
-        <Button class="green" @click.native="() => setPreset()">Sample</Button>
         <Button class="green" @click.native="outputState">Save</Button>
       </div>
     </div>
@@ -163,7 +164,7 @@ export default {
     outputState() {
       console.log(JSON.stringify(this.textTransforms));
     },
-    ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen', 'setPreset']),
+    ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen']),
   },
 };
 </script>

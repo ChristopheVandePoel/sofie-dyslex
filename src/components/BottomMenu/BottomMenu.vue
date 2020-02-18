@@ -197,6 +197,7 @@
       </ButtonRow>
       <ButtonRow title="Speed" expanded>
         <SliderButton
+          active
           id="speed"
           :not-closable="true"
           :start-value="generalState.speed"

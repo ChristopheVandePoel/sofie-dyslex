@@ -9,7 +9,10 @@
     <InfoSection v-if="infoOpen" />
 
     <SquareButton class="open-info-button" @click.native="toggleInfoOpen">info</SquareButton>
-    <SquareButton class="reset-info-button" @click.native="resetState">reset</SquareButton>
+    <div class="bottom-right-containers">
+      <SquareButton @click.native="() => setPreset()">Random</SquareButton>
+      <SquareButton @click.native="resetState">reset</SquareButton>
+    </div>
 
     <!-- Left Menu -->
     <LeftMenu />
@@ -49,7 +52,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['toggleInfoOpen', 'setPreset']),
+    ...mapMutations(['toggleInfoOpen', 'setPreset', 'setPreset']),
     resetState() {
       this.setPreset(this.preset);
     },
@@ -228,7 +231,10 @@ body {
   right: -2px;
 }
 
-.reset-info-button {
+
+.bottom-right-containers {
+  display: flex;
+  flex-direction: row;
   z-index: 999;
   position: absolute;
   right: 2px;
