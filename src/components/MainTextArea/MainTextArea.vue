@@ -484,7 +484,7 @@ div.word {
   display: block;
   font-size: 280px;
   position: relative;
-  top: 45%;
+  top: 48%;
   transform: translateY(-50%);
   height: auto;
 

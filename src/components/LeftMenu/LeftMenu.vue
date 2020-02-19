@@ -120,16 +120,16 @@
           :on-change="color => setGeneral({ color })"
         />
       </ButtonRow>
-      <ButtonRow title="Interface" :expanded="true">
+      <ButtonRow title="Background" :expanded="true">
         <Button
-          :active="generalState.interface === 'bright'"
-          @click.native="setGeneral({ interface: 'bright' })"
+          :active="generalState.background === 'bright'"
+          @click.native="setGeneral({ background: 'bright' })"
         >
           Bright
         </Button>
         <Button
-          :active="generalState.interface === 'dark'"
-          @click.native="setGeneral({ interface: 'dark' })"
+          :active="generalState.background === 'dark'"
+          @click.native="setGeneral({ background: 'dark' })"
         >
           Dark
         </Button>

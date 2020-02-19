@@ -68,6 +68,7 @@ export default {
 .row-title {
   background-color: #999999;
   max-height: 12px;
+  padding: 4px 5px 6px;
 
   &:hover {
     background-color: #999999;

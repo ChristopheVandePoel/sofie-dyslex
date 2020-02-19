@@ -34,10 +34,10 @@ export default new Vuex.Store({
       font: 'sans',
       letterCase: 'lower',
       alignment: 'center',
-      interface: 'bright',
+      background: 'bright',
       weight: 'regular',
-      size: 70,
-      speed: 0,
+      size: 65,
+      speed: 50,
       color: 0,
     },
     enabledSentences: false,
@@ -123,10 +123,10 @@ export default new Vuex.Store({
         Vue.set(typeText, 'transformed', newText);
       }
       let valueResult = value;
-      if (value.interface) {
+      if (value.background) {
         valueResult = {
           ...value,
-          color: value.interface === 'bright' ? 0 : 1,
+          color: value.background === 'bright' ? 0 : 1,
         };
       }
 

@@ -8,7 +8,7 @@
     <!-- Info Section, hidden by default -->
     <InfoSection v-if="infoOpen" />
 
-    <SquareButton class="open-info-button" @click.native="toggleInfoOpen">info</SquareButton>
+    <SquareButton class="open-info-button" @click.native="toggleInfoOpen">about</SquareButton>
     <div class="bottom-right-containers">
       <SquareButton @click.native="() => setPreset()">Random</SquareButton>
       <SquareButton @click.native="resetState">reset</SquareButton>
@@ -48,7 +48,7 @@ export default {
   computed: {
     ...mapState(['generalState', 'infoOpen', 'preset']),
     isDark() {
-      return this.generalState.interface !== 'bright';
+      return this.generalState.background !== 'bright';
     },
   },
   methods: {
@@ -216,6 +216,7 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: 'roboto-mono', monospace;
+  font-weight: 500;
   background-color: whitesmoke;
 }
 

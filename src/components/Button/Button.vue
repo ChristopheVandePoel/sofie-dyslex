@@ -20,7 +20,7 @@ export default {
 .Button {
   color: black;
   cursor: pointer;
-  padding: 5px;
+  padding: 4px 5px 6px;
   margin-right: 3px;
   white-space: nowrap;
   display: flex;

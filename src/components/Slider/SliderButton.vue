@@ -201,6 +201,7 @@ export default {
   .tool-name {
     margin-left: 10px;
     margin-right: 10px;
+    padding-bottom: 2px;
   }
 
   .slider__buttons-undo {
