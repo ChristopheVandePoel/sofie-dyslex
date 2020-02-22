@@ -299,7 +299,7 @@ export default {
 $height: 180px;
 
 .bottom-menu__container {
-  position: absolute;
+  position: fixed;
   bottom: -$height;
   left: 8px;
   transition: all 0.5s ease;

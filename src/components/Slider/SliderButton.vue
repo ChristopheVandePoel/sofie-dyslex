@@ -80,6 +80,7 @@ export default {
       previous: [],
       savedValue: null,
       amountCounter: 0,
+      manualValue: 0,
     };
   },
   computed: {
@@ -128,7 +129,8 @@ export default {
     },
     tick(newTick, oldTick) {
       if (this.type && this.isPlaying && newTick !== oldTick) {
-        this.value = Math.floor((this.savedValue * newTick) / 100);
+        newTick = this.min == 0 ? Math.abs(newTick) : newTick;
+        this.value = Math.floor((this.manualValue * newTick) / 100);
 
         if (parseInt(this.value, 10) <= 0) {
           this.amountCounter = this.amountCounter + 1;
@@ -159,12 +161,15 @@ export default {
       }
 
       this.value = value;
+      this.manualValue = parseFloat(value);
+      this.disableSelection();
     },
     pushValue(input) {
       if (input.target.value === '0' || input.target.value === 0) {
         this.amountCounter = this.amountCounter + 1;
       }
       this.previous.push(input.target.value);
+      this.restoreSelection();
     },
     setPreviousValue() {
       if (this.previous.length > 1) {
@@ -175,7 +180,7 @@ export default {
         this.setValue(this.resetValue);
       }
     },
-    ...mapMutations(['setLetterTransforms', 'setReset']),
+    ...mapMutations(['setLetterTransforms', 'setReset', 'disableSelection', 'restoreSelection']),
   },
 };
 </script>
@@ -211,6 +216,7 @@ export default {
     margin-left: 10px;
     margin-right: 10px;
     padding-bottom: 2px;
+    height: 12px; /* Safari line-height bugfix */
   }
 
   .slider__buttons-undo {

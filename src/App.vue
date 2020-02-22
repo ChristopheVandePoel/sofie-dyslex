@@ -6,12 +6,12 @@
     }"
   >
     <!-- Info Section, hidden by default -->
-    <InfoSection v-if="infoOpen" />
+    <InfoSection :open="infoOpen" />
 
     <SquareButton class="open-info-button" @click.native="toggleInfoOpen">about</SquareButton>
     <div class="bottom-right-containers">
-      <SquareButton @click.native="() => setPreset()">Random</SquareButton>
-      <SquareButton @click.native="resetState">reset</SquareButton>
+      <SquareButton class="random-button" @click.native="triggerRandom">Random</SquareButton>
+      <SquareButton class="reset-button" @click.native="resetState">reset</SquareButton>
     </div>
 
     <!-- Left Menu -->
@@ -31,7 +31,6 @@ import LeftMenu from './components/LeftMenu/LeftMenu.vue';
 import BottomMenu from './components/BottomMenu/BottomMenu.vue';
 import MainTextArea from './components/MainTextArea/MainTextArea.vue';
 import InfoSection from './components/InfoSection/InfoSection.vue';
-import './assets/fonts/ibm.css';
 import './assets/fonts/stylesheet.css';
 import './assets/css/slider.css';
 import SquareButton from './components/Button/SquareButton';
@@ -46,14 +45,20 @@ export default {
     InfoSection,
   },
   computed: {
-    ...mapState(['generalState', 'infoOpen', 'preset']),
+    ...mapState(['generalState', 'defaultGeneralState', 'infoOpen', 'preset', 'randomState']),
     isDark() {
       return this.generalState.background !== 'bright';
     },
   },
   methods: {
-    ...mapMutations(['toggleInfoOpen', 'setPreset', 'setPreset']),
+    ...mapMutations(['toggleInfoOpen', 'setRandom', 'setGeneral', 'setPreset']),
+    triggerRandom() {
+      this.setRandom();
+      this.setPreset();
+      this.setGeneral();
+    },
     resetState() {
+      this.setGeneral(this.defaultGeneralState);
       this.setPreset(this.preset);
     },
   },
@@ -178,6 +183,9 @@ body {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: #f8f8f8;
+  *::selection {
+    background: rgba(0, 0, 0, .095);
+  }
 }
 
 ol,
@@ -228,8 +236,9 @@ body {
 
 .open-info-button {
   z-index: 999;
-  position: absolute;
-  right: -2px;
+  position: fixed;
+  right: 2px;
+  width: 80px;
 }
 
 
@@ -237,7 +246,7 @@ body {
   display: flex;
   flex-direction: row;
   z-index: 999;
-  position: absolute;
+  position: fixed;
   right: 2px;
   bottom: 2px;
 }

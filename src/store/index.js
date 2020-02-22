@@ -4,6 +4,7 @@ import { words } from '../random-content/words';
 import { sentences } from '../random-content/sentences';
 import { paragraphs } from '../random-content/paragraphs';
 import { presets } from './presets';
+import { generals } from './states';
 
 Vue.use(Vuex);
 
@@ -29,6 +30,16 @@ export default new Vuex.Store({
         transformed: 'Type',
       },
     },
+    defaultGeneralState: {
+      font: 'sans',
+      letterCase: 'lower',
+      alignment: 'center',
+      background: 'bright',
+      weight: 'regular',
+      size: 65,
+      speed: 50,
+      color: 0,
+    },
     generalState: {
       type: 'word',
       font: 'sans',
@@ -42,7 +53,11 @@ export default new Vuex.Store({
     },
     enabledSentences: false,
     enabledWords: false,
+    pausedInitialAnimation: false,
     preset: 0,
+    randomState: false,
+    isSelectable: true,
+    caretPosition: 0,
   },
   mutations: {
     setPlay(state) {
@@ -51,7 +66,7 @@ export default new Vuex.Store({
       state.isPlaying = true;
       if (!this.intervalId) {
         this.intervalId = setInterval(() => {
-          const speed = 1 + state.generalState.speed / 30;
+          const speed = 1 + state.generalState.speed / 15;
           if (state.tick <= 100 && state.up) {
             state.tick += speed;
             if (state.tick >= 100) {
@@ -59,9 +74,9 @@ export default new Vuex.Store({
               state.tickCounter += 1;
             }
           }
-          if (state.tick >= 0 && !state.up) {
+          if (state.tick >= -100 && !state.up) {
             state.tick -= speed;
-            if (state.tick <= 0) {
+            if (state.tick <= -100) {
               state.up = true;
             }
           }
@@ -78,6 +93,18 @@ export default new Vuex.Store({
       clearInterval(this.intervalId);
       this.intervalId = null;
       state.isPlaying = false;
+    },
+    setRandom(state) {
+      state.randomState = true;
+    },
+    storeSelection(state, position) {
+      state.caretPosition = position;
+    },
+    disableSelection(state) {
+      state.isSelectable = false;
+    },
+    restoreSelection(state) {
+      state.isSelectable = true;
     },
     switchBySentences(state, { toValue, text }) {
       if (toValue === 'letters') {
@@ -100,6 +127,8 @@ export default new Vuex.Store({
       }
     },
     setGeneral(state, value = {}) {
+      if(state.randomState) { value = generals[state.preset]; }
+
       if (value.type) {
         const typeText = state.textField.input;
         let list = words;
@@ -130,10 +159,13 @@ export default new Vuex.Store({
         };
       }
 
+      state.pausedInitialAnimation = true;
+      state.randomState = false;
       state.generalState = {
         ...state.generalState,
         ...valueResult,
       };
+
     },
     setLetterTransforms(state, input) {
       const typeText = state.textField.input;

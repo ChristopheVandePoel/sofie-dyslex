@@ -11,7 +11,7 @@
     >
       <div
         ref="editableField"
-        contenteditable
+        :contenteditable="isSelectable"
         id="main-text"
         class="textarea-container"
         :style="{
@@ -23,9 +23,12 @@
           letterSpacing: `${containerData.letterSpacing}px`,
           fontWeight: containerData.weight,
         }"
+        spellcheck="false"
         v-html="currentValue"
         @focus="onFocus"
         @input="onInput"
+        @click="saveSelection"
+        @keyup="saveSelection"
       >
         <!-- This is where the text will come. Leave empty -->
       </div>
@@ -160,10 +163,21 @@ export default {
     return {
       lineHeight: 0,
       cursorTimer: null,
+      sentences: [
+        'This website simulates symptoms of dyslexia.', 
+        'Type'
+      ],
+      sentence: [],
+      i: 0,
+      char: 0,
+      initialDelay: 2000,
+      secondDelay: 600,
+      speed: 120,
+      highlightSpeed: 14,
     };
   },
   computed: {
-    ...mapState(['generalState', 'textField', 'isPlaying', 'tickCounter']),
+    ...mapState(['generalState', 'pausedInitialAnimation', 'textField', 'isPlaying', 'tickCounter', 'isSelectable', 'caretPosition']),
     ...mapGetters(['getLetterTransforms', 'getWordTransforms', 'getSentencesTransforms']),
     fontSize() {
       return (baseFontSize[this.generalState.type] * this.generalState.size) / 100;
@@ -203,53 +217,138 @@ export default {
     },
   },
   mounted() {
-    this.setCaret();
+    this.setSelectionPosition(this.$refs.editableField, this.caretPosition);
+    this.startAnimation();
   },
   methods: {
-    ...mapMutations(['setPause', 'setTextFields', 'updateField', 'switchBySentences']),
+    ...mapMutations(['setPause', 'setTextFields', 'updateField', 'switchBySentences', 'storeSelection']),
     onFocus() {
+      this.saveSelection();
       this.setPause();
     },
     onInput(event) {
-      const hasLineBreaks = event.target.innerText.trim(/\s+/).match(/\n/);
-      const hasSpaces = event.target.innerText.trim(/\s+/).match(/\s+/);
+      const text = event.target.innerText;
+      const hasLineBreaks = text.trim(/\s+/).match(/\n/);
+      const hasSpaces = text.trim(/\s+/).match(/\s+/);
 
       if (this.generalState.type !== 'paragraph' && hasLineBreaks) {
-        this.switchBySentences({ toValue: 'sentences', text: event.target.innerText });
+        this.switchBySentences({ toValue: 'sentences', text: text });
       } else if (!hasLineBreaks && this.generalState.type !== 'sentence' && hasSpaces) {
-        this.switchBySentences({ toValue: 'words', text: event.target.innerText });
+        this.switchBySentences({ toValue: 'words', text: text });
       } else if (!hasSpaces && !hasLineBreaks && this.generalState.type !== 'word') {
-        this.switchBySentences({ toValue: 'letters', text: event.target.innerText });
+        this.switchBySentences({ toValue: 'letters', text: text });
       } else {
-        this.setTextFields(event.target.innerText);
+        this.setTextFields(text);
       }
+
+      this.saveSelection();
+    },
+    saveSelection() {
+      this.storeSelection(this.getSelectionPosition(this.$refs.editableField));
+    },
+    getSelectionPosition(el) {
+      if (el.isContentEditable) {
+          el.focus();
+          let _range = document.getSelection().getRangeAt(0);
+          let range = _range.cloneRange();
+          range.selectNodeContents(el);
+          range.setEnd(_range.endContainer, _range.endOffset);
+          return range.toString().length;
+      }
+      return el.selectionStart;
+    },
+    setSelectionPosition() {
+      document.getSelection().collapse(this.$refs.editableField, this.caretPosition);
+      this.$refs.editableField.focus();
+      return;
     },
     getColor() {
       return colorMap[this.generalState.color];
     },
-    setCaret() {
-      if (!this.isPlaying) {
-        // dit is mss te zwaar, maar het werkt atm.
-        if (this.cursorTimer !== null) {
-          clearTimeout(this.cursorTimer);
+    startAnimation() {
+      this.sentence = this.getSentenceArray(this.sentences[0]);
+      this.loopSentences();
+    },
+    getSentenceArray(str) {
+      var sentence = str.replace('<br/>', "{}<br/>{}");
+          sentence = sentence.split('{}');
+          sentence = sentence.map(function(el) {
+            return el == '<br/>' ? el : el.split('')
+          });
+      return [].concat.apply([], sentence)
+    },
+    loopSentences() {
+      if(this.pausedInitialAnimation) {
+        this.$refs.editableField.focus();
+        this.placeCaretAtEnd();
+        this.saveSelection();
+        return false;
+      }
+
+      if(this.i == 0) {
+        this.insertText('<span>'+ this.sentence.join('</span><span>') + '</span>');
+        this.$nextTick(() => {
+          this.placeCaretAtEnd();
+          this.i++;
+          this.char = this.sentence.length;
+          setTimeout(() => { this.loopSentences() }, this.initialDelay);
+        })
+      }
+      else if(this.i == 1) {
+        this.$refs.editableField.focus();
+        setTimeout(() => {
+          document.execCommand('selectAll', false, null);
+          this.i++;
+          setTimeout(() => { this.loopSentences() }, this.secondDelay);
+        }, 100);
+      }  
+      else if(this.i == 2) {
+        this.insertText('');
+        this.$refs.editableField.focus();
+
+        this.i++;
+        this.char = 0;
+        this.sentence = this.getSentenceArray(this.sentences[1]);
+        setTimeout(() => { this.loopSentences() }, this.secondDelay);
+      }
+      else if(this.i == 3) {
+        this.insertText('<span>'+ this.sentence.slice(0, this.char).join('</span><span>') + '</span>');
+        this.char++;
+        if(this.char > this.sentence.length) {
+          this.$nextTick(() => {
+            this.$refs.editableField.focus();
+            this.placeCaretAtEnd();
+          });
+          return false;
         }
-
-        this.cursorTimer = setTimeout(() => {
-          const p = this.$refs.editableField;
-          const s = window.getSelection();
-          const r = document.createRange();
-
-          r.setStart(p, p.childElementCount);
-          r.setEnd(p, p.childElementCount);
-          s.removeAllRanges();
-          s.addRange(r);
-        }, 1);
+        setTimeout(() => { this.loopSentences() }, this.speed);
       }
     },
+    insertText(_html) {
+      this.$refs.editableField.blur();
+      this.$refs.editableField.innerHTML = _html;
+      this.$refs.editableField.dispatchEvent(new Event('input'));
+    },
+    placeCaretAtEnd() {
+      let el = this.$refs.editableField;
+      var range, selection;
+      if(document.createRange) {
+          range = document.createRange();
+          range.selectNodeContents(el);
+          range.collapse(false);
+          selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+      }
+    }
   },
   watch: {
-    currentValue() {
-      this.setCaret();
+    isSelectable(isSelectable, wasSelectable) {
+      if(isSelectable && !wasSelectable) {
+        this.$nextTick(() => {
+          this.setSelectionPosition();
+        });      
+      }
     },
   },
 };
@@ -259,6 +358,12 @@ body {
   caret-color: black !important;
   .dark-mode {
     caret-color: whitesmoke !important;
+    .highlighted {
+      background: red;
+    }
+  }
+  .highlighted {
+    background: #ddd;
   }
 }
 
@@ -454,10 +559,28 @@ div.word {
   padding: 40px;
   flex: 20 0;
   display: flex;
+  max-height: 100vh;
+  overflow: scroll;
+  &:before, &:after {
+    content: '';
+    display: block;
+    width: 100vw;
+    height: 10px;
+    background: whitesmoke;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  &:after {
+    top: auto;
+    bottom: 0;
+  }
 }
 
 .text-field__main {
   width: 100%;
+  height: auto;
   position: relative;
   text-align: center;
   font-family: 'Suisse Intl', sans-serif;
@@ -486,7 +609,8 @@ div.word {
   position: relative;
   top: 48%;
   transform: translateY(-50%);
-  height: auto;
+  max-height: 100%;
+  filter: saturate(3);
 
   &.input-text {
     font-size: 120px;
@@ -505,5 +629,13 @@ span {
 
 .space {
   width: 10px;
+}
+
+body .dark-mode {
+  .top-container {
+    &:after, &:before {
+      background: #000;
+    }
+  }
 }
 </style>

@@ -1,33 +1,59 @@
+/* Sans-serif settings */
+
 @font-face {
     font-family: 'Suisse Intl';
-    src: url('SuisseIntl-Regular.eot');
-    src: url('SuisseIntl-Regular.eot?#iefix') format('embedded-opentype'),
-        url('SuisseIntl-Regular.woff2') format('woff2'),
-        url('SuisseIntl-Regular.woff') format('woff'),
-        url('SuisseIntl-Regular.ttf') format('truetype');
+    src: url('SuisseIntl-Regular.woff2') format('woff2'),
+         url('SuisseIntl-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Suisse Intl';
+    src: url('SuisseIntl-Bold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Suisse Intl';
+    src: url('SuisseIntl-RegularItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+/* Serif settings */
 
 @font-face {
     font-family: 'Suisse Works';
-    src: url('SuisseWorks-Regular.eot');
-    src: url('SuisseWorks-Regular.eot?#iefix') format('embedded-opentype'),
-        url('SuisseWorks-Regular.woff2') format('woff2'),
-        url('SuisseWorks-Regular.woff') format('woff'),
-        url('SuisseWorks-Regular.ttf') format('truetype');
+    src: url('SuisseWorks-Regular.woff2') format('woff2'),
+         url('SuisseWorks-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
+@font-face {
+    font-family: 'Suisse Works';
+    src: url('SuisseWorks-Bold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Suisse Works';
+    src: url('SuisseWorks-RegularItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
 }
 
 @font-face {
     font-family: 'Suisse Intl Mono';
-    src: url('SuisseIntlMono-Regular.eot');
-    src: url('SuisseIntlMono-Regular.eot?#iefix') format('embedded-opentype'),
-        url('SuisseIntlMono-Regular.woff2') format('woff2'),
-        url('SuisseIntlMono-Regular.woff') format('woff'),
-        url('SuisseIntlMono-Regular.ttf') format('truetype');
+    src: url('SuisseIntlMono-Regular.woff2') format('woff2'),
+         url('SuisseIntlMono-Regular.woff') format('woff');
     font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Suisse Intl Mono';
+    src: url('SuisseIntlMono-Bold.otf') format('opentype');
+    font-weight: 600;
     font-style: normal;
 }
 

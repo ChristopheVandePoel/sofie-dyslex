@@ -10,8 +10,8 @@ export default {
 
 <style lang="scss" scoped>
   .square-button {
-    width: 50px;
-    height: 25px;
+    width: 55px;
+    height: 30px;
     font-size: 12px;
     text-transform: uppercase;
     background-color: none;
@@ -25,6 +25,14 @@ export default {
     &:hover {
       background-color: none;
     }
+  }
+
+  .random-button { 
+    margin-right: 25px;
+  } 
+  
+  .reset-button { 
+    
   }
 
   /* alles wat specifiek voor de donkere versie is, zet je onderaan,

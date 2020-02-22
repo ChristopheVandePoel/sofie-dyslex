@@ -162,6 +162,8 @@ export default {
       this.open = !this.open;
     },
     outputState() {
+      console.log(this.textTransforms);
+      console.log(JSON.stringify(this.generalState));
       console.log(JSON.stringify(this.textTransforms));
     },
     ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen']),
@@ -173,7 +175,7 @@ export default {
 .tools__container {
   padding: 10px;
   left: -2px;
-  position: absolute;
+  position: fixed;
   z-index: 100;
 
   .tools__container--tools {
