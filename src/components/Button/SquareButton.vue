@@ -27,12 +27,12 @@ export default {
     }
   }
 
-  .random-button { 
+  .random-button {
     margin-right: 25px;
-  } 
-  
-  .reset-button { 
-    
+  }
+
+  .reset-button {
+
   }
 
   /* alles wat specifiek voor de donkere versie is, zet je onderaan,

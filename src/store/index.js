@@ -127,7 +127,7 @@ export default new Vuex.Store({
       }
     },
     setGeneral(state, value = {}) {
-      if(state.randomState) { value = generals[state.preset]; }
+      if (state.randomState) { value = generals[state.preset]; }
 
       if (value.type) {
         const typeText = state.textField.input;
@@ -165,7 +165,6 @@ export default new Vuex.Store({
         ...state.generalState,
         ...valueResult,
       };
-
     },
     setLetterTransforms(state, input) {
       const typeText = state.textField.input;

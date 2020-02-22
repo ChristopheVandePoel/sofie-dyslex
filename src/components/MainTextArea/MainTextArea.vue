@@ -164,8 +164,8 @@ export default {
       lineHeight: 0,
       cursorTimer: null,
       sentences: [
-        'This website simulates symptoms of dyslexia.', 
-        'Type'
+        'This website simulates symptoms of dyslexia.',
+        'Type',
       ],
       sentence: [],
       i: 0,
@@ -232,11 +232,11 @@ export default {
       const hasSpaces = text.trim(/\s+/).match(/\s+/);
 
       if (this.generalState.type !== 'paragraph' && hasLineBreaks) {
-        this.switchBySentences({ toValue: 'sentences', text: text });
+        this.switchBySentences({ toValue: 'sentences', text });
       } else if (!hasLineBreaks && this.generalState.type !== 'sentence' && hasSpaces) {
-        this.switchBySentences({ toValue: 'words', text: text });
+        this.switchBySentences({ toValue: 'words', text });
       } else if (!hasSpaces && !hasLineBreaks && this.generalState.type !== 'word') {
-        this.switchBySentences({ toValue: 'letters', text: text });
+        this.switchBySentences({ toValue: 'letters', text });
       } else {
         this.setTextFields(text);
       }
@@ -248,19 +248,18 @@ export default {
     },
     getSelectionPosition(el) {
       if (el.isContentEditable) {
-          el.focus();
-          let _range = document.getSelection().getRangeAt(0);
-          let range = _range.cloneRange();
-          range.selectNodeContents(el);
-          range.setEnd(_range.endContainer, _range.endOffset);
-          return range.toString().length;
+        el.focus();
+        const _range = document.getSelection().getRangeAt(0);
+        const range = _range.cloneRange();
+        range.selectNodeContents(el);
+        range.setEnd(_range.endContainer, _range.endOffset);
+        return range.toString().length;
       }
       return el.selectionStart;
     },
     setSelectionPosition() {
       document.getSelection().collapse(this.$refs.editableField, this.caretPosition);
       this.$refs.editableField.focus();
-      return;
     },
     getColor() {
       return colorMap[this.generalState.color];
@@ -270,58 +269,53 @@ export default {
       this.loopSentences();
     },
     getSentenceArray(str) {
-      var sentence = str.replace('<br/>', "{}<br/>{}");
-          sentence = sentence.split('{}');
-          sentence = sentence.map(function(el) {
-            return el == '<br/>' ? el : el.split('')
-          });
-      return [].concat.apply([], sentence)
+      let sentence = str.replace('<br/>', '{}<br/>{}');
+      sentence = sentence.split('{}');
+      sentence = sentence.map((el) => (el == '<br/>' ? el : el.split('')));
+      return [].concat.apply([], sentence);
     },
     loopSentences() {
-      if(this.pausedInitialAnimation) {
+      if (this.pausedInitialAnimation) {
         this.$refs.editableField.focus();
         this.placeCaretAtEnd();
         this.saveSelection();
         return false;
       }
 
-      if(this.i == 0) {
-        this.insertText('<span>'+ this.sentence.join('</span><span>') + '</span>');
+      if (this.i == 0) {
+        this.insertText(`<span>${this.sentence.join('</span><span>')}</span>`);
         this.$nextTick(() => {
           this.placeCaretAtEnd();
           this.i++;
           this.char = this.sentence.length;
-          setTimeout(() => { this.loopSentences() }, this.initialDelay);
-        })
-      }
-      else if(this.i == 1) {
+          setTimeout(() => { this.loopSentences(); }, this.initialDelay);
+        });
+      } else if (this.i == 1) {
         this.$refs.editableField.focus();
         setTimeout(() => {
           document.execCommand('selectAll', false, null);
           this.i++;
-          setTimeout(() => { this.loopSentences() }, this.secondDelay);
+          setTimeout(() => { this.loopSentences(); }, this.secondDelay);
         }, 100);
-      }  
-      else if(this.i == 2) {
+      } else if (this.i == 2) {
         this.insertText('');
         this.$refs.editableField.focus();
 
         this.i++;
         this.char = 0;
         this.sentence = this.getSentenceArray(this.sentences[1]);
-        setTimeout(() => { this.loopSentences() }, this.secondDelay);
-      }
-      else if(this.i == 3) {
-        this.insertText('<span>'+ this.sentence.slice(0, this.char).join('</span><span>') + '</span>');
+        setTimeout(() => { this.loopSentences(); }, this.secondDelay);
+      } else if (this.i == 3) {
+        this.insertText(`<span>${this.sentence.slice(0, this.char).join('</span><span>')}</span>`);
         this.char++;
-        if(this.char > this.sentence.length) {
+        if (this.char > this.sentence.length) {
           this.$nextTick(() => {
             this.$refs.editableField.focus();
             this.placeCaretAtEnd();
           });
           return false;
         }
-        setTimeout(() => { this.loopSentences() }, this.speed);
+        setTimeout(() => { this.loopSentences(); }, this.speed);
       }
     },
     insertText(_html) {
@@ -330,24 +324,25 @@ export default {
       this.$refs.editableField.dispatchEvent(new Event('input'));
     },
     placeCaretAtEnd() {
-      let el = this.$refs.editableField;
-      var range, selection;
-      if(document.createRange) {
-          range = document.createRange();
-          range.selectNodeContents(el);
-          range.collapse(false);
-          selection = window.getSelection();
-          selection.removeAllRanges();
-          selection.addRange(range);
+      const el = this.$refs.editableField;
+      let range; let
+        selection;
+      if (document.createRange) {
+        range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
       }
-    }
+    },
   },
   watch: {
     isSelectable(isSelectable, wasSelectable) {
-      if(isSelectable && !wasSelectable) {
+      if (isSelectable && !wasSelectable) {
         this.$nextTick(() => {
           this.setSelectionPosition();
-        });      
+        });
       }
     },
   },

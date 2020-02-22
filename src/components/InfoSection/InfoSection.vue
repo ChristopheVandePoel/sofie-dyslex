@@ -14,8 +14,8 @@ import SquareButton from '../Button/SquareButton';
 
 export default {
   name: 'InfoSection',
-  props: { 
-    open: Boolean
+  props: {
+    open: Boolean,
   },
   components: { SquareButton },
   methods: mapMutations(['toggleInfoOpen']),
