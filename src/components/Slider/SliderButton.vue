@@ -129,8 +129,8 @@ export default {
     },
     tick(newTick, oldTick) {
       if (this.type && this.isPlaying && newTick !== oldTick) {
-        newTick = this.min == 0 ? Math.abs(newTick) : newTick;
-        this.value = Math.floor((this.manualValue * newTick) / 100);
+        const absoluteTick = this.min === 0 ? Math.abs(newTick) : newTick;
+        this.value = Math.floor((this.manualValue * absoluteTick) / 100);
 
         if (parseInt(this.value, 10) <= 0) {
           this.amountCounter = this.amountCounter + 1;
@@ -219,6 +219,16 @@ export default {
     height: 12px; /* Safari line-height bugfix */
   }
 
+
+  @media (max-width: 1000px) {
+    .tool-name {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-bottom: 0;
+      height: 12px; /* Safari line-height bugfix */
+    }
+  }
+
   .slider__buttons-undo {
     display: inline-block;
     width: 12px;
@@ -262,6 +272,10 @@ export default {
         transition: all 0.2s ease-in;
         width: 162px;
         opacity: 1;
+
+        @media (max-width: 1000px) {
+          width: 120px;
+        }
       }
 
       &.hideLables {
@@ -283,6 +297,12 @@ export default {
 
   .tool-high {
     margin-left: 5px;
+  }
+  @media (max-width: 1000px) {
+    .tool-low,
+    .tool-high {
+      font-size: 9px;
+    }
   }
 }
 

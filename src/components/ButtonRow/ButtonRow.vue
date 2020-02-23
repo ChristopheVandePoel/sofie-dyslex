@@ -51,6 +51,10 @@ export default {
   .ButtonRow__expand {
     opacity: 0;
     transition: all ease-in 0.5s;
+
+    @media (max-width: 1000px) {
+      opacity: 1;
+    }
   }
 
   .ButtonRow__children {
@@ -81,6 +85,18 @@ export default {
   flex-wrap: wrap;
   > * {
     margin-bottom: 3px;
+  }
+}
+
+
+@media (max-width: 1000px) {
+  .tool__buttons--row {
+    font-size: 10px;
+  }
+
+  .row-title {
+    max-height: 12px;
+    padding: 4px 5px 6px;
   }
 }
 

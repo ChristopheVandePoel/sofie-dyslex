@@ -32,6 +32,7 @@
           :active="getLetterActivity('hopping')"
         />
         <SliderButton
+          disable
           type="letters"
           name="Multiply"
           id="multiply"

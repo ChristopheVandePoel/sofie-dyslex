@@ -158,13 +158,25 @@ export default {
   },
   computed: mapState(['generalState', 'menusOpen', 'textTransforms']),
   methods: {
-    handleOpenClick() {
-      this.open = !this.open;
-    },
     outputState() {
-      console.log(this.textTransforms);
+      // reduce the inactive values out:
+      const transforms = Object.keys(this.textTransforms).reduce((acc, curr) => {
+        if (Array.isArray(this.textTransforms[curr])) {
+          acc[curr] = this.textTransforms[curr];
+        } else {
+          acc[curr] = Object.keys(this.textTransforms[curr]).reduce((accTran, currTran) => {
+            if (this.textTransforms[curr][currTran].active) {
+              accTran[currTran] = this.textTransforms[curr][currTran]; // eslint-disable-line
+            }
+            return accTran;
+          }, {});
+        }
+
+        return acc;
+      }, {});
+
+      console.log(JSON.stringify(transforms));
       console.log(JSON.stringify(this.generalState));
-      console.log(JSON.stringify(this.textTransforms));
     },
     ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen']),
   },
