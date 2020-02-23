@@ -142,14 +142,9 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
 const sentenceFunction = (input, letterTransforms, wordTransforms) => {
   const output = input.split(/\n/);
 
-  const transform = output.map(entry => wordFunction(
-    entry,
-    letterTransforms,
-    wordTransforms,
-  ));
+  const transform = output.map(entry => wordFunction(entry, letterTransforms, wordTransforms));
   return transform.join('<br />');
 };
-
 
 const baseFontSize = {
   word: 350,
@@ -163,10 +158,7 @@ export default {
     return {
       lineHeight: 0,
       cursorTimer: null,
-      sentences: [
-        'This website simulates symptoms of dyslexia.',
-        'Type',
-      ],
+      sentences: ['This website simulates symptoms of dyslexia.', 'Type'],
       sentence: [],
       i: 0,
       char: 0,
@@ -177,7 +169,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(['generalState', 'pausedInitialAnimation', 'textField', 'isPlaying', 'tickCounter', 'isSelectable', 'caretPosition']),
+    ...mapState([
+      'generalState',
+      'pausedInitialAnimation',
+      'textField',
+      'isPlaying',
+      'tickCounter',
+      'isSelectable',
+      'caretPosition',
+    ]),
     ...mapGetters(['getLetterTransforms', 'getWordTransforms', 'getSentencesTransforms']),
     fontSize() {
       return (baseFontSize[this.generalState.type] * this.generalState.size) / 100;
@@ -221,7 +221,13 @@ export default {
     this.startAnimation();
   },
   methods: {
-    ...mapMutations(['setPause', 'setTextFields', 'updateField', 'switchBySentences', 'storeSelection']),
+    ...mapMutations([
+      'setPause',
+      'setTextFields',
+      'updateField',
+      'switchBySentences',
+      'storeSelection',
+    ]),
     onFocus() {
       this.saveSelection();
       this.setPause();
@@ -249,16 +255,22 @@ export default {
     getSelectionPosition(el) {
       if (el.isContentEditable) {
         el.focus();
-        const _range = document.getSelection().getRangeAt(0);
-        const range = _range.cloneRange();
+        const originalRange = document.getSelection().getRangeAt(0);
+        const range = originalRange.cloneRange();
         range.selectNodeContents(el);
-        range.setEnd(_range.endContainer, _range.endOffset);
+        range.setEnd(originalRange.endContainer, originalRange.endOffset);
         return range.toString().length;
       }
       return el.selectionStart;
     },
     setSelectionPosition() {
-      document.getSelection().collapse(this.$refs.editableField, this.caretPosition);
+      try {
+        document.getSelection().collapse(this.$refs.editableField, this.caretPosition);
+      } catch (e) {
+        console.warn('no selection possible on ', this.caretPosition);
+        this.placeCaretAtEnd();
+        this.saveSelection();
+      }
       this.$refs.editableField.focus();
     },
     getColor() {
@@ -271,8 +283,8 @@ export default {
     getSentenceArray(str) {
       let sentence = str.replace('<br/>', '{}<br/>{}');
       sentence = sentence.split('{}');
-      sentence = sentence.map((el) => (el == '<br/>' ? el : el.split('')));
-      return [].concat.apply([], sentence);
+      sentence = sentence.map(el => (el === '<br/>' ? el : el.split('')));
+      return [...sentence[0]];
     },
     loopSentences() {
       if (this.pausedInitialAnimation) {
@@ -282,30 +294,36 @@ export default {
         return false;
       }
 
-      if (this.i == 0) {
+      if (this.i === 0) {
         this.insertText(`<span>${this.sentence.join('</span><span>')}</span>`);
         this.$nextTick(() => {
           this.placeCaretAtEnd();
           this.i++;
           this.char = this.sentence.length;
-          setTimeout(() => { this.loopSentences(); }, this.initialDelay);
+          setTimeout(() => {
+            this.loopSentences();
+          }, this.initialDelay);
         });
-      } else if (this.i == 1) {
+      } else if (this.i === 1) {
         this.$refs.editableField.focus();
         setTimeout(() => {
           document.execCommand('selectAll', false, null);
           this.i++;
-          setTimeout(() => { this.loopSentences(); }, this.secondDelay);
+          setTimeout(() => {
+            this.loopSentences();
+          }, this.secondDelay);
         }, 100);
-      } else if (this.i == 2) {
+      } else if (this.i === 2) {
         this.insertText('');
         this.$refs.editableField.focus();
 
         this.i++;
         this.char = 0;
         this.sentence = this.getSentenceArray(this.sentences[1]);
-        setTimeout(() => { this.loopSentences(); }, this.secondDelay);
-      } else if (this.i == 3) {
+        setTimeout(() => {
+          this.loopSentences();
+        }, this.secondDelay);
+      } else if (this.i === 3) {
         this.insertText(`<span>${this.sentence.slice(0, this.char).join('</span><span>')}</span>`);
         this.char++;
         if (this.char > this.sentence.length) {
@@ -315,8 +333,11 @@ export default {
           });
           return false;
         }
-        setTimeout(() => { this.loopSentences(); }, this.speed);
+        setTimeout(() => {
+          this.loopSentences();
+        }, this.speed);
       }
+      return false;
     },
     insertText(_html) {
       this.$refs.editableField.blur();
@@ -325,8 +346,8 @@ export default {
     },
     placeCaretAtEnd() {
       const el = this.$refs.editableField;
-      let range; let
-        selection;
+      let range;
+      let selection;
       if (document.createRange) {
         range = document.createRange();
         range.selectNodeContents(el);
@@ -338,6 +359,13 @@ export default {
     },
   },
   watch: {
+    currentValue() {
+      this.$nextTick(() => {
+        if (!this.isPlaying) {
+          this.placeCaretAtEnd();
+        }
+      });
+    },
     isSelectable(isSelectable, wasSelectable) {
       if (isSelectable && !wasSelectable) {
         this.$nextTick(() => {
@@ -556,7 +584,8 @@ div.word {
   display: flex;
   max-height: 100vh;
   overflow: scroll;
-  &:before, &:after {
+  &:before,
+  &:after {
     content: '';
     display: block;
     width: 100vw;
@@ -628,7 +657,8 @@ span {
 
 body .dark-mode {
   .top-container {
-    &:after, &:before {
+    &:after,
+    &:before {
       background: #000;
     }
   }
