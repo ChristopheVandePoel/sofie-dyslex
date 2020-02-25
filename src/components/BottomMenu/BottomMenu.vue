@@ -305,6 +305,7 @@ $height: 180px;
   left: 8px;
   transition: all 0.5s ease;
   padding-bottom: 8px;
+  z-index: 10;
 
   .bottom-menu__button-row {
     transition: width 0.2s ease;

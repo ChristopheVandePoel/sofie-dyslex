@@ -62,7 +62,7 @@ export default {
   }
 
   .close-button {
-    color: #ffffff;
+    color: black;
   }
 }
 </style>

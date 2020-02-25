@@ -589,7 +589,7 @@ div.word {
     content: '';
     display: block;
     width: 100vw;
-    height: 10px;
+    height: 100vh;
     background: whitesmoke;
     position: fixed;
     top: 0;
@@ -608,6 +608,7 @@ div.word {
   position: relative;
   text-align: center;
   font-family: 'Suisse Intl', sans-serif;
+  z-index: 10;
 
   &.seriffed {
     font-family: 'Suisse Works', serif;
