@@ -47,7 +47,7 @@ export default {
   }
 
   &.disable {
-    opacity: 0.3;
+    // opacity: 0.3; re-enable when done
     pointer-events: none;
   }
 }

@@ -197,7 +197,7 @@ export default {
     supported by Chrome, Opera and Firefox */
 
   &.disable {
-    opacity: 0.5;
+    //opacity: 0.5; reanable when done!
     pointer-events: none;
   }
 
