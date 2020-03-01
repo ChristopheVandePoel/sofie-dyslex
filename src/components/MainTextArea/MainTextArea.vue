@@ -623,6 +623,53 @@ body {
 }
 
 .seriffed {
+  .set-i,
+  .set-l {
+    .conv {
+      width: 0.34em;
+    }
+  }
+
+  .set-t,
+  .set-f,
+  .set-r {
+    .conv {
+      width: 0.35em;
+    }
+  }
+
+  .set-y,
+  .set-v {
+    .conv {
+      width: 0.40em;
+    }
+  }
+
+  .set-a,
+  .set-o,
+  .set-q,
+  .set-e,
+  .set-b,
+  .set-s,
+  .set-c,
+  .set-d,
+  .set-k,
+  .set-u,
+  .set-g,
+  .set-h,
+  .set-n,
+  .set-p {
+    .conv {
+      width: 0.56em;
+    }
+  }
+
+  .set-m,
+  .set-w {
+    .conv {
+      width: 0.85em;
+    }
+  }
   .ui2,
   .iu1 {
     span.conv {
@@ -782,6 +829,7 @@ div.word {
 .monospace {
   span.conv {
     letter-spacing: 0 !important;
+    width: 0.65em !important;
   }
 }
 </style>
