@@ -65,6 +65,37 @@ const decrease = (letter, index, force, current, prev, next, tick) => {
   return current;
 };
 
+const pronoun = (letter, index, force, current, prev, next, tick, length, swapper, count) => {
+  if (!current.pronounType) {
+    return current;
+  }
+
+  const transform = (getRandom(count + 1) * force) > 350;
+
+  if (!transform) {
+    return {
+      ...current,
+      pronounClass: '',
+    };
+  }
+
+  if (current.pronounType === 'isA') {
+    return {
+      ...current,
+      pronounClass: 'isA',
+    };
+  }
+
+  if (current.pronounType === 'isAn' && index === 1) {
+    return {
+      ...current,
+      pronounClass: 'isAn',
+    };
+  }
+
+  return current;
+};
+
 const diphtong = (letter, index, force, current, prev, next) => {
   // verander de volgorde hier voor belangrijkheid:
   const map = {
@@ -172,4 +203,5 @@ export const letterTransformMap = {
   decrease,
   tracking: letterSpace,
   shifting: swapLong,
+  pronoun,
 };

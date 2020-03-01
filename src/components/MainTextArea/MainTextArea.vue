@@ -42,9 +42,17 @@ import { colorMap } from '../../constants';
 import { letterTransformMap } from '../../letter-helpers';
 import { sentencesTransformMap, wordTransformMap } from '../../word-helpers';
 
-const someFunction = (input, transforms) => {
+const someFunction = (input, transforms, count) => {
   const output = input.split('');
   const { length } = input;
+
+  let pronounType = '';
+
+  if (input === 'a') {
+    pronounType = 'isA';
+  } else if (input === 'an') {
+    pronounType = 'isAn';
+  }
 
   const transform = output.map((letter, index) => {
     let yay = {
@@ -59,6 +67,8 @@ const someFunction = (input, transforms) => {
       letterSpace: 0,
       multiClass: '',
       removeClass: '',
+      pronounClass: '',
+      pronounType,
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
@@ -75,6 +85,7 @@ const someFunction = (input, transforms) => {
           trans.tick,
           length,
           input[length - index - 1],
+          count,
         );
       }
     });
@@ -85,17 +96,25 @@ const someFunction = (input, transforms) => {
     display: inline-block;
     letter-spacing: ${yay.letterSpace}em`;
 
-    const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} ${yay.multiClass} ${yay.removeClass}`;
+    const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} ${yay.multiClass}
+    ${yay.removeClass} ${yay.pronounClass}`;
 
     let result = letter;
 
-    if (yay.diphClass || yay.swapClass || yay.setClass || yay.multiClass || yay.removeClass) {
+    if (
+      yay.diphClass
+      || yay.swapClass
+      || yay.setClass
+      || yay.multiClass
+      || yay.removeClass
+      || yay.pronounClass
+    ) {
       result = `<span class="conv">${letter}</span>`;
     }
 
     return `<span style="${style}" class="${extraClass}">${result}</span>`;
   });
-  // console.log(transform);
+
   return transform.join('');
 };
 
@@ -137,7 +156,7 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
     margin-right: ${yay.marginRight}em`;
 
     result += `<div class="word" style="${style}">`;
-    result += someFunction(entry, letterTransforms);
+    result += someFunction(entry, letterTransforms, index);
     result += `${index >= output.length - 1 ? '' : '&nbsp;'}</div>`;
   });
 
@@ -536,6 +555,8 @@ body {
 .xx1,
 .yy1,
 .zz1,
+.isA,
+.isAn,
 .eo2 {
   position: relative;
 
@@ -611,6 +632,16 @@ body {
 
 .ui2:after {
   content: 'i';
+}
+
+.isA:after {
+  content: 'an';
+}
+
+.isA {
+  .conv {
+    width: 1.15em;
+  }
 }
 
 // font & letter-specific widths:
@@ -695,6 +726,7 @@ body {
   }
 }
 
+.isAn,
 .aa1,
 .bb1,
 .cc1,
@@ -889,6 +921,12 @@ body {
   .ie2 {
     span.conv {
       letter-spacing: 0.18em;
+    }
+  }
+
+  .isA {
+    .conv {
+      width: 1.2em;
     }
   }
 }
@@ -1165,6 +1203,12 @@ div.word {
   .zz1 {
     span.conv {
       width: 0 !important;
+    }
+  }
+
+  .isA {
+    .conv {
+      width: 1.2em !important;
     }
   }
 }

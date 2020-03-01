@@ -117,12 +117,12 @@
           :active="getWordActivity('hopping')"
         />
         <SliderButton
-          :disable="enabledWords"
-          type="words"
+          row-override="words"
+          type="letters"
           name="Pronoun"
           id="pronoun"
-          :start-value="getWordValue('pronoun')"
-          :active="getWordActivity('pronoun')"
+          :start-value="getLetterValue('pronoun')"
+          :active="getLetterActivity('pronoun')"
         />
         <SliderButton
           type="words"
@@ -265,7 +265,8 @@ const lettersRow = [
   'shifting',
 ];
 
-const wordsRow = ['article', 'free-tremble', 'hopping', 'pronoun', 'tilting', 'trembling'];
+const wordsRow = ['article', 'free-tremble', 'hopping', 'tilting', 'trembling'];
+const wordsRowLetters = ['pronoun'];
 
 const sentenceRowLetters = ['free-tracking', 'tracking'];
 
@@ -310,6 +311,14 @@ export default {
             type: item,
             settings: { active: false },
             kind: 'words',
+          });
+        });
+
+        wordsRowLetters.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'letters',
           });
         });
       }
