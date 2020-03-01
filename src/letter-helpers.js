@@ -57,9 +57,11 @@ const diphtong = (letter, index, force, current, prev, next) => {
     au: 'ua',
     ou: 'uo',
     ei: 'ie',
+    ie: 'ei',
     ij: 'ji',
     eu: 'ue',
     ui: 'iu',
+    iu: 'ui',
     oe: 'eo',
   };
 

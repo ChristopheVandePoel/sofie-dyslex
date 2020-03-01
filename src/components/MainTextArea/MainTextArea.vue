@@ -437,10 +437,14 @@ body {
 .ji2,
 .ie1,
 .ie2,
+.ei1,
+.ei2,
 .ue1,
 .ue2,
 .iu1,
 .iu2,
+.ui1,
+.ui2,
 .ee1,
 .ee2,
 .eo1,
@@ -498,6 +502,12 @@ body {
 .ie2:after {
   content: 'e';
 }
+.ei1:after {
+  content: 'e';
+}
+.ei2:after {
+  content: 'i';
+}
 
 .iu1:after {
   content: 'i';
@@ -507,9 +517,19 @@ body {
   content: 'u';
 }
 
+.ui1:after {
+  content: 'u';
+}
+
+.ui2:after {
+  content: 'i';
+}
+
 // font & letter-specific widths:
 
 .iu1,
+.ui2,
+.ei2,
 .ie1 {
   span.conv {
     letter-spacing: -0.35em;
@@ -517,6 +537,8 @@ body {
 }
 
 .iu2,
+.ui1,
+.ei1,
 .ie2 {
   span.conv {
     letter-spacing: 0.35em;
@@ -524,22 +546,26 @@ body {
 }
 
 .seriffed {
+  .ui2,
   .iu1 {
     span.conv {
       letter-spacing: -0.25em;
     }
   }
+  .ei2,
   .ie1 {
     span.conv {
       letter-spacing: -0.18em;
     }
   }
 
+  .ui1,
   .iu2 {
     span.conv {
       letter-spacing: 0.25em;
     }
   }
+  .ei1,
   .ie2 {
     span.conv {
       letter-spacing: 0.18em;
@@ -592,6 +618,34 @@ body {
 .swap-v:after {
   content: 'f';
 }
+
+.set-a:after { content: 'a'};
+.set-b:after { content: 'b'};
+.set-c:after { content: 'c'};
+.set-d:after { content: 'd'};
+.set-e:after { content: 'e'};
+.set-f:after { content: 'f'};
+.set-g:after { content: 'g'};
+.set-h:after { content: 'h'};
+.set-i:after { content: 'i'};
+.set-j:after { content: 'j'};
+.set-k:after { content: 'k'};
+.set-l:after { content: 'l'};
+.set-m:after { content: 'm'};
+.set-n:after { content: 'n'};
+.set-o:after { content: 'o'};
+.set-p:after { content: 'p'};
+.set-q:after { content: 'q'};
+.set-r:after { content: 'r'};
+.set-s:after { content: 's'};
+.set-t:after { content: 't'};
+.set-u:after { content: 'u'};
+.set-v:after { content: 'v'};
+.set-w:after { content: 'w'};
+.set-x:after { content: 'x'};
+.set-y:after { content: 'y'};
+.set-z:after { content: 'z'};
+
 div.word {
   display: inline-block;
 }
