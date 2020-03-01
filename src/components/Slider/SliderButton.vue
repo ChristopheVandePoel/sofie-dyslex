@@ -22,6 +22,7 @@
           @click="returnFalse"
           @input="setValue"
           @change="pushValue"
+          @mouseup="forceValue"
           class="SliderButton__input"
           :value="value"
           :step="step"
@@ -176,6 +177,11 @@ export default {
       } else {
         this.previous = [];
         this.setValue(this.resetValue);
+      }
+    },
+    forceValue(input) {
+      if (input.target.value === '0') {
+        this.restoreSelection();
       }
     },
     ...mapMutations(['setLetterTransforms', 'setReset', 'disableSelection', 'restoreSelection']),
