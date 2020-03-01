@@ -421,6 +421,11 @@ body {
   }
 }
 
+// Ok, so here is what happens. Because we want to be able to type in the field that we transform,
+// we cannot transform the text directly (because then we cannot revert to the original,
+// as it is lost). So we need to do it all by css.
+// That's why we have created these huge definitions, that are swapped in and out of existence
+// on letters.
 // swapping classes:
 .swap-b,
 .swap-d,
@@ -612,13 +617,13 @@ body {
 .set-i,
 .set-l {
   .conv {
-    width: 0.20em;
+    width: 0.2em;
   }
 }
 .iii,
 .lll {
   .conv {
-    width: 0.40em;
+    width: 0.4em;
   }
 }
 
@@ -626,7 +631,7 @@ body {
 .fff,
 .rrr {
   .conv {
-    width: 0.70em;
+    width: 0.7em;
   }
 }
 
@@ -641,14 +646,14 @@ body {
 .set-y,
 .set-v {
   .conv {
-    width: 0.40em;
+    width: 0.4em;
   }
 }
 
 .yyy,
 .vvv {
   .conv {
-    width: 0.90em;
+    width: 0.9em;
   }
 }
 
@@ -667,7 +672,7 @@ body {
 .set-n,
 .set-p {
   .conv {
-    width: 0.60em;
+    width: 0.6em;
   }
 }
 
@@ -686,7 +691,7 @@ body {
 .nnn,
 .ppp {
   .conv {
-    width: 1.20em;
+    width: 1.2em;
   }
 }
 
@@ -788,7 +793,7 @@ body {
   .set-y,
   .set-v {
     .conv {
-      width: 0.60em;
+      width: 0.6em;
     }
   }
 
@@ -1130,6 +1135,36 @@ div.word {
   .zzz {
     span.conv {
       width: 1.3em !important;
+    }
+  }
+  .aa1,
+  .bb1,
+  .cc1,
+  .dd1,
+  .ee1,
+  .ff1,
+  .gg1,
+  .hh1,
+  .ii1,
+  .jj1,
+  .kk1,
+  .ll1,
+  .mm1,
+  .nn1,
+  .oo1,
+  .pp1,
+  .qq1,
+  .rr1,
+  .ss1,
+  .tt1,
+  .uu1,
+  .vv1,
+  .ww1,
+  .xx1,
+  .yy1,
+  .zz1 {
+    span.conv {
+      width: 0 !important;
     }
   }
 }
