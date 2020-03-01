@@ -58,6 +58,7 @@ const someFunction = (input, transforms) => {
       setClass: '',
       letterSpace: 0,
       multiClass: '',
+      removeClass: '',
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
@@ -84,11 +85,11 @@ const someFunction = (input, transforms) => {
     display: inline-block;
     letter-spacing: ${yay.letterSpace}em`;
 
-    const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass}  ${yay.multiClass}`;
+    const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} ${yay.multiClass} ${yay.removeClass}`;
 
     let result = letter;
 
-    if (yay.diphClass || yay.swapClass || yay.setClass || yay.multiClass) {
+    if (yay.diphClass || yay.swapClass || yay.setClass || yay.multiClass || yay.removeClass) {
       result = `<span class="conv">${letter}</span>`;
     }
 
@@ -504,6 +505,32 @@ body {
 .xxx,
 .yyy,
 .zzz,
+.aa1,
+.bb1,
+.cc1,
+.dd1,
+.ee1,
+.ff1,
+.gg1,
+.hh1,
+.ii1,
+.jj1,
+.kk1,
+.ll1,
+.mm1,
+.nn1,
+.oo1,
+.pp1,
+.qq1,
+.rr1,
+.ss1,
+.tt1,
+.uu1,
+.vv1,
+.ww1,
+.xx1,
+.yy1,
+.zz1,
 .eo2 {
   position: relative;
 
@@ -660,6 +687,37 @@ body {
 .ppp {
   .conv {
     width: 1.20em;
+  }
+}
+
+.aa1,
+.bb1,
+.cc1,
+.dd1,
+.ee1,
+.ff1,
+.gg1,
+.hh1,
+.ii1,
+.jj1,
+.kk1,
+.ll1,
+.mm1,
+.nn1,
+.oo1,
+.pp1,
+.qq1,
+.rr1,
+.ss1,
+.tt1,
+.uu1,
+.vv1,
+.ww1,
+.xx1,
+.yy1,
+.zz1 {
+  .conv {
+    width: 0;
   }
 }
 

@@ -45,6 +45,13 @@
         />
         <SliderButton
           type="letters"
+          name="Decrease"
+          id="decrease"
+          :start-value="getLetterValue('decrease')"
+          :active="getLetterActivity('decrease')"
+        />
+        <SliderButton
+          type="letters"
           name="Rotation"
           id="rotation"
           :start-value="getLetterValue('rotation')"

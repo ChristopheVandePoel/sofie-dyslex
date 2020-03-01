@@ -44,11 +44,6 @@ const multiply = (letter, index, force, current, prev, next, tick) => ({
       ? `${letter}${letter}${letter}`
       : '',
 });
-//
-// const rotate = (letter, index, force, current) => ({
-//   ...current,
-//   rotate: (current.rotate < 0 ? -1 : 1) * ((force * 30) / 100) + Math.abs(current.rotate),
-// });
 
 export const freeRotate = (letter, index, force, current, prev, next, tick) => ({
   ...current,
@@ -56,6 +51,19 @@ export const freeRotate = (letter, index, force, current, prev, next, tick) => (
     (getRandom(index, tick) % 2 ? -1 : 1) * ((getRandom(index + tick) * force * 30) / 1000)
     + Math.abs(current.rotate),
 });
+
+const decrease = (letter, index, force, current, prev, next, tick) => {
+  if (letter === next) {
+    return {
+      ...current,
+      removeClass:
+        parseInt(getRandom(index, tick), 10) * 10 + parseInt(force, 10) > 100
+          ? `${letter}${letter}1`
+          : '',
+    };
+  }
+  return current;
+};
 
 const diphtong = (letter, index, force, current, prev, next) => {
   // verander de volgorde hier voor belangrijkheid:
@@ -122,8 +130,6 @@ const swapLong = (letter, index, force, current, prev, next, tick, length, swapp
     };
   }
 
-  console.log(force * length * (1 - chance));
-
   return {
     ...current,
     setClass: force * length * (1 - chance) > 250 ? `set-${swapper.toLowerCase()}` : '',
@@ -163,6 +169,7 @@ export const letterTransformMap = {
   height,
   multiply,
   width,
+  decrease,
   tracking: letterSpace,
   shifting: swapLong,
 };
