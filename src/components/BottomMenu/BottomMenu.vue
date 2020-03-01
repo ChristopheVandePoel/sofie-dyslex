@@ -12,7 +12,7 @@
         />
         <SliderButton
           type="letters"
-          name="Diphtong"
+          name="Diphthong"
           id="letters-diphtong"
           :start-value="getLetterValue('letters-diphtong')"
           :active="getLetterActivity('letters-diphtong')"
