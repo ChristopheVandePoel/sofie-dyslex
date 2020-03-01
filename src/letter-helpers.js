@@ -98,6 +98,30 @@ const swapping = (letter, index, force, current) => {
   };
 };
 
+const swapLong = (letter, index, force, current, prev, next, tick, length, swapper) => {
+  let chance = 0;
+
+  if (index >= length / 2) {
+    chance = (2 - (index + 1) / (length / 2));
+  } else {
+    chance = index / (length / 2);
+  }
+
+  if (chance === 0) {
+    return {
+      ...current,
+      setClass: '',
+    };
+  }
+
+  console.log(force * length * (1 - chance));
+
+  return {
+    ...current,
+    setClass: force * length * (1 - chance) > 250 ? `set-${swapper.toLowerCase()}` : '',
+  };
+};
+
 const freeLetters = (letter, index, force, current, prev, next, tick) => ({
   ...current,
   letterSpace: (getRandom(index, tick) * force) / 1500 + current.letterSpace,
@@ -131,4 +155,5 @@ export const letterTransformMap = {
   height,
   width,
   tracking: letterSpace,
+  shifting: swapLong,
 };

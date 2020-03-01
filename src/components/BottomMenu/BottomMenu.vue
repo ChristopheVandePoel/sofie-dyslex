@@ -51,7 +51,13 @@
           :start-value="getLetterValue('rotation')"
           :active="getLetterActivity('rotation')"
         />
-        <SliderButton disable type="letters" name="Shifting" id="shifting" />
+        <SliderButton
+          type="letters"
+          name="Shifting"
+          id="shifting"
+          :start-value="getLetterValue('shifting')"
+          :active="getLetterActivity('shifting')"
+        />
         <SliderButton
           type="letters"
           name="Swapping"

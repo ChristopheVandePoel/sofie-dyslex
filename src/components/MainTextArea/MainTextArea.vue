@@ -45,6 +45,7 @@ import { sentencesTransformMap, wordTransformMap } from '../../word-helpers';
 const someFunction = (input, transforms) => {
   // console.log(input, transforms);
   const output = input.split('');
+  const { length } = input;
 
   const transform = output.map((letter, index) => {
     let yay = {
@@ -55,6 +56,7 @@ const someFunction = (input, transforms) => {
       rotate: 0,
       diphClass: '',
       swapClass: '',
+      setClass: '',
       letterSpace: 0,
     };
     if (letter === ' ') {
@@ -70,6 +72,8 @@ const someFunction = (input, transforms) => {
           output[index - 1],
           output[index + 1],
           trans.tick,
+          length,
+          input[length - index - 1],
         );
       }
     });
@@ -80,11 +84,11 @@ const someFunction = (input, transforms) => {
     display: inline-block;
     letter-spacing: ${yay.letterSpace}em`;
 
-    const extraClass = `${yay.diphClass} ${yay.swapClass} `;
+    const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} `;
 
     let result = letter;
 
-    if (yay.diphClass || yay.swapClass) {
+    if (yay.diphClass || yay.swapClass || yay.setClass) {
       result = `<span class="conv">${letter}</span>`;
     }
 
@@ -448,6 +452,32 @@ body {
 .ee1,
 .ee2,
 .eo1,
+.set-a,
+.set-b,
+.set-c,
+.set-d,
+.set-e,
+.set-f,
+.set-g,
+.set-h,
+.set-i,
+.set-j,
+.set-k,
+.set-l,
+.set-m,
+.set-n,
+.set-o,
+.set-p,
+.set-q,
+.set-r,
+.set-s,
+.set-t,
+.set-u,
+.set-v,
+.set-w,
+.set-x,
+.set-y,
+.set-z,
 .eo2 {
   position: relative;
 
@@ -526,6 +556,53 @@ body {
 }
 
 // font & letter-specific widths:
+.set-i,
+.set-l {
+  .conv {
+    width: 0.20em;
+  }
+}
+
+.set-t,
+.set-f,
+.set-r {
+  .conv {
+    width: 0.35em;
+  }
+}
+
+.set-y,
+.set-v {
+  .conv {
+    width: 0.40em;
+  }
+}
+
+.set-a,
+.set-o,
+.set-q,
+.set-e,
+.set-b,
+.set-s,
+.set-c,
+.set-d,
+.set-k,
+.set-u,
+.set-g,
+.set-h,
+.set-n,
+.set-p {
+  .conv {
+    width: 0.60em;
+  }
+}
+
+.set-m,
+.set-w {
+  .conv {
+    width: 0.85em;
+  }
+}
 
 .iu1,
 .ui2,
@@ -619,32 +696,84 @@ body {
   content: 'f';
 }
 
-.set-a:after { content: 'a'};
-.set-b:after { content: 'b'};
-.set-c:after { content: 'c'};
-.set-d:after { content: 'd'};
-.set-e:after { content: 'e'};
-.set-f:after { content: 'f'};
-.set-g:after { content: 'g'};
-.set-h:after { content: 'h'};
-.set-i:after { content: 'i'};
-.set-j:after { content: 'j'};
-.set-k:after { content: 'k'};
-.set-l:after { content: 'l'};
-.set-m:after { content: 'm'};
-.set-n:after { content: 'n'};
-.set-o:after { content: 'o'};
-.set-p:after { content: 'p'};
-.set-q:after { content: 'q'};
-.set-r:after { content: 'r'};
-.set-s:after { content: 's'};
-.set-t:after { content: 't'};
-.set-u:after { content: 'u'};
-.set-v:after { content: 'v'};
-.set-w:after { content: 'w'};
-.set-x:after { content: 'x'};
-.set-y:after { content: 'y'};
-.set-z:after { content: 'z'};
+.set-a:after {
+  content: 'a';
+}
+.set-b:after {
+  content: 'b';
+}
+.set-c:after {
+  content: 'c';
+}
+.set-d:after {
+  content: 'd';
+}
+.set-e:after {
+  content: 'e';
+}
+.set-f:after {
+  content: 'f';
+}
+.set-g:after {
+  content: 'g';
+}
+.set-h:after {
+  content: 'h';
+}
+.set-i:after {
+  content: 'i';
+}
+.set-j:after {
+  content: 'j';
+}
+.set-k:after {
+  content: 'k';
+}
+.set-l:after {
+  content: 'l';
+}
+.set-m:after {
+  content: 'm';
+}
+.set-n:after {
+  content: 'n';
+}
+.set-o:after {
+  content: 'o';
+}
+.set-p:after {
+  content: 'p';
+}
+.set-q:after {
+  content: 'q';
+}
+.set-r:after {
+  content: 'r';
+}
+.set-s:after {
+  content: 's';
+}
+.set-t:after {
+  content: 't';
+}
+.set-u:after {
+  content: 'u';
+}
+.set-v:after {
+  content: 'v';
+}
+.set-w:after {
+  content: 'w';
+}
+.set-x:after {
+  content: 'x';
+}
+.set-y:after {
+  content: 'y';
+}
+.set-z:after {
+  content: 'z';
+}
 
 div.word {
   display: inline-block;
