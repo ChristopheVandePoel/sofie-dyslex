@@ -3,18 +3,18 @@
     <IconButton class="tools-icon-button" @click.native="toggleMenusOpen" />
     <div class="tools__container--tools">
       <ButtonRow title="Content" :expanded="true">
-        <Button :active="generalState.type === 'word'" @click.native="setGeneral({ type: 'word' })">
+        <Button :active="generalState.type === 'word'" @click.native="setGenSetting({ type: 'word' })">
           Word
         </Button>
         <Button
           :active="generalState.type === 'sentence'"
-          @click.native="setGeneral({ type: 'sentence' })"
+          @click.native="setGenSetting({ type: 'sentence' })"
         >
           Sentence
         </Button>
         <Button
           :active="generalState.type === 'paragraph'"
-          @click.native="setGeneral({ type: 'paragraph' })"
+          @click.native="setGenSetting({ type: 'paragraph' })"
         >
           Paragraph
         </Button>
@@ -178,7 +178,11 @@ export default {
       console.log(JSON.stringify(transforms));
       console.log(JSON.stringify(this.generalState));
     },
-    ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen']),
+    ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen', 'storeSelection']),
+    setGenSetting(input) {
+      this.storeSelection(9999);
+      this.setGeneral(input);
+    },
   },
 };
 </script>

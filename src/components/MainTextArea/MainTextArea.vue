@@ -264,12 +264,33 @@ export default {
       return el.selectionStart;
     },
     setSelectionPosition() {
-      try {
-        document.getSelection().collapse(this.$refs.editableField, this.caretPosition);
-      } catch (e) {
-        console.warn('no selection possible on ', this.caretPosition);
+      if (this.caretPosition === 9999) {
         this.placeCaretAtEnd();
         this.saveSelection();
+      } else {
+        try {
+          const words = this.$refs.editableField.getElementsByClassName('word');
+
+          if (!words.length) {
+            document.getSelection().collapse(this.$refs.editableField, this.caretPosition);
+          } else {
+            let position = 0;
+
+            /* eslint-disable-next-line no-restricted-syntax */
+            for (const word of words) {
+              if (word.textContent.length + position >= this.caretPosition) {
+                document.getSelection().collapse(word, this.caretPosition - position);
+                break;
+              } else {
+                position += word.textContent.length;
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('no selection possible on ', this.caretPosition);
+          this.placeCaretAtEnd();
+          this.saveSelection();
+        }
       }
       this.$refs.editableField.focus();
     },
@@ -359,10 +380,15 @@ export default {
     },
   },
   watch: {
+    isPlaying(newValue, old) {
+      if (!newValue && old !== newValue) {
+        this.setSelectionPosition();
+      }
+    },
     currentValue() {
       this.$nextTick(() => {
-        if (!this.isPlaying) {
-          this.placeCaretAtEnd();
+        if (this.caretPosition === 9999 || !this.isPlaying) {
+          this.setSelectionPosition();
         }
       });
     },
