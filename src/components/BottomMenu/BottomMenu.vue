@@ -2,7 +2,12 @@
   <div class="bottom-menu__container" :class="{ opened: menusOpen }">
     <IconButton class="bottom-close-button" icon="arrow-down" @click.native="toggleMenusOpen" />
     <div class="bottom-container__buttons">
-      <ButtonRow class="bottom-menu__button-row" title="Letters" :expanded="true">
+      <ButtonRow
+        class="bottom-menu__button-row"
+        title="Letters"
+        :expanded="true"
+        :onDisable="() => disable('lettersRow')"
+      >
         <SliderButton
           type="letters"
           name="Backwards"
@@ -75,6 +80,7 @@
         class="bottom-menu__button-row"
         title="Words"
         :expanded="true"
+        :onDisable="() => disable('wordsRow')"
       >
         <SliderButton
           :disable="enabledWords"
@@ -122,7 +128,12 @@
         />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Sentences" :expanded="true">
+      <ButtonRow
+        class="bottom-menu__button-row"
+        title="Sentences"
+        :expanded="true"
+        :onDisable="() => disable('sentenceRow')"
+      >
         <SliderButton
           row-override="sentences"
           type="letters"
@@ -163,7 +174,12 @@
         />
       </ButtonRow>
 
-      <ButtonRow class="bottom-menu__button-row" title="Typeface" :expanded="true">
+      <ButtonRow
+        class="bottom-menu__button-row"
+        title="Typeface"
+        :expanded="true"
+        :onDisable="() => disable('typefaceRow')"
+      >
         <SliderButton disable type="faces" name="Ascender" id="ascender" />
         <SliderButton disable type="faces" name="Descender" id="descender" />
         <SliderButton
@@ -224,6 +240,31 @@ import SliderButton from '../Slider/SliderButton.vue';
 import ButtonRow from '../ButtonRow/ButtonRow.vue';
 import Button from '../Button/Button.vue';
 
+const lettersRow = [
+  'letters-backwards',
+  'letters-diphtong',
+  'free-tremble',
+  'hopping',
+  'multiply',
+  'rotation',
+  'letters-swapping',
+  'trembling',
+  'upside-down-letters',
+  'shifting',
+];
+
+const wordsRow = ['article', 'free-tremble', 'hopping', 'pronoun', 'tilting', 'trembling'];
+
+const sentenceRowLetters = ['free-tracking', 'tracking'];
+
+const sentenceRowWords = ['interspace'];
+
+const sentenceRowSentence = ['line-spacing'];
+
+const typefaceRowLetters = ['height', 'width'];
+
+const typefaceRowSentece = ['weight'];
+
 export default {
   name: 'BottomMenu',
   components: {
@@ -233,7 +274,73 @@ export default {
     Button,
   },
   methods: {
-    ...mapMutations(['toggleMenusOpen', 'setGeneral', 'setPlay', 'setPause']),
+    ...mapMutations([
+      'toggleMenusOpen',
+      'setGeneral',
+      'setPlay',
+      'setPause',
+      'setLetterTransforms',
+    ]),
+    disable(input) {
+      console.log(input);
+      if (input === 'lettersRow') {
+        lettersRow.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'letters',
+          });
+        });
+      }
+      if (input === 'wordsRow') {
+        wordsRow.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'words',
+          });
+        });
+      }
+      if (input === 'sentenceRow') {
+        sentenceRowLetters.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'letters',
+          });
+        });
+        sentenceRowWords.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'words',
+          });
+        });
+        sentenceRowSentence.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'sentences',
+          });
+        });
+      }
+      if (input === 'typefaceRow') {
+        typefaceRowLetters.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'letters',
+          });
+        });
+        typefaceRowSentece.forEach(item => {
+          this.setLetterTransforms({
+            type: item,
+            settings: { active: false },
+            kind: 'sentences',
+          });
+        });
+      }
+    },
     getLetterValue(type) {
       if (this.letterValues[type]) {
         return parseFloat(this.letterValues[type].value);

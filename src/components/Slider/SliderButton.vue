@@ -146,7 +146,6 @@ export default {
         settings: { active: !this.active, value: this.value, tick: this.amountCounter },
         kind: this.type,
       });
-      // this.active = !this.active;
     },
     returnFalse(e) {
       e.preventDefault();
@@ -157,7 +156,6 @@ export default {
       const value = input.target ? input.target.value : input;
       if (this.isPlaying && this.id !== 'speed') {
         this.setReset();
-        // this.savedValue = value;
       }
 
       this.value = value;

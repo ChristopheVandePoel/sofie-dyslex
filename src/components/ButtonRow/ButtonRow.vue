@@ -23,6 +23,7 @@ export default {
     title: String,
     expanded: Boolean,
     disabled: Boolean,
+    onDisable: Function,
   },
   data() {
     return {
@@ -31,6 +32,9 @@ export default {
   },
   methods: {
     toggleActive() {
+      if (this.isExpanded && this.onDisable) {
+        this.onDisable();
+      }
       this.isExpanded = !this.isExpanded;
     },
   },

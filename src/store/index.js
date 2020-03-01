@@ -127,7 +127,7 @@ export default new Vuex.Store({
       }
     },
     setGeneral(state, value = {}) {
-      if (state.randomState) { value = generals[state.preset]; }
+      if (state.randomState) { value = generals[state.preset]; }       // eslint-disable-line
 
       if (value.type) {
         const typeText = state.textField.input;
@@ -255,6 +255,9 @@ export default new Vuex.Store({
       });
 
       Vue.set(state.textTransforms, 'activeSentences', [...activePreset.activeSentences]);
+    },
+    resetTypes(state, allTypes) {
+      console.log(allTypes);
     },
   },
   getters: {
