@@ -36,6 +36,14 @@ const upsideDown = (letter, index, force, current, prev, next, tick) => ({
   ...current,
   scaleY: parseInt(getRandom(index, tick), 10) * 10 + parseInt(force, 10) > 100 ? -1 : 1,
 });
+
+const multiply = (letter, index, force, current, prev, next, tick) => ({
+  ...current,
+  multiClass:
+    parseInt(getRandom(index, tick), 10) * 10 + parseInt(force, 10) > 100
+      ? `${letter}${letter}${letter}`
+      : '',
+});
 //
 // const rotate = (letter, index, force, current) => ({
 //   ...current,
@@ -102,7 +110,7 @@ const swapLong = (letter, index, force, current, prev, next, tick, length, swapp
   let chance = 0;
 
   if (index >= length / 2) {
-    chance = (2 - (index + 1) / (length / 2));
+    chance = 2 - (index + 1) / (length / 2);
   } else {
     chance = index / (length / 2);
   }
@@ -129,17 +137,17 @@ const freeLetters = (letter, index, force, current, prev, next, tick) => ({
 
 const height = (letter, index, force, current) => ({
   ...current,
-  scaleY: (current.scaleY || 1) * (1 + (force / 150)),
+  scaleY: (current.scaleY || 1) * (1 + force / 150),
 });
 
 const width = (letter, index, force, current) => ({
   ...current,
-  scaleX: (current.scaleX || 1) * (1 + (force / 250)),
+  scaleX: (current.scaleX || 1) * (1 + force / 250),
 });
 
 const letterSpace = (letter, index, force, current) => ({
   ...current,
-  letterSpace: (force / 1000) + current.letterSpace,
+  letterSpace: force / 1000 + current.letterSpace,
 });
 
 export const letterTransformMap = {
@@ -153,6 +161,7 @@ export const letterTransformMap = {
   'letters-swapping': swapping,
   'free-tracking': freeLetters,
   height,
+  multiply,
   width,
   tracking: letterSpace,
   shifting: swapLong,

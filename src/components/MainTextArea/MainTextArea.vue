@@ -43,7 +43,6 @@ import { letterTransformMap } from '../../letter-helpers';
 import { sentencesTransformMap, wordTransformMap } from '../../word-helpers';
 
 const someFunction = (input, transforms) => {
-  // console.log(input, transforms);
   const output = input.split('');
   const { length } = input;
 
@@ -58,6 +57,7 @@ const someFunction = (input, transforms) => {
       swapClass: '',
       setClass: '',
       letterSpace: 0,
+      multiClass: '',
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
@@ -84,11 +84,11 @@ const someFunction = (input, transforms) => {
     display: inline-block;
     letter-spacing: ${yay.letterSpace}em`;
 
-    const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} `;
+    const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass}  ${yay.multiClass}`;
 
     let result = letter;
 
-    if (yay.diphClass || yay.swapClass || yay.setClass) {
+    if (yay.diphClass || yay.swapClass || yay.setClass || yay.multiClass) {
       result = `<span class="conv">${letter}</span>`;
     }
 
@@ -478,6 +478,32 @@ body {
 .set-x,
 .set-y,
 .set-z,
+.aaa,
+.bbb,
+.ccc,
+.ddd,
+.eee,
+.fff,
+.ggg,
+.hhh,
+.iii,
+.jjj,
+.kkk,
+.lll,
+.mmm,
+.nnn,
+.ooo,
+.ppp,
+.qqq,
+.rrr,
+.sss,
+.ttt,
+.uuu,
+.vvv,
+.www,
+.xxx,
+.yyy,
+.zzz,
 .eo2 {
   position: relative;
 
@@ -562,6 +588,20 @@ body {
     width: 0.20em;
   }
 }
+.iii,
+.lll {
+  .conv {
+    width: 0.40em;
+  }
+}
+
+.ttt,
+.fff,
+.rrr {
+  .conv {
+    width: 0.70em;
+  }
+}
 
 .set-t,
 .set-f,
@@ -575,6 +615,13 @@ body {
 .set-v {
   .conv {
     width: 0.40em;
+  }
+}
+
+.yyy,
+.vvv {
+  .conv {
+    width: 0.90em;
   }
 }
 
@@ -597,10 +644,36 @@ body {
   }
 }
 
+.aaa,
+.ooo,
+.qqq,
+.eee,
+.bbb,
+.sss,
+.ccc,
+.ddd,
+.kkk,
+.uuu,
+.ggg,
+.hhh,
+.nnn,
+.ppp {
+  .conv {
+    width: 1.20em;
+  }
+}
+
 .set-m,
 .set-w {
   .conv {
     width: 0.85em;
+  }
+}
+
+.mmm,
+.www {
+  .conv {
+    width: 1.45em;
   }
 }
 
@@ -630,6 +703,14 @@ body {
     }
   }
 
+  .ttt,
+  .iii,
+  .lll {
+    .conv {
+      width: 0.68em;
+    }
+  }
+
   .set-t,
   .set-f,
   .set-r {
@@ -638,10 +719,34 @@ body {
     }
   }
 
+  .fff,
+  .sss,
+  .rrr {
+    .conv {
+      width: 0.9em;
+    }
+  }
+
   .set-y,
   .set-v {
     .conv {
-      width: 0.40em;
+      width: 0.60em;
+    }
+  }
+
+  .ccc,
+  .vvv {
+    .conv {
+      width: 1em;
+    }
+  }
+
+  .yyy,
+  .aaa,
+  .eee,
+  .vvv {
+    .conv {
+      width: 1.1em;
     }
   }
 
@@ -664,12 +769,40 @@ body {
     }
   }
 
+  .ooo,
+  .qqq,
+  .bbb,
+  .ddd,
+  .kkk,
+  .uuu,
+  .ggg,
+  .hhh,
+  .nnn,
+  .ppp {
+    .conv {
+      width: 1.2em;
+    }
+  }
+
   .set-m,
   .set-w {
     .conv {
       width: 0.85em;
     }
   }
+
+  .www {
+    .conv {
+      width: 1.6em;
+    }
+  }
+
+  .mmm {
+    .conv {
+      width: 1.8em;
+    }
+  }
+
   .ui2,
   .iu1 {
     span.conv {
@@ -822,6 +955,85 @@ body {
   content: 'z';
 }
 
+.aaa:after {
+  content: 'aa';
+}
+.bbb:after {
+  content: 'bb';
+}
+.ccc:after {
+  content: 'cc';
+}
+.ddd:after {
+  content: 'dd';
+}
+.eee:after {
+  content: 'ee';
+}
+.fff:after {
+  content: 'ff';
+}
+.ggg:after {
+  content: 'gg';
+}
+.hhh:after {
+  content: 'hh';
+}
+.iii:after {
+  content: 'ii';
+}
+.jjj:after {
+  content: 'jj';
+}
+.kkk:after {
+  content: 'kk';
+}
+.lll:after {
+  content: 'll';
+}
+.mmm:after {
+  content: 'mm';
+}
+.nnn:after {
+  content: 'nn';
+}
+.ooo:after {
+  content: 'oo';
+}
+.ppp:after {
+  content: 'pp';
+}
+.qqq:after {
+  content: 'qq';
+}
+.rrr:after {
+  content: 'rr';
+}
+.sss:after {
+  content: 'ss';
+}
+.ttt:after {
+  content: 'tt';
+}
+.uuu:after {
+  content: 'uu';
+}
+.vvv:after {
+  content: 'vv';
+}
+.www:after {
+  content: 'ww';
+}
+.xxx:after {
+  content: 'xx';
+}
+.yyy:after {
+  content: 'yy';
+}
+.zzz:after {
+  content: 'zz';
+}
+
 div.word {
   display: inline-block;
 }
@@ -830,6 +1042,37 @@ div.word {
   span.conv {
     letter-spacing: 0 !important;
     width: 0.65em !important;
+  }
+
+  .aaa,
+  .bbb,
+  .ccc,
+  .ddd,
+  .eee,
+  .fff,
+  .ggg,
+  .hhh,
+  .iii,
+  .jjj,
+  .kkk,
+  .lll,
+  .mmm,
+  .nnn,
+  .ooo,
+  .ppp,
+  .qqq,
+  .rrr,
+  .sss,
+  .ttt,
+  .uuu,
+  .vvv,
+  .www,
+  .xxx,
+  .yyy,
+  .zzz {
+    span.conv {
+      width: 1.3em !important;
+    }
   }
 }
 </style>
