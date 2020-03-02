@@ -133,7 +133,7 @@ export default {
         const absoluteTick = this.min === 0 ? Math.abs(newTick) : newTick;
         this.value = Math.floor((this.manualValue * absoluteTick) / 100);
 
-        if (parseInt(this.value, 10) <= 0) {
+        if (Math.abs(parseInt(this.value, 10)) <= 0) {
           this.amountCounter = this.amountCounter + 1;
         }
       }

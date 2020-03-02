@@ -193,14 +193,14 @@ const freeLetters = (letter, index, force, current, prev, next, tick) => ({
   letterSpace: (getRandom(index, tick) * force) / 1500 + current.letterSpace,
 });
 
-const height = (letter, index, force, current) => ({
+const height = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  scaleY: (current.scaleY || 1) * (1 + force / 150),
+  scaleY: (current.scaleY || 1) * getRandom(index, tick) * (force / 1100) + 1,
 });
 
-const width = (letter, index, force, current) => ({
+const width = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  scaleX: (current.scaleX || 1) * (1 + force / 250),
+  scaleX: (current.scaleX || 1) * getRandom(index, tick) * (force / 1800) + 1,
 });
 
 const letterSpace = (letter, index, force, current) => ({
