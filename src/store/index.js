@@ -5,6 +5,7 @@ import { sentences } from '../random-content/sentences';
 import { paragraphs } from '../random-content/paragraphs';
 import { presets } from './presets';
 import { generals } from './states';
+import { presetSentences } from './sentences';
 
 Vue.use(Vuex);
 
@@ -126,10 +127,10 @@ export default new Vuex.Store({
         state.textField.input.transformed = text;
       }
     },
-    setGeneral(state, value = {}) {
-      if (state.randomState) { value = generals[state.preset]; }       // eslint-disable-line
+    setGeneral(state, input = {}) {
+      const value = state.randomState ? generals[state.preset] : input;
 
-      if (value.type) {
+      if (!state.randomState && value.type) {
         const typeText = state.textField.input;
         let list = words;
 
@@ -150,7 +151,11 @@ export default new Vuex.Store({
         const newText = list[Math.floor(Math.random() * list.length)];
         Vue.set(typeText, 'raw', newText);
         Vue.set(typeText, 'transformed', newText);
+      } else if (state.randomState) {
+        Vue.set(state.textField.input, 'raw', presetSentences[state.preset].input.raw);
+        Vue.set(state.textField.input, 'transformed', presetSentences[state.preset].input.transformed);
       }
+
       let valueResult = value;
       if (value.background) {
         valueResult = {
@@ -167,6 +172,7 @@ export default new Vuex.Store({
       };
     },
     setLetterTransforms(state, input) {
+      console.log('setting this', input);
       const typeText = state.textField.input;
       Vue.set(typeText, 'transformed', typeText.raw);
       let currentValue = state.textTransforms[input.kind][input.type];
@@ -225,7 +231,12 @@ export default new Vuex.Store({
       });
 
       activePreset.activeLetters.forEach(letter => {
-        Vue.set(state.textTransforms.letters, letter, { ...activePreset.letters[letter] });
+        if (!state.textTransforms.letters[letter]) {
+          Vue.set(state.textTransforms.letters, letter, {});
+        }
+        Vue.set(state.textTransforms.letters[letter], 'active', activePreset.letters[letter].active);
+        Vue.set(state.textTransforms.letters[letter], 'value', activePreset.letters[letter].value);
+        Vue.set(state.textTransforms.letters[letter], 'tick', activePreset.letters[letter].tick);
       });
 
       Vue.set(state.textTransforms, 'activeLetters', [...activePreset.activeLetters]);

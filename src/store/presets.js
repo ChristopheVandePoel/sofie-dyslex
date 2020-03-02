@@ -11,10 +11,9 @@ export const presets = [
   },
   {
     letters: {
-      'letters-backwards': { active: true, value: '40', tick: 0 },
-      'free-tremble': { active: true, value: '45', tick: 0 },
-      hopping: { active: true, value: '41', tick: 0 },
-      multiply: { active: false, value: 0, tick: 1 },
+      'letters-backwards': { active: true, value: 40, tick: 1 },
+      'free-tremble': { active: true, value: 45, tick: 1 },
+      hopping: { active: true, value: 41, tick: 1 },
     },
     activeLetters: ['letters-backwards', 'free-tremble', 'hopping'],
     words: { interspace: { active: true, value: '56', tick: 0 } },
@@ -31,6 +30,19 @@ export const presets = [
     activeWords: ['tilting'],
     sentences: { 'line-spacing': { active: true, value: '37', tick: 0 } },
     activeSentences: ['line-spacing'],
+    faces: {},
+    activeFaces: [],
+  },
+  {
+    letters: {
+      'letters-diphtong': { active: true, value: '80', tick: 0 },
+      'free-tremble': { active: true, value: '70', tick: 0 },
+    },
+    activeLetters: ['letters-diphtong', 'free-tremble'],
+    words: {},
+    activeWords: [],
+    sentences: {},
+    activeSentences: [],
     faces: {},
     activeFaces: [],
   },

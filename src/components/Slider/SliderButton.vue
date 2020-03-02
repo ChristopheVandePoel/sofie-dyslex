@@ -81,7 +81,7 @@ export default {
       previous: [],
       savedValue: null,
       amountCounter: 0,
-      manualValue: 0,
+      manualValue: null,
     };
   },
   computed: {
@@ -131,7 +131,13 @@ export default {
     tick(newTick, oldTick) {
       if (this.type && this.isPlaying && newTick !== oldTick) {
         const absoluteTick = this.min === 0 ? Math.abs(newTick) : newTick;
-        this.value = Math.floor((this.manualValue * absoluteTick) / 100);
+        const newValue = Math.floor(((this.manualValue === null ? this.value : this.manualValue) * absoluteTick) / 100);
+
+        if (this.manualValue === null) {
+          this.manualValue = newValue;
+        }
+
+        this.value = newValue;
 
         if (Math.abs(parseInt(this.value, 10)) <= 0) {
           this.amountCounter = this.amountCounter + 1;

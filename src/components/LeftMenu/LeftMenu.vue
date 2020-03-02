@@ -156,7 +156,7 @@ export default {
     IconButton,
     Button,
   },
-  computed: mapState(['generalState', 'menusOpen', 'textTransforms']),
+  computed: mapState(['generalState', 'menusOpen', 'textTransforms', 'textField']),
   methods: {
     outputState() {
       // reduce the inactive values out:
@@ -175,8 +175,9 @@ export default {
         return acc;
       }, {});
 
-      console.log(JSON.stringify(transforms));
-      console.log(JSON.stringify(this.generalState));
+      console.log('********* \n PRESETS \n ********* \n', JSON.stringify(transforms));
+      console.log('********* \n STATE \n ********* \n', JSON.stringify(this.generalState));
+      console.log('********* \n SENTENCES \n ********* \n', JSON.stringify(this.textField));
     },
     ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen', 'storeSelection']),
     setGenSetting(input) {

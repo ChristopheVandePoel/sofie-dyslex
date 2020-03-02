@@ -22,7 +22,7 @@ export const generals = [
     color: 0,
   },
   {
-    type: 'word',
+    type: 'sentence',
     font: 'sans',
     letterCase: 'lower',
     alignment: 'center',
@@ -32,5 +32,15 @@ export const generals = [
     speed: 50,
     color: '#f90032',
   },
-
+  {
+    type: 'word',
+    font: 'sans',
+    letterCase: 'lower',
+    alignment: 'center',
+    background: 'bright',
+    weight: 'regular',
+    size: 65,
+    speed: 50,
+    color: 0,
+  },
 ];

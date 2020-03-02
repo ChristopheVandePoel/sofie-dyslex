@@ -194,7 +194,7 @@ export default {
     return {
       lineHeight: 0,
       cursorTimer: null,
-      sentences: ['This website simulates symptoms of dyslexia.', 'Type'],
+      sentences: ['This website simulates symptoms of dyslexia.', 'Type here'],
       sentence: [],
       i: 0,
       char: 0,
