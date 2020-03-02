@@ -46,12 +46,12 @@ const someFunction = (input, transforms, count) => {
   const output = input.split('');
   const { length } = input;
 
-  let pronounType = '';
+  let articleType = '';
 
   if (input === 'a') {
-    pronounType = 'isA';
+    articleType = 'isA';
   } else if (input === 'an') {
-    pronounType = 'isAn';
+    articleType = 'isAn';
   }
 
   const transform = output.map((letter, index) => {
@@ -67,8 +67,8 @@ const someFunction = (input, transforms, count) => {
       letterSpace: 0,
       multiClass: '',
       removeClass: '',
-      pronounClass: '',
-      pronounType,
+      articleClass: '',
+      articleType,
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
@@ -97,7 +97,7 @@ const someFunction = (input, transforms, count) => {
     letter-spacing: ${yay.letterSpace}em`;
 
     const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} ${yay.multiClass}
-    ${yay.removeClass} ${yay.pronounClass}`;
+    ${yay.removeClass} ${yay.articleClass}`;
 
     let result = letter;
 
@@ -107,7 +107,7 @@ const someFunction = (input, transforms, count) => {
       || yay.setClass
       || yay.multiClass
       || yay.removeClass
-      || yay.pronounClass
+      || yay.articleClass
     ) {
       result = `<span class="conv">${letter}</span>`;
     }

@@ -95,12 +95,12 @@
         :onDisable="() => disable('wordsRow')"
       >
         <SliderButton
-          :disable="enabledWords"
-          type="words"
+          row-override="words"
+          type="letters"
           name="Article"
           id="article"
-          :start-value="getWordValue('article')"
-          :active="getWordActivity('article')"
+          :start-value="getLetterValue('article')"
+          :active="getLetterActivity('article')"
         />
         <SliderButton
           type="words"
@@ -117,6 +117,7 @@
           :active="getWordActivity('hopping')"
         />
         <SliderButton
+          disable
           row-override="words"
           type="letters"
           name="Pronoun"

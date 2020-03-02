@@ -65,8 +65,8 @@ const decrease = (letter, index, force, current, prev, next, tick) => {
   return current;
 };
 
-const pronoun = (letter, index, force, current, prev, next, tick, length, swapper, count) => {
-  if (!current.pronounType) {
+const article = (letter, index, force, current, prev, next, tick, length, swapper, count) => {
+  if (!current.articleType) {
     return current;
   }
 
@@ -75,21 +75,21 @@ const pronoun = (letter, index, force, current, prev, next, tick, length, swappe
   if (!transform) {
     return {
       ...current,
-      pronounClass: '',
+      articleClass: '',
     };
   }
 
-  if (current.pronounType === 'isA') {
+  if (current.articleType === 'isA') {
     return {
       ...current,
-      pronounClass: 'isA',
+      articleClass: 'isA',
     };
   }
 
-  if (current.pronounType === 'isAn' && index === 1) {
+  if (current.articleType === 'isAn' && index === 1) {
     return {
       ...current,
-      pronounClass: 'isAn',
+      articleClass: 'isAn',
     };
   }
 
@@ -203,5 +203,5 @@ export const letterTransformMap = {
   decrease,
   tracking: letterSpace,
   shifting: swapLong,
-  pronoun,
+  article,
 };
