@@ -96,6 +96,27 @@ const article = (letter, index, force, current, prev, next, tick, length, swappe
   return current;
 };
 
+const pronoun = (letter, index, force, current, prev, next, tick, length, swapper, count) => {
+  console.log(current.pronounType);
+  if (!current.pronounType) {
+    return current;
+  }
+
+  const transform = (getRandom(count + 1) * force) > 350;
+
+  if (!transform) {
+    return {
+      ...current,
+      pronounClass: '',
+    };
+  }
+
+  return {
+    ...current,
+    pronounClass: `${current.pronounType}-${index + 1}`,
+  };
+};
+
 const diphtong = (letter, index, force, current, prev, next) => {
   // verander de volgorde hier voor belangrijkheid:
   const map = {
@@ -204,4 +225,5 @@ export const letterTransformMap = {
   tracking: letterSpace,
   shifting: swapLong,
   article,
+  pronoun,
 };

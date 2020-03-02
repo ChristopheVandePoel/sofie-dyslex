@@ -117,7 +117,6 @@
           :active="getWordActivity('hopping')"
         />
         <SliderButton
-          disable
           row-override="words"
           type="letters"
           name="Pronoun"

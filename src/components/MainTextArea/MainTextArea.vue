@@ -47,12 +47,21 @@ const someFunction = (input, transforms, count) => {
   const { length } = input;
 
   let articleType = '';
+  const pronounType = {
+    that: 'isThat',
+    this: 'isThis',
+    those: 'isThose',
+    these: 'isThese',
+    who: 'isWho',
+    whom: 'isWhom',
+  }[input] || '';
 
   if (input === 'a') {
     articleType = 'isA';
   } else if (input === 'an') {
     articleType = 'isAn';
   }
+
 
   const transform = output.map((letter, index) => {
     let yay = {
@@ -69,6 +78,8 @@ const someFunction = (input, transforms, count) => {
       removeClass: '',
       articleClass: '',
       articleType,
+      pronounClass: '',
+      pronounType,
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
@@ -97,7 +108,7 @@ const someFunction = (input, transforms, count) => {
     letter-spacing: ${yay.letterSpace}em`;
 
     const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} ${yay.multiClass}
-    ${yay.removeClass} ${yay.articleClass}`;
+    ${yay.removeClass} ${yay.articleClass} ${yay.pronounClass}`;
 
     let result = letter;
 
@@ -108,6 +119,7 @@ const someFunction = (input, transforms, count) => {
       || yay.multiClass
       || yay.removeClass
       || yay.articleClass
+      || yay.pronounClass
     ) {
       result = `<span class="conv">${letter}</span>`;
     }
@@ -557,6 +569,14 @@ body {
 .zz1,
 .isA,
 .isAn,
+.isWhom-4,
+.isWho-3,
+.isThat-3,
+.isThat-4,
+.isThis-3,
+.isThis-4,
+.isThose-3,
+.isThese-3,
 .eo2 {
   position: relative;
 
@@ -637,6 +657,107 @@ body {
 .isA:after {
   content: 'an';
 }
+
+.isThat-3:after {
+  content: 'i'
+}
+
+.isThat-3, {
+  .conv {
+    width: 0.2em;
+  }
+}
+
+.isThat-4:after {
+  content: 's'
+}
+
+.isThat-4, {
+  .conv {
+    width: 0.5em;
+  }
+}
+
+.isThis-3:after {
+  content: 'a'
+}
+
+.isThis-3, {
+  .conv {
+    width: 0.55em;
+  }
+}
+
+.isThis-4:after {
+  content: 't'
+}
+
+.isThis-4, {
+  .conv {
+    width: 0.3em;
+  }
+}
+
+
+.isThose-3:after {
+  content: 'e'
+}
+
+.isThese-3:after {
+  content: 'o'
+}
+
+.isWhom-4:after {
+  content: '';
+}
+.isWho-3:after {
+  content: 'om';
+}
+
+.isWho-3, {
+  .conv {
+    width: 1.5em;
+  }
+}
+
+.seriffed {
+  .isThat-3, {
+    .conv {
+      width: 0.35em;
+    }
+  }
+
+  .isThat-4, {
+    .conv {
+      width: 0.45em;
+    }
+  }
+
+  .isThis-3, {
+    .conv {
+      width: 0.55em;
+    }
+  }
+
+  .isThis-4, {
+    .conv {
+      width: 0.4em;
+    }
+  }
+
+  .isThose-3, {
+    .conv {
+      width: 0.55em;
+    }
+  }
+
+  .isThese-3, {
+    .conv {
+      width: 0.62em;
+    }
+  }
+}
+
 
 .isA {
   .conv {
@@ -727,6 +848,7 @@ body {
 }
 
 .isAn,
+.isWhom-4,
 .aa1,
 .bb1,
 .cc1,
@@ -1200,15 +1322,17 @@ div.word {
   .ww1,
   .xx1,
   .yy1,
+  .isWhom-4,
   .zz1 {
     span.conv {
       width: 0 !important;
     }
   }
 
+  .isWho-3,
   .isA {
     .conv {
-      width: 1.2em !important;
+      width: 1.4em !important;
     }
   }
 }
