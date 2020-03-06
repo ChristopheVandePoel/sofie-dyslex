@@ -153,7 +153,11 @@ export default new Vuex.Store({
         Vue.set(typeText, 'transformed', newText);
       } else if (state.randomState) {
         Vue.set(state.textField.input, 'raw', presetSentences[state.preset].input.raw);
-        Vue.set(state.textField.input, 'transformed', presetSentences[state.preset].input.transformed);
+        Vue.set(
+          state.textField.input,
+          'transformed',
+          presetSentences[state.preset].input.transformed,
+        );
       }
 
       let valueResult = value;
@@ -172,7 +176,6 @@ export default new Vuex.Store({
       };
     },
     setLetterTransforms(state, input) {
-      console.log('setting this', input);
       const typeText = state.textField.input;
       Vue.set(typeText, 'transformed', typeText.raw);
       let currentValue = state.textTransforms[input.kind][input.type];
@@ -216,12 +219,10 @@ export default new Vuex.Store({
     },
     setPreset(state, toPreset) {
       const randomPreset = state.preset === presets.length - 1 ? 0 : state.preset + 1;
-      const preset = (toPreset || toPreset === 0) ? toPreset : randomPreset;
+      const preset = toPreset || toPreset === 0 ? toPreset : randomPreset;
       state.preset = preset;
 
       const activePreset = presets[preset];
-
-      console.log(preset, activePreset);
 
       // set letter presets
       Object.keys(state.textTransforms.letters).forEach(letter => {
@@ -234,7 +235,11 @@ export default new Vuex.Store({
         if (!state.textTransforms.letters[letter]) {
           Vue.set(state.textTransforms.letters, letter, {});
         }
-        Vue.set(state.textTransforms.letters[letter], 'active', activePreset.letters[letter].active);
+        Vue.set(
+          state.textTransforms.letters[letter],
+          'active',
+          activePreset.letters[letter].active,
+        );
         Vue.set(state.textTransforms.letters[letter], 'value', activePreset.letters[letter].value);
         Vue.set(state.textTransforms.letters[letter], 'tick', activePreset.letters[letter].tick);
       });
