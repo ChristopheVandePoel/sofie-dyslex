@@ -48,7 +48,7 @@ export default {
   flex-wrap: nowrap;
 
   &.disabled {
-    // opacity: 0.5; re-enable when done
+    opacity: 0.5; // re-enable when done
     pointer-events: none;
   }
 

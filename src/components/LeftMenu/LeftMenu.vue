@@ -7,16 +7,10 @@
           Word
         </Button>
         <Button
-          :active="generalState.type === 'sentence'"
+          :active="generalState.type === 'sentence' || generalState.type === 'paragraph'"
           @click.native="setGenSetting({ type: 'sentence' })"
         >
           Sentence
-        </Button>
-        <Button
-          :active="generalState.type === 'paragraph'"
-          @click.native="setGenSetting({ type: 'paragraph' })"
-        >
-          Paragraph
         </Button>
       </ButtonRow>
       <ButtonRow title="Font" :expanded="true">

@@ -133,14 +133,13 @@ export default new Vuex.Store({
         if (value.type === 'sentence') {
           state.enabledWords = true;
           state.enabledSentences = false;
-          list = sentences;
+          list = [...sentences, ...paragraphs];
         }
 
         if (value.type === 'paragraph') {
-          state.enabledWords = true;
           state.enabledSentences = true;
-          list = paragraphs;
         }
+
         const newText = list[Math.floor(Math.random() * list.length)];
         Vue.set(typeText, 'raw', newText);
         Vue.set(typeText, 'transformed', newText);

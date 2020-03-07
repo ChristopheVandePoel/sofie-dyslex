@@ -178,7 +178,10 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
 const sentenceFunction = (input, letterTransforms, wordTransforms) => {
   const output = input.split(/\n/);
 
-  const transform = output.map(entry => wordFunction(entry, letterTransforms, wordTransforms));
+  const transform = output.map(entry =>
+    (entry && entry.length ? wordFunction(entry, letterTransforms, wordTransforms) : null))
+    .filter(entry => entry !== null);
+
   return transform.join('<br />');
 };
 
@@ -237,13 +240,6 @@ export default {
       if (this.generalState.type === 'word') {
         return someFunction(this.textField.input.transformed, this.getLetterTransforms);
       }
-      if (this.generalState.type === 'sentence') {
-        return wordFunction(
-          this.textField.input.transformed,
-          this.getLetterTransforms,
-          this.getWordTransforms,
-        );
-      }
       return sentenceFunction(
         this.textField.input.transformed,
         this.getLetterTransforms,
@@ -269,6 +265,8 @@ export default {
     },
     onInput(event) {
       const text = event.target.innerText;
+      // console.log(event.target.style && parseFloat(event.target.style.fontSize));
+      // console.log(event.target && parseFloat(event.target.offsetHeight));
       const hasLineBreaks = text.trim(/\s+/).match(/\n/);
       const hasSpaces = text.trim(/\s+/).match(/\s+/);
 
@@ -337,9 +335,9 @@ export default {
       this.loopSentences();
     },
     getSentenceArray(str) {
-      let sentence = str.replace('<br/>', '{}<br/>{}');
-      sentence = sentence.split('{}');
-      sentence = sentence.map(el => (el === '<br/>' ? el : el.split('')));
+      // let sentence = str.replace('<br/>', '{}<br/>{}');
+      const sentence = str.split('{}');
+      // sentence = sentence.map(el => (el === '<br/>' ? el : el.split('')));
       return [...sentence[0]];
     },
     loopSentences() {
