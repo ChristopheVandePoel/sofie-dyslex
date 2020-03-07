@@ -57,7 +57,6 @@ export default new Vuex.Store({
     pausedInitialAnimation: false,
     preset: 0,
     randomState: false,
-    isSelectable: true,
     caretPosition: 0,
   },
   mutations: {
@@ -100,12 +99,6 @@ export default new Vuex.Store({
     },
     storeSelection(state, position) {
       state.caretPosition = position;
-    },
-    disableSelection(state) {
-      state.isSelectable = false;
-    },
-    restoreSelection(state) {
-      state.isSelectable = true;
     },
     switchBySentences(state, { toValue, text }) {
       if (toValue === 'letters') {

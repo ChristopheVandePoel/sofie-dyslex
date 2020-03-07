@@ -45,14 +45,19 @@ export default {
     InfoSection,
   },
   computed: {
-    ...mapState(['generalState', 'defaultGeneralState', 'infoOpen', 'preset', 'randomState']),
+    ...mapState(['generalState', 'defaultGeneralState', 'infoOpen', 'preset', 'randomState', 'isPlaying']),
     isDark() {
       return this.generalState.background !== 'bright';
     },
   },
   methods: {
-    ...mapMutations(['toggleInfoOpen', 'setRandom', 'setGeneral', 'setPreset']),
+    ...mapMutations(['toggleInfoOpen', 'setRandom', 'setGeneral', 'setPreset', 'setPause', 'setPlay', 'setReset']),
     triggerRandom() {
+      if (this.isPlaying) {
+        this.$nextTick(() => this.setPlay());
+      }
+      this.setPause();
+      this.setReset();
       this.setRandom();
       this.setPreset();
       this.setGeneral();

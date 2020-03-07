@@ -22,7 +22,6 @@
           @click="returnFalse"
           @input="setValue"
           @change="pushValue"
-          @mouseup="forceValue"
           class="SliderButton__input"
           :value="value"
           :step="step"
@@ -129,9 +128,13 @@ export default {
       }
     },
     tick(newTick, oldTick) {
-      if (this.type && this.isPlaying && newTick !== oldTick) {
+      if (this.active && this.type && this.isPlaying && newTick !== oldTick) {
         const absoluteTick = this.min === 0 ? Math.abs(newTick) : newTick;
         const newValue = Math.floor(((this.manualValue === null ? this.value : this.manualValue) * absoluteTick) / 100);
+
+        if (this.id === 'shifting') {
+          console.log(this.manualValue, newValue, absoluteTick);
+        }
 
         if (this.manualValue === null) {
           this.manualValue = newValue;
@@ -167,14 +170,12 @@ export default {
 
       this.value = value;
       this.manualValue = parseFloat(value);
-      this.disableSelection();
     },
     pushValue(input) {
       if (input.target.value === '0' || input.target.value === 0) {
         this.amountCounter = this.amountCounter + 1;
       }
       this.previous.push(input.target.value);
-      this.restoreSelection();
     },
     setPreviousValue() {
       if (this.previous.length > 1) {
@@ -185,12 +186,7 @@ export default {
         this.setValue(this.resetValue);
       }
     },
-    forceValue(input) {
-      if (input.target.value === '0') {
-        this.restoreSelection();
-      }
-    },
-    ...mapMutations(['setLetterTransforms', 'setReset', 'disableSelection', 'restoreSelection']),
+    ...mapMutations(['setLetterTransforms', 'setReset']),
   },
 };
 </script>

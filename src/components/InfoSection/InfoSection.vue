@@ -56,7 +56,7 @@ export default {
  */
 
 .dark-mode {
-    .container {
+  .container {
     color:#ffffff;
     background-color: #000000;
   }

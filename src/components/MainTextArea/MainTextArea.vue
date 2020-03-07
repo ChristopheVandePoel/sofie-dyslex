@@ -11,7 +11,7 @@
     >
       <div
         ref="editableField"
-        :contenteditable="isSelectable"
+        contenteditable="true"
         id="main-text"
         class="textarea-container"
         :style="{
@@ -211,7 +211,6 @@ export default {
       'textField',
       'isPlaying',
       'tickCounter',
-      'isSelectable',
       'caretPosition',
     ]),
     ...mapGetters(['getLetterTransforms', 'getWordTransforms', 'getSentencesTransforms']),
@@ -266,7 +265,7 @@ export default {
     ]),
     onFocus() {
       this.saveSelection();
-      this.setPause();
+      this.$nextTick(() => this.setPause());
     },
     onInput(event) {
       const text = event.target.innerText;
@@ -427,13 +426,6 @@ export default {
           this.setSelectionPosition();
         }
       });
-    },
-    isSelectable(isSelectable, wasSelectable) {
-      if (isSelectable && !wasSelectable) {
-        this.$nextTick(() => {
-          this.setSelectionPosition();
-        });
-      }
     },
   },
 };
