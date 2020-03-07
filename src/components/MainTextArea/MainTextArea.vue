@@ -19,7 +19,7 @@
           textTransform: generalState.letterCase === 'upper' ? 'uppercase' : 'none',
           fontSize: `${fontSize}px`,
           color: getColor(),
-          lineHeight: `${containerData.lineHeight}`,
+          lineHeight: `${generalState.type === 'paragraph' ? containerData.lineHeight : 1}`,
           letterSpacing: `${containerData.letterSpacing}px`,
           fontWeight: containerData.weight,
         }"
@@ -29,9 +29,7 @@
         @input="onInput"
         @click="saveSelection"
         @keyup="saveSelection"
-      >
-        <!-- This is where the text will come. Leave empty -->
-      </div>
+      ></div>
     </div>
   </div>
 </template>
@@ -179,8 +177,8 @@ const sentenceFunction = (input, letterTransforms, wordTransforms) => {
   const output = input.split(/\n/);
 
   const transform = output.map(entry =>
-    (entry && entry.length ? wordFunction(entry, letterTransforms, wordTransforms) : null))
-    .filter(entry => entry !== null);
+    (entry && entry.length ? wordFunction(entry, letterTransforms, wordTransforms) : null));
+
 
   return transform.join('<br />');
 };
@@ -237,9 +235,6 @@ export default {
       };
     },
     currentValue() {
-      if (this.generalState.type === 'word') {
-        return someFunction(this.textField.input.transformed, this.getLetterTransforms);
-      }
       return sentenceFunction(
         this.textField.input.transformed,
         this.getLetterTransforms,
@@ -265,9 +260,20 @@ export default {
     },
     onInput(event) {
       const text = event.target.innerText;
-      // console.log(event.target.style && parseFloat(event.target.style.fontSize));
-      // console.log(event.target && parseFloat(event.target.offsetHeight));
-      const hasLineBreaks = text.trim(/\s+/).match(/\n/);
+
+      // 1.1 is the safari-is-a-pos factor.
+      const isProbablyTwoLines = text.trim(/\s+/).match(/\n/)
+        || (event.target.offsetHeight / parseFloat(event.target.style.lineHeight))
+          > parseFloat(event.target.style.fontSize) * 1.1;
+
+      if (event.inputType === 'insertParagraph') {
+        this.switchBySentences({ toValue: 'sentences' });
+      } else {
+        this.saveSelection();
+        this.shiftForText(text, isProbablyTwoLines);
+      }
+    },
+    shiftForText(text, hasLineBreaks) {
       const hasSpaces = text.trim(/\s+/).match(/\s+/);
 
       if (this.generalState.type !== 'paragraph' && hasLineBreaks) {
@@ -279,25 +285,31 @@ export default {
       } else {
         this.setTextFields(text);
       }
-
-      this.saveSelection();
     },
     saveSelection() {
       this.storeSelection(this.getSelectionPosition(this.$refs.editableField));
     },
     getSelectionPosition(el) {
       if (el.isContentEditable) {
-        el.focus();
-        const originalRange = document.getSelection().getRangeAt(0);
-        const range = originalRange.cloneRange();
-        range.selectNodeContents(el);
-        range.setEnd(originalRange.endContainer, originalRange.endOffset);
-        return range.toString().length;
+        try {
+          el.focus();
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const originalRange = selection.getRangeAt(0);
+            const range = originalRange.cloneRange();
+            range.selectNodeContents(el);
+            range.setEnd(originalRange.endContainer, originalRange.endOffset);
+            return range.toString().length;
+          }
+        } catch (e) {
+          console.log(e);
+          return el.selectionStart;
+        }
       }
       return el.selectionStart;
     },
     setSelectionPosition() {
-      if (this.caretPosition === 9999) {
+      if (this.caretPosition === 9999 || this.caretPosition === '9999') {
         this.placeCaretAtEnd();
         this.saveSelection();
       } else {
@@ -320,7 +332,7 @@ export default {
             }
           }
         } catch (e) {
-          console.warn('no selection possible on ', this.caretPosition);
+          console.warn('no selection possible on this location: ', this.caretPosition);
           this.placeCaretAtEnd();
           this.saveSelection();
         }
@@ -1249,6 +1261,7 @@ body {
 
 div.word {
   display: inline-block;
+  text-align: left;
 }
 
 .monospace {

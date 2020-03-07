@@ -105,19 +105,25 @@ export default new Vuex.Store({
         state.enabledWords = false;
         state.enabledSentences = false;
         state.generalState.type = 'word';
-        state.textField.input.transformed = text;
+        if (text) {
+          state.textField.input.transformed = text;
+        }
       }
       if (toValue === 'words') {
         state.enabledWords = true;
         state.enabledSentences = false;
         state.generalState.type = 'sentence';
-        state.textField.input.transformed = text;
+        if (text) {
+          state.textField.input.transformed = text;
+        }
       }
       if (toValue === 'sentences') {
         state.enabledWords = true;
         state.enabledSentences = true;
         state.generalState.type = 'paragraph';
-        state.textField.input.transformed = text;
+        if (text) {
+          state.textField.input.transformed = text;
+        }
       }
     },
     setGeneral(state, input = {}) {
