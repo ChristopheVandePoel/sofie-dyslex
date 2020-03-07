@@ -459,37 +459,6 @@ body {
 // That's why we have created these huge definitions, that are swapped in and out of existence
 // on letters.
 // swapping classes:
-.swap-b,
-.swap-d,
-.swap-p,
-.swap-q,
-.swap-m,
-.swap-w,
-.swap-a,
-.swap-e,
-.swap-f,
-.swap-v,
-.aa2,
-.aa1,
-.ua1,
-.ua2,
-.uo1,
-.uo2,
-.ji1,
-.ji2,
-.ie1,
-.ie2,
-.ei1,
-.ei2,
-.ue1,
-.ue2,
-.iu1,
-.iu2,
-.ui1,
-.ui2,
-.ee1,
-.ee2,
-.eo1,
 .set-a,
 .set-b,
 .set-c,
@@ -577,8 +546,7 @@ body {
 .isThis-3,
 .isThis-4,
 .isThose-3,
-.isThese-3,
-.eo2 {
+.isThese-3 {
   position: relative;
 
   span.conv {
@@ -595,65 +563,6 @@ body {
 }
 
 // diphthongs:
-.aa2,
-.aa1 {
-  &:after {
-    content: 'a';
-  }
-}
-.ua1:after {
-  content: 'u';
-}
-.ua2:after {
-  content: 'a';
-}
-.uo1:after {
-  content: 'u';
-}
-.uo2:after {
-  content: 'o';
-}
-.ue1:after {
-  content: 'u';
-}
-.ue2:after {
-  content: 'e';
-}
-
-.ji1:after {
-  content: 'j';
-}
-.ji2:after {
-  content: 'i';
-}
-.ie1:after {
-  content: 'i';
-}
-.ie2:after {
-  content: 'e';
-}
-.ei1:after {
-  content: 'e';
-}
-.ei2:after {
-  content: 'i';
-}
-
-.iu1:after {
-  content: 'i';
-}
-
-.iu2:after {
-  content: 'u';
-}
-
-.ui1:after {
-  content: 'u';
-}
-
-.ui2:after {
-  content: 'i';
-}
 
 .isA:after {
   content: 'an';
@@ -767,12 +676,132 @@ body {
 }
 
 // font & letter-specific widths:
-.set-i,
-.set-l {
+.set-a,
+.set-b,
+.set-d,
+.set-e,
+.set-g,
+.set-h {
   .conv {
-    width: 0.2em;
+    width: 0.555em;
   }
 }
+
+.set-c, {
+  .conv {
+    width: 0.5em;
+  }
+}
+
+.set-f {
+  .conv {
+    width: 0.278em;
+  }
+}
+
+.set-i,
+.set-j {
+  .conv {
+    width: 0.223em;
+  }
+}
+
+.set-k {
+  .conv {
+    width: 0.5em;
+  }
+}
+
+.set-l {
+  .conv {
+    width: 0.223em;
+  }
+}
+
+.set-m {
+  .conv {
+    width: 0.83em;
+  }
+}
+
+.set-n {
+  .conv {
+    width: 0.555em;
+  }
+}
+
+.set-o {
+  .conv {
+    width: 0.555em;
+  }
+}
+
+.set-p {
+  .conv {
+    width: 0.555em;
+  }
+}
+
+.set-q {
+  .conv {
+    width: 0.555em;
+  }
+}
+
+.set-r {
+  .conv {
+    width: 0.333em;
+  }
+}
+
+.set-s {
+  .conv {
+    width: 0.5em;
+  }
+}
+
+.set-t {
+  .conv {
+    width: 0.279em;
+  }
+}
+
+.set-u {
+  .conv {
+    width: 0.555em;
+  }
+}
+
+.set-v {
+  .conv {
+    width: 0.5em;
+  }
+}
+
+.set-w {
+  .conv {
+    width: 0.723em;
+  }
+}
+
+.set-x {
+  .conv {
+    width: 0.5em;
+  }
+}
+
+.set-y {
+  .conv {
+    width: 0.5em;
+  }
+}
+
+.set-z {
+  .conv {
+    width: 0.5em;
+  }
+}
+
 .iii,
 .lll {
   .conv {
@@ -788,44 +817,10 @@ body {
   }
 }
 
-.set-t,
-.set-f,
-.set-r {
-  .conv {
-    width: 0.35em;
-  }
-}
-
-.set-y,
-.set-v {
-  .conv {
-    width: 0.4em;
-  }
-}
-
 .yyy,
 .vvv {
   .conv {
     width: 0.9em;
-  }
-}
-
-.set-a,
-.set-o,
-.set-q,
-.set-e,
-.set-b,
-.set-s,
-.set-c,
-.set-d,
-.set-k,
-.set-u,
-.set-g,
-.set-h,
-.set-n,
-.set-p {
-  .conv {
-    width: 0.6em;
   }
 }
 
@@ -881,12 +876,6 @@ body {
   }
 }
 
-.set-m,
-.set-w {
-  .conv {
-    width: 0.85em;
-  }
-}
 
 .mmm,
 .www {
@@ -895,32 +884,7 @@ body {
   }
 }
 
-.iu1,
-.ui2,
-.ei2,
-.ie1 {
-  span.conv {
-    letter-spacing: -0.35em;
-  }
-}
-
-.iu2,
-.ui1,
-.ei1,
-.ie2 {
-  span.conv {
-    letter-spacing: 0.35em;
-  }
-}
-
 .seriffed {
-  .set-i,
-  .set-l {
-    .conv {
-      width: 0.34em;
-    }
-  }
-
   .ttt,
   .iii,
   .lll {
@@ -929,26 +893,11 @@ body {
     }
   }
 
-  .set-t,
-  .set-f,
-  .set-r {
-    .conv {
-      width: 0.35em;
-    }
-  }
-
   .fff,
   .sss,
   .rrr {
     .conv {
       width: 0.9em;
-    }
-  }
-
-  .set-y,
-  .set-v {
-    .conv {
-      width: 0.6em;
     }
   }
 
@@ -968,22 +917,149 @@ body {
     }
   }
 
-  .set-a,
-  .set-o,
-  .set-q,
-  .set-e,
-  .set-b,
-  .set-s,
   .set-c,
-  .set-d,
-  .set-k,
-  .set-u,
-  .set-g,
-  .set-h,
-  .set-n,
+  .set-a {
+    .conv {
+      width: 0.445em;
+    }
+  }
+
+  .set-b,
+  .set-d {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-e {
+    .conv {
+      width: 0.445em;
+    }
+  }
+
+  .set-f {
+    .conv {
+      width: 0.335em;
+    }
+  }
+
+  .set-g {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-h {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-i {
+    .conv {
+      width: 0.278em;
+    }
+  }
+
+  .set-j {
+    .conv {
+      width: 0.278em;
+    }
+  }
+
+  .set-k {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-l {
+    .conv {
+      width: 0.278em;
+    }
+  }
+
+  .set-m {
+    .conv {
+      width: 0.78em;
+    }
+  }
+
+  .set-n {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-o {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
   .set-p {
     .conv {
-      width: 0.56em;
+      width: 0.5em;
+    }
+  }
+
+  .set-q {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-r {
+    .conv {
+      width: 0.333em;
+    }
+  }
+
+  .set-s {
+    .conv {
+      width: 0.39em;
+    }
+  }
+
+  .set-t {
+    .conv {
+      width: 0.279em;
+    }
+  }
+
+  .set-u {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-v {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-w {
+    .conv {
+      width: 0.723em;
+    }
+  }
+
+  .set-x {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-y {
+    .conv {
+      width: 0.5em;
+    }
+  }
+
+  .set-z {
+    .conv {
+      width: 0.445em;
     }
   }
 
@@ -1002,13 +1078,6 @@ body {
     }
   }
 
-  .set-m,
-  .set-w {
-    .conv {
-      width: 0.85em;
-    }
-  }
-
   .www {
     .conv {
       width: 1.6em;
@@ -1021,50 +1090,11 @@ body {
     }
   }
 
-  .ui2,
-  .iu1 {
-    span.conv {
-      letter-spacing: -0.25em;
-    }
-  }
-  .ei2,
-  .ie1 {
-    span.conv {
-      letter-spacing: -0.18em;
-    }
-  }
-
-  .ui1,
-  .iu2 {
-    span.conv {
-      letter-spacing: 0.25em;
-    }
-  }
-  .ei1,
-  .ie2 {
-    span.conv {
-      letter-spacing: 0.18em;
-    }
-  }
-
   .isA {
     .conv {
       width: 1.2em;
     }
   }
-}
-
-.ee1:after {
-  content: 'e';
-}
-.ee2:after {
-  content: 'e';
-}
-.eo1:after {
-  content: 'e';
-}
-.eo2:after {
-  content: 'o';
 }
 
 // plain letters
@@ -1370,11 +1400,11 @@ div.word {
   height: auto;
   position: relative;
   text-align: center;
-  font-family: 'Suisse Intl', sans-serif;
+  font-family: 'Arial', sans-serif;
   z-index: 10;
 
   &.seriffed {
-    font-family: 'Suisse Works', serif;
+    font-family: 'Times New Roman', serif;
   }
 
   &.monospace {

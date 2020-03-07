@@ -122,14 +122,23 @@ const diphtong = (letter, index, force, current, prev, next) => {
     aa: 'ee',
     ee: 'aa',
     au: 'ua',
+    ua: 'au',
     ou: 'uo',
+    uo: 'ou',
     ei: 'ie',
     ie: 'ei',
     ij: 'ji',
+    ji: 'ij',
     eu: 'ue',
+    ue: 'eu',
     ui: 'iu',
     iu: 'ui',
     oe: 'eo',
+    eo: 'oe',
+    ae: 'ea',
+    ea: 'ae',
+    io: 'oi',
+    oi: 'io',
   };
 
   const keys = Object.keys(map);
@@ -137,9 +146,9 @@ const diphtong = (letter, index, force, current, prev, next) => {
 
   let diphClass = '';
   if (filteredMap.includes(letter + next)) {
-    diphClass = map[letter + next] + 1;
+    diphClass = `set-${next}`;
   } else if (filteredMap.includes(prev + letter)) {
-    diphClass = map[prev + letter] + 2;
+    diphClass = `set-${prev}`;
   }
 
   // we geven deze prioriteit over gewone swaps
@@ -151,12 +160,24 @@ const diphtong = (letter, index, force, current, prev, next) => {
 };
 
 const swapping = (letter, index, force, current) => {
-  const swappers = ['b', 'd', 'p', 'q', 'm', 'w', 'a', 'e', 'f', 'v'];
+  const swappers = {
+    b: 'd',
+    d: 'b',
+    p: 'q',
+    q: 'p',
+    m: 'w',
+    w: 'm',
+    a: 'e',
+    e: 'a',
+    f: 'v',
+    v: 'f',
+  };
   let swapClass = '';
-  const filteredMap = swappers.slice(0, Math.ceil((force * swappers.length) / 100) + 1);
+  const swapKeys = Object.keys(swappers);
+  const filteredMap = swapKeys.slice(0, Math.ceil((force * swapKeys.length) / 100) + 1);
 
   if (filteredMap.includes(letter)) {
-    swapClass = `swap-${letter}`;
+    swapClass = `set-${swappers[letter]}`;
   }
 
   return {
