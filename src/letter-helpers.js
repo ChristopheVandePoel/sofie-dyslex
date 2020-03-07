@@ -23,7 +23,6 @@ export const freeTremble = (letter, index, force, current, prev, next, tick) => 
   return {
     ...current,
     y: amount + current.y,
-    x: amount + current.x,
   };
 };
 
@@ -175,7 +174,8 @@ const swapLong = (letter, index, force, current, prev, next, tick, length, swapp
     chance = index / (length / 2);
   }
 
-  if (chance === 0) {
+  const delimiters = ['.', ',', ':', '?', '!'];
+  if (chance === 0 || delimiters.includes(next)) {
     return {
       ...current,
       setClass: '',
@@ -193,15 +193,28 @@ const freeLetters = (letter, index, force, current, prev, next, tick) => ({
   letterSpace: (getRandom(index, tick) * force) / 1500 + current.letterSpace,
 });
 
-const height = (letter, index, force, current, prev, next, tick) => ({
-  ...current,
-  scaleY: (current.scaleY || 1) * getRandom(index, tick) * (force / 1100) + 1,
-});
+const height = (letter, index, force, current, prev, next, tick) => {
+  const remdomNumber = getRandom(index, tick);
+  if (remdomNumber > 5) {
+    return current;
+  }
+  return {
+    ...current,
+    scaleY: (current.scaleY || 1) * remdomNumber * (force / 1200) + 1,
+  };
+};
 
-const width = (letter, index, force, current, prev, next, tick) => ({
-  ...current,
-  scaleX: (current.scaleX || 1) * getRandom(index, tick) * (force / 1800) + 1,
-});
+const width = (letter, index, force, current, prev, next, tick) => {
+  const remdomNumber = getRandom(index, tick);
+  if (remdomNumber > 5) {
+    return current;
+  }
+
+  return {
+    ...current,
+    scaleX: (current.scaleX || 1) * remdomNumber * (force / 2200) + 1,
+  };
+};
 
 const letterSpace = (letter, index, force, current) => ({
   ...current,

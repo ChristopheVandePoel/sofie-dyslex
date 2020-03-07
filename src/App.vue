@@ -237,6 +237,8 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-height: 98vh;
+  margin-top: 1vh;
 }
 
 .open-info-button {

@@ -177,10 +177,9 @@ const sentenceFunction = (input, letterTransforms, wordTransforms) => {
   const output = input.split(/\n/);
 
   const transform = output.map(entry =>
-    (entry && entry.length ? wordFunction(entry, letterTransforms, wordTransforms) : null));
+    (entry && entry.length ? `<div>${wordFunction(entry, letterTransforms, wordTransforms)}</div>` : null));
 
-
-  return transform.join('<br />');
+  return transform.join('');
 };
 
 const baseFontSize = {
@@ -1347,7 +1346,7 @@ div.word {
   flex: 20 0;
   display: flex;
   max-height: 100vh;
-  overflow: scroll;
+  overflow: auto;
   &:before,
   &:after {
     content: '';

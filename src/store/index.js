@@ -57,7 +57,7 @@ export default new Vuex.Store({
     pausedInitialAnimation: false,
     preset: 0,
     randomState: false,
-    caretPosition: 0,
+    caretPosition: 9999,
   },
   mutations: {
     setPlay(state) {
@@ -206,6 +206,7 @@ export default new Vuex.Store({
     setTextFields(state, input) {
       const typeText = state.textField.input;
       if (input !== typeText.raw) {
+        Vue.set(typeText, 'transformed', input);
         Vue.set(typeText, 'raw', input);
       }
     },
