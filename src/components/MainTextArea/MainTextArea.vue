@@ -687,15 +687,37 @@ body {
   }
 }
 
+.aaa,
+.bbb,
+.ddd,
+.eee,
+.ggg {
+  .conv {
+    width: 1.11em;
+  }
+}
+
 .set-c, {
   .conv {
     width: 0.5em;
   }
 }
 
+.ccc {
+  .conv {
+    width: 1em;
+  }
+}
+
 .set-f {
   .conv {
     width: 0.278em;
+  }
+}
+
+.fff {
+  .conv {
+    width: 0.556em;
   }
 }
 
@@ -706,9 +728,22 @@ body {
   }
 }
 
+.iii,
+.jjj {
+  .conv {
+    width: 0.446em;
+  }
+}
+
 .set-k {
   .conv {
     width: 0.5em;
+  }
+}
+
+.kkk {
+  .conv {
+    width: 1em;
   }
 }
 
@@ -718,9 +753,21 @@ body {
   }
 }
 
+.lll {
+  .conv {
+    width: 0.446em;
+  }
+}
+
 .set-m {
   .conv {
     width: 0.83em;
+  }
+}
+
+.mmm {
+  .conv {
+    width: 1.66em;
   }
 }
 
@@ -730,9 +777,21 @@ body {
   }
 }
 
+.nnn {
+  .conv {
+    width: 1.11em;
+  }
+}
+
 .set-o {
   .conv {
     width: 0.555em;
+  }
+}
+
+.ooo {
+  .conv {
+    width: 1.11em;
   }
 }
 
@@ -742,9 +801,21 @@ body {
   }
 }
 
+.ppp {
+  .conv {
+    width: 1.11em;
+  }
+}
+
 .set-q {
   .conv {
     width: 0.555em;
+  }
+}
+
+.qqq {
+  .conv {
+    width: 1.11em;
   }
 }
 
@@ -754,9 +825,21 @@ body {
   }
 }
 
+.rrr {
+  .conv {
+    width: 0.666em;
+  }
+}
+
 .set-s {
   .conv {
     width: 0.5em;
+  }
+}
+
+.sss {
+  .conv {
+    width: 1em;
   }
 }
 
@@ -766,9 +849,21 @@ body {
   }
 }
 
+.ttt {
+  .conv {
+    width: 0.558em;
+  }
+}
+
 .set-u {
   .conv {
     width: 0.555em;
+  }
+}
+
+.uuu {
+  .conv {
+    width: 1.1em;
   }
 }
 
@@ -778,9 +873,21 @@ body {
   }
 }
 
+.vvv {
+  .conv {
+    width: 1em;
+  }
+}
+
 .set-w {
   .conv {
     width: 0.723em;
+  }
+}
+
+.www {
+  .conv {
+    width: 1.446em;
   }
 }
 
@@ -790,9 +897,21 @@ body {
   }
 }
 
+.xxx {
+  .conv {
+    width: 1em;
+  }
+}
+
 .set-y {
   .conv {
     width: 0.5em;
+  }
+}
+
+.yyy {
+  .conv {
+    width: 1em;
   }
 }
 
@@ -802,44 +921,9 @@ body {
   }
 }
 
-.iii,
-.lll {
+.zzz {
   .conv {
-    width: 0.4em;
-  }
-}
-
-.ttt,
-.fff,
-.rrr {
-  .conv {
-    width: 0.7em;
-  }
-}
-
-.yyy,
-.vvv {
-  .conv {
-    width: 0.9em;
-  }
-}
-
-.aaa,
-.ooo,
-.qqq,
-.eee,
-.bbb,
-.sss,
-.ccc,
-.ddd,
-.kkk,
-.uuu,
-.ggg,
-.hhh,
-.nnn,
-.ppp {
-  .conv {
-    width: 1.2em;
+    width: 1em;
   }
 }
 
@@ -876,47 +960,7 @@ body {
   }
 }
 
-
-.mmm,
-.www {
-  .conv {
-    width: 1.45em;
-  }
-}
-
 .seriffed {
-  .ttt,
-  .iii,
-  .lll {
-    .conv {
-      width: 0.68em;
-    }
-  }
-
-  .fff,
-  .sss,
-  .rrr {
-    .conv {
-      width: 0.9em;
-    }
-  }
-
-  .ccc,
-  .vvv {
-    .conv {
-      width: 1em;
-    }
-  }
-
-  .yyy,
-  .aaa,
-  .eee,
-  .vvv {
-    .conv {
-      width: 1.1em;
-    }
-  }
-
   .set-c,
   .set-a {
     .conv {
@@ -1063,30 +1107,149 @@ body {
     }
   }
 
-  .ooo,
-  .qqq,
-  .bbb,
-  .ddd,
-  .kkk,
-  .uuu,
-  .ggg,
-  .hhh,
-  .nnn,
-  .ppp {
+  .ccc,
+  .aaa {
     .conv {
-      width: 1.2em;
+      width: 2 * 0.445em;
     }
   }
 
-  .www {
+  .bbb,
+  .ddd {
     .conv {
-      width: 1.6em;
+      width: 2 * 0.5em;
+    }
+  }
+
+  .eee {
+    .conv {
+      width: 2 * 0.445em;
+    }
+  }
+
+  .fff {
+    .conv {
+      width: 2 * 0.335em;
+    }
+  }
+
+  .ggg {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .hhh {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .iii {
+    .conv {
+      width: 2 * 0.278em;
+    }
+  }
+
+  .jjj {
+    .conv {
+      width: 2 * 0.278em;
+    }
+  }
+
+  .kkk {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .lll {
+    .conv {
+      width: 2 * 0.278em;
     }
   }
 
   .mmm {
     .conv {
-      width: 1.8em;
+      width: 2 * 0.78em;
+    }
+  }
+
+  .nnn {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .ooo {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .ppp {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .qqq {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .rrr {
+    .conv {
+      width: 2 * 0.333em;
+    }
+  }
+
+  .sss {
+    .conv {
+      width: 2 * 0.39em;
+    }
+  }
+
+  .ttt {
+    .conv {
+      width: 2 * 0.279em;
+    }
+  }
+
+  .uuu {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .vvv {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .www {
+    .conv {
+      width: 2 * 0.723em;
+    }
+  }
+
+  .xxx {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .yyy {
+    .conv {
+      width: 2 * 0.5em;
+    }
+  }
+
+  .zzz {
+    .conv {
+      width: 2 * 0.445em;
     }
   }
 

@@ -132,10 +132,6 @@ export default {
         const absoluteTick = this.min === 0 ? Math.abs(newTick) : newTick;
         const newValue = Math.floor(((this.manualValue === null ? this.value : this.manualValue) * absoluteTick) / 100);
 
-        if (this.id === 'shifting') {
-          console.log(this.manualValue, newValue, absoluteTick);
-        }
-
         if (this.manualValue === null) {
           this.manualValue = newValue;
         }
