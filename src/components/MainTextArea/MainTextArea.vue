@@ -182,7 +182,6 @@ const sentenceFunction = (input, letterTransforms, wordTransforms, genState) => 
   let transform = output.map(entry =>
     (entry && entry.length ? `<div>${wordFunction(entry, letterTransforms, wordTransforms, genState)}</div>` : null));
 
-  console.log(transform, transform[0] === null, transform[0], transform[1] === null, transform[1]);
   if (!input || (transform[0] === null && transform[1] === null)) {
     transform = [
       '<div class="word"><span class="emptyLetter" style="min-width: 10px; display: inline-block"></span></div>',
