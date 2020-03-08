@@ -5,23 +5,25 @@
       'dark-mode': isDark,
     }"
   >
-    <!-- Info Section, hidden by default -->
-    <InfoSection :open="infoOpen" />
+    <div class="clipping-container">
+      <!-- Info Section, hidden by default -->
+      <InfoSection :open="infoOpen" />
 
-    <SquareButton class="open-info-button" @click.native="toggleInfoOpen">about</SquareButton>
-    <div class="bottom-right-containers">
-      <SquareButton class="random-button" @click.native="triggerRandom">Random</SquareButton>
-      <SquareButton class="reset-button" @click.native="resetState">reset</SquareButton>
+      <SquareButton class="open-info-button" @click.native="toggleInfoOpen">about</SquareButton>
+      <div class="bottom-right-containers">
+        <SquareButton class="random-button" @click.native="triggerRandom">Random</SquareButton>
+        <SquareButton class="reset-button" @click.native="resetState">reset</SquareButton>
+      </div>
+
+      <!-- Left Menu -->
+      <LeftMenu />
+
+      <!--  Input text -->
+      <MainTextArea />
+
+      <!-- Bottom menu -->
+      <BottomMenu />
     </div>
-
-    <!-- Left Menu -->
-    <LeftMenu />
-
-    <!--  Input text -->
-    <MainTextArea />
-
-    <BottomMenu />
-    <!-- Bottom menu -->
   </div>
 </template>
 
@@ -235,14 +237,22 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-height: 98vh;
-  margin-top: 1vh;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.clipping-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .open-info-button {
   z-index: 999;
   position: fixed;
-  right: 2px;
+  right: 10px;
+  text-align: right;
   width: 80px;
 
 
@@ -250,10 +260,10 @@ body {
   }
 
   @media (min-width: 2000px) {
-    right: 1vh;
+    right: 10px;
   }
 
-  top: 1vh;
+  top: 10px;
 }
 
 
@@ -262,8 +272,8 @@ body {
   flex-direction: row;
   z-index: 999;
   position: fixed;
-  right: 1vh;
-  bottom: 1vh;
+  right: 10px;
+  bottom: 10px;
 }
 
 .dark-mode {

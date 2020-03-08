@@ -30,6 +30,7 @@ export default {
     color: black;
     z-index: 9999;
     background-color:whitesmoke;
+    top: 0;
     right: 0;
     transition: transform 1.2s ease;
     &.closed {
@@ -42,8 +43,8 @@ export default {
 
   .close-button {
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 0;
+    top: 10px;
   }
 
   .info-text {

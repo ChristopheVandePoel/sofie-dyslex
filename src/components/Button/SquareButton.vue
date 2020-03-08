@@ -15,10 +15,6 @@ export default {
     text-transform: uppercase;
     background-color: transparent;
     color: black;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
 
 
@@ -38,11 +34,11 @@ export default {
   }
 
   .random-button {
-    margin-right: 25px;
+    text-align: right;
   }
 
   .reset-button {
-
+    text-align: right;
   }
 
   /* alles wat specifiek voor de donkere versie is, zet je onderaan,
