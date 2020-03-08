@@ -208,11 +208,11 @@
           :min="100"
           :max="800"
           :step="100"
-          type="sentences"
+          type="letters"
           name="Weight"
           id="weight"
-          :start-value="getSentenceValue('weight')"
-          :active="getSentenceActivity('weight')"
+          :start-value="getLetterValue('weight')"
+          :active="getLetterActivity('weight')"
         />
         <SliderButton
           :min="-100"
@@ -274,9 +274,7 @@ const sentenceRowWords = ['interspace'];
 
 const sentenceRowSentence = ['line-spacing'];
 
-const typefaceRowLetters = ['height', 'width'];
-
-const typefaceRowSentece = ['weight'];
+const typefaceRowLetters = ['height', 'width', 'weight'];
 
 export default {
   name: 'BottomMenu',
@@ -295,7 +293,6 @@ export default {
       'setLetterTransforms',
     ]),
     disable(input) {
-      console.log(input);
       if (input === 'lettersRow') {
         lettersRow.forEach(item => {
           this.setLetterTransforms({
@@ -351,13 +348,6 @@ export default {
             type: item,
             settings: { active: false },
             kind: 'letters',
-          });
-        });
-        typefaceRowSentece.forEach(item => {
-          this.setLetterTransforms({
-            type: item,
-            settings: { active: false },
-            kind: 'sentences',
           });
         });
       }

@@ -70,6 +70,8 @@
       </ButtonRow>
       <ButtonRow title="Size" :expanded="true">
         <SliderButton
+          :min="20"
+          :max="100"
           active
           id="font-size"
           :not-closable="true"
@@ -104,7 +106,7 @@
           Block
         </Button>
       </ButtonRow>
-      <ButtonRow title="Color">
+      <ButtonRow title="Color" :expanded="true">
         <SliderButton
           active
           id="color"
@@ -150,7 +152,7 @@ export default {
     IconButton,
     Button,
   },
-  computed: mapState(['generalState', 'menusOpen', 'textTransforms', 'textField']),
+  computed: mapState(['generalState', 'menusOpen', 'textTransforms', 'textField', 'isPlaying']),
   methods: {
     outputState() {
       // reduce the inactive values out:
@@ -173,10 +175,15 @@ export default {
       console.log('********* \n STATE \n ********* \n', JSON.stringify(this.generalState));
       console.log('********* \n SENTENCES \n ********* \n', JSON.stringify(this.textField));
     },
-    ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen', 'storeSelection']),
+    ...mapMutations(['setGeneral', 'setReset', 'toggleMenusOpen', 'storeSelection', 'setPlay']),
     setGenSetting(input) {
       this.storeSelection(9999);
       this.setGeneral(input);
+      if (this.isPlaying) {
+        this.$nextTick(() => {
+          this.setPlay();
+        });
+      }
     },
   },
 };

@@ -21,7 +21,6 @@
           color: getColor(),
           lineHeight: `${generalState.type === 'paragraph' ? containerData.lineHeight : 1}`,
           letterSpacing: `${containerData.letterSpacing}px`,
-          fontWeight: containerData.weight,
         }"
         spellcheck="false"
         v-html="currentValue"
@@ -78,6 +77,7 @@ const someFunction = (input, transforms, count) => {
       articleType,
       pronounClass: '',
       pronounType,
+      weight: 'inherit',
     };
     if (letter === ' ') {
       return '<span>&nbsp</span>';
@@ -103,7 +103,9 @@ const someFunction = (input, transforms, count) => {
     scale(${yay.scaleX},${yay.scaleY})
     rotate(${yay.rotate}deg);
     display: inline-block;
-    letter-spacing: ${yay.letterSpace}em`;
+    letter-spacing: ${yay.letterSpace}em;
+    font-weight: ${yay.weight};
+    `;
 
     const extraClass = `${yay.diphClass} ${yay.swapClass} ${yay.setClass} ${yay.multiClass}
     ${yay.removeClass} ${yay.articleClass} ${yay.pronounClass}`;
@@ -128,7 +130,7 @@ const someFunction = (input, transforms, count) => {
   return transform.join('');
 };
 
-const wordFunction = (input, letterTransforms, wordTransforms) => {
+const wordFunction = (input, letterTransforms, wordTransforms, genState) => {
   const output = input.split(/\s/);
 
   let result = '';
@@ -144,7 +146,6 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
       swapClass: '',
       marginRight: 0,
     };
-
     wordTransforms.forEach(trans => {
       if (wordTransformMap[trans.key]) {
         yay = wordTransformMap[trans.key](
@@ -155,6 +156,7 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
           output[index - 1],
           output[index + 1],
           trans.tick,
+          genState.font,
         );
       }
     });
@@ -173,11 +175,11 @@ const wordFunction = (input, letterTransforms, wordTransforms) => {
   return result;
 };
 
-const sentenceFunction = (input, letterTransforms, wordTransforms) => {
+const sentenceFunction = (input, letterTransforms, wordTransforms, genState) => {
   const output = input.split(/\n/);
 
   const transform = output.map(entry =>
-    (entry && entry.length ? `<div>${wordFunction(entry, letterTransforms, wordTransforms)}</div>` : null));
+    (entry && entry.length ? `<div>${wordFunction(entry, letterTransforms, wordTransforms, genState)}</div>` : null));
 
   return transform.join('');
 };
@@ -238,6 +240,7 @@ export default {
         this.textField.input.transformed,
         this.getLetterTransforms,
         this.getWordTransforms,
+        this.generalState,
       );
     },
   },
@@ -562,59 +565,8 @@ body {
   }
 }
 
-// diphthongs:
-
 .isA:after {
   content: 'an';
-}
-
-.isThat-3:after {
-  content: 'i'
-}
-
-.isThat-3, {
-  .conv {
-    width: 0.2em;
-  }
-}
-
-.isThat-4:after {
-  content: 's'
-}
-
-.isThat-4, {
-  .conv {
-    width: 0.5em;
-  }
-}
-
-.isThis-3:after {
-  content: 'a'
-}
-
-.isThis-3, {
-  .conv {
-    width: 0.55em;
-  }
-}
-
-.isThis-4:after {
-  content: 't'
-}
-
-.isThis-4, {
-  .conv {
-    width: 0.3em;
-  }
-}
-
-
-.isThose-3:after {
-  content: 'e'
-}
-
-.isThese-3:after {
-  content: 'o'
 }
 
 .isWhom-4:after {
@@ -631,43 +583,12 @@ body {
 }
 
 .seriffed {
-  .isThat-3, {
-    .conv {
-      width: 0.35em;
-    }
-  }
-
-  .isThat-4, {
-    .conv {
-      width: 0.45em;
-    }
-  }
-
-  .isThis-3, {
-    .conv {
-      width: 0.55em;
-    }
-  }
-
-  .isThis-4, {
-    .conv {
-      width: 0.4em;
-    }
-  }
-
-  .isThose-3, {
-    .conv {
-      width: 0.55em;
-    }
-  }
-
   .isThese-3, {
     .conv {
       width: 0.62em;
     }
   }
 }
-
 
 .isA {
   .conv {
@@ -676,6 +597,8 @@ body {
 }
 
 // font & letter-specific widths:
+.isThis-3,
+.isThose-3,
 .set-a,
 .set-b,
 .set-d,
@@ -691,7 +614,8 @@ body {
 .bbb,
 .ddd,
 .eee,
-.ggg {
+.ggg,
+.hhh {
   .conv {
     width: 1.11em;
   }
@@ -721,6 +645,7 @@ body {
   }
 }
 
+.isThat-3,
 .set-i,
 .set-j {
   .conv {
@@ -783,6 +708,7 @@ body {
   }
 }
 
+.isThese-3,
 .set-o {
   .conv {
     width: 0.555em;
@@ -831,6 +757,7 @@ body {
   }
 }
 
+.isThat-4,
 .set-s {
   .conv {
     width: 0.5em;
@@ -843,6 +770,7 @@ body {
   }
 }
 
+.isThis-4,
 .set-t {
   .conv {
     width: 0.279em;
@@ -961,6 +889,7 @@ body {
 }
 
 .seriffed {
+  .isThis-3,
   .set-c,
   .set-a {
     .conv {
@@ -975,6 +904,7 @@ body {
     }
   }
 
+  .isThose-3,
   .set-e {
     .conv {
       width: 0.445em;
@@ -999,6 +929,7 @@ body {
     }
   }
 
+  .isThat-3,
   .set-i {
     .conv {
       width: 0.278em;
@@ -1034,7 +965,7 @@ body {
       width: 0.5em;
     }
   }
-
+  .isThese-3,
   .set-o {
     .conv {
       width: 0.5em;
@@ -1059,12 +990,14 @@ body {
     }
   }
 
+  .isThat-4,
   .set-s {
     .conv {
       width: 0.39em;
     }
   }
 
+  .isThis-4,
   .set-t {
     .conv {
       width: 0.279em;
@@ -1261,38 +1194,7 @@ body {
 }
 
 // plain letters
-.swap-b:after {
-  content: 'd';
-}
-.swap-d:after {
-  content: 'b';
-}
-.swap-p:after {
-  content: 'q';
-}
-.swap-q:after {
-  content: 'p';
-}
-.swap-m:after {
-  content: 'w';
-}
-.swap-w:after {
-  content: 'm';
-  left: -5px;
-}
-.swap-a:after {
-  content: 'e';
-}
-.swap-e:after {
-  content: 'a';
-}
-.swap-f:after {
-  content: 'v';
-}
-.swap-v:after {
-  content: 'f';
-}
-
+.isThis-3:after,
 .set-a:after {
   content: 'a';
 }
@@ -1305,6 +1207,7 @@ body {
 .set-d:after {
   content: 'd';
 }
+.isThose-3:after,
 .set-e:after {
   content: 'e';
 }
@@ -1317,6 +1220,7 @@ body {
 .set-h:after {
   content: 'h';
 }
+.isThat-3:after,
 .set-i:after {
   content: 'i';
 }
@@ -1335,6 +1239,7 @@ body {
 .set-n:after {
   content: 'n';
 }
+.isThese-3:after,
 .set-o:after {
   content: 'o';
 }
@@ -1347,9 +1252,11 @@ body {
 .set-r:after {
   content: 'r';
 }
+.isThat-4:after,
 .set-s:after {
   content: 's';
 }
+.isThis-4:after,
 .set-t:after {
   content: 't';
 }
@@ -1371,7 +1278,6 @@ body {
 .set-z:after {
   content: 'z';
 }
-
 .aaa:after {
   content: 'aa';
 }

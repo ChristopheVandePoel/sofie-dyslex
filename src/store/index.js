@@ -271,9 +271,6 @@ export default new Vuex.Store({
 
       Vue.set(state.textTransforms, 'activeSentences', [...activePreset.activeSentences]);
     },
-    resetTypes(state, allTypes) {
-      console.log(allTypes);
-    },
   },
   getters: {
     getLetterTransforms: state =>

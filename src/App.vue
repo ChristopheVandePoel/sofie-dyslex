@@ -53,18 +53,16 @@ export default {
   methods: {
     ...mapMutations(['toggleInfoOpen', 'setRandom', 'setGeneral', 'setPreset', 'setPause', 'setPlay', 'setReset']),
     triggerRandom() {
-      if (this.isPlaying) {
-        this.$nextTick(() => this.setPlay());
-      }
       this.setPause();
       this.setReset();
       this.setRandom();
       this.setPreset();
       this.setGeneral();
+      this.setPlay();
     },
     resetState() {
       this.setGeneral(this.defaultGeneralState);
-      this.setPreset(this.preset);
+      this.setPreset(0);
     },
   },
 };

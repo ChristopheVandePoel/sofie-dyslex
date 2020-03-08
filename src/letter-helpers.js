@@ -36,13 +36,19 @@ const upsideDown = (letter, index, force, current, prev, next, tick) => ({
   scaleY: parseInt(getRandom(index, tick), 10) * 10 + parseInt(force, 10) > 100 ? -1 : 1,
 });
 
-const multiply = (letter, index, force, current, prev, next, tick) => ({
-  ...current,
-  multiClass:
-    parseInt(getRandom(index, tick), 10) * 10 + parseInt(force, 10) > 100
-      ? `${letter}${letter}${letter}`
-      : '',
-});
+const multiply = (letter, index, force, current, prev, next, tick, length, swapper, count) => {
+  const random = getRandom(index, tick);
+  const largeRandom = random * getRandom(index + count, tick);
+
+  if (random < 9 || !(largeRandom % 5)) {
+    return current;
+  }
+
+  return {
+    ...current,
+    multiClass: largeRandom > force ? '' : `${letter}${letter}${letter}`,
+  };
+};
 
 export const freeRotate = (letter, index, force, current, prev, next, tick) => ({
   ...current,
@@ -96,7 +102,6 @@ const article = (letter, index, force, current, prev, next, tick, length, swappe
 };
 
 const pronoun = (letter, index, force, current, prev, next, tick, length, swapper, count) => {
-  console.log(current.pronounType);
   if (!current.pronounType) {
     return current;
   }
@@ -139,6 +144,16 @@ const diphtong = (letter, index, force, current, prev, next) => {
     ea: 'ae',
     io: 'oi',
     oi: 'io',
+    ow: 'wo',
+    wo: 'ow',
+    oa: 'ao',
+    ao: 'oa',
+    ay: 'ya',
+    ya: 'ay',
+    yu: 'uy',
+    uy: 'yu',
+    ai: 'ia',
+    ia: 'ai',
   };
 
   const keys = Object.keys(map);
@@ -165,12 +180,12 @@ const swapping = (letter, index, force, current) => {
     d: 'b',
     p: 'q',
     q: 'p',
-    m: 'w',
-    w: 'm',
+    // m: 'w',
+    // w: 'm',
     a: 'e',
     e: 'a',
-    f: 'v',
-    v: 'f',
+    // f: 'v',
+    // v: 'f',
   };
   let swapClass = '';
   const swapKeys = Object.keys(swappers);
@@ -211,7 +226,7 @@ const swapLong = (letter, index, force, current, prev, next, tick, length, swapp
 
 const freeLetters = (letter, index, force, current, prev, next, tick) => ({
   ...current,
-  letterSpace: (getRandom(index, tick) * force) / 1500 + current.letterSpace,
+  letterSpace: (getRandom(index, tick) * force) / 2300 + current.letterSpace,
 });
 
 const height = (letter, index, force, current, prev, next, tick) => {
@@ -234,6 +249,18 @@ const width = (letter, index, force, current, prev, next, tick) => {
   return {
     ...current,
     scaleX: (current.scaleX || 1) * remdomNumber * (force / 2200) + 1,
+  };
+};
+
+const weight = (letter, index, force, current, prev, next, tick) => {
+  const remdomNumber = getRandom(index, tick);
+  if (remdomNumber > 5) {
+    return current;
+  }
+
+  return {
+    ...current,
+    weight: force,
   };
 };
 
@@ -260,4 +287,5 @@ export const letterTransformMap = {
   shifting: swapLong,
   article,
   pronoun,
+  weight,
 };

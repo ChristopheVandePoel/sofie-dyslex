@@ -1,21 +1,20 @@
 import {
-  freeRotate, freeTremble, getRandom, hop, tremble,
+  freeRotate, freeTremble, hop, tremble,
 } from './letter-helpers';
 
 const lineSpace = (force, current) => ({
   ...current,
-  lineHeight: 1 + force / 100,
+  lineHeight: 1 + force / 150,
 });
 
-const interspace = (letter, index, force, current) => ({
-  ...current,
-  marginRight: (getRandom(index, 1) * force) / 1500 + current.marginRight,
-});
+const interspace = (letter, index, force, current, prev, next, tick, font) => {
+  const power = font === 'monospace' ? 150 : 400;
 
-const weight = (force, current) => ({
-  ...current,
-  weight: force,
-});
+  return {
+    ...current,
+    marginRight: ((force) / power) + current.marginRight,
+  };
+};
 
 export const wordTransformMap = {
   'free-tremble': freeTremble,
@@ -27,5 +26,4 @@ export const wordTransformMap = {
 
 export const sentencesTransformMap = {
   'line-spacing': lineSpace,
-  weight,
 };
