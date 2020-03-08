@@ -233,7 +233,8 @@
           :on-change="speed => setGeneral({ speed })"
         />
       </ButtonRow>
-      <ButtonRow title="Motion" :expanded="true">
+      <ButtonRow title="Motion" :expanded="true"
+                 is-last>
         <Button :active="isPlaying" @click.native="setPlay">
           Play
         </Button>

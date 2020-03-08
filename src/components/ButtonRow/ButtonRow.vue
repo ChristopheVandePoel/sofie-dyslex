@@ -1,5 +1,8 @@
 <template>
-  <div class="tool__buttons--row" :class="{disabled}">
+  <div class="tool__buttons--row" :class="{
+    disabled: disabled,
+    isLast: isLast,
+  }">
     <Button @click.native="toggleActive" class="row-title">{{ title }}</Button>
     <div class="button-container">
       <slot v-if="isExpanded" />
@@ -24,6 +27,7 @@ export default {
     expanded: Boolean,
     disabled: Boolean,
     onDisable: Function,
+    isLast: Boolean,
   },
   data() {
     return {
@@ -50,6 +54,10 @@ export default {
   &.disabled {
     opacity: 0.5; // re-enable when done
     pointer-events: none;
+  }
+
+  &.isLast {
+    margin-bottom: -1px;
   }
 
   .ButtonRow__expand {
