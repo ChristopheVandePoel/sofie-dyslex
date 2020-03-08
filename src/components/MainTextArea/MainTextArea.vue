@@ -103,6 +103,7 @@ const someFunction = (input, transforms, count) => {
     scale(${yay.scaleX},${yay.scaleY})
     rotate(${yay.rotate}deg);
     display: inline-block;
+    min-width: 1px;
     letter-spacing: ${yay.letterSpace}em;
     font-weight: ${yay.weight};
     `;
@@ -178,8 +179,15 @@ const wordFunction = (input, letterTransforms, wordTransforms, genState) => {
 const sentenceFunction = (input, letterTransforms, wordTransforms, genState) => {
   const output = input.split(/\n/);
 
-  const transform = output.map(entry =>
+  let transform = output.map(entry =>
     (entry && entry.length ? `<div>${wordFunction(entry, letterTransforms, wordTransforms, genState)}</div>` : null));
+
+  console.log(transform, transform[0] === null, transform[0], transform[1] === null, transform[1]);
+  if (!input || (transform[0] === null && transform[1] === null)) {
+    transform = [
+      '<div class="word"><span class="emptyLetter" style="min-width: 10px; display: inline-block"></span></div>',
+    ];
+  }
 
   return transform.join('');
 };
@@ -1364,6 +1372,14 @@ body {
 div.word {
   display: inline-block;
   text-align: left;
+  min-width: 1px;
+}
+
+span.emptyLetter:after {
+  display: block;
+  content: '';
+  min-width: 10px;
+  background-color: red;
 }
 
 .monospace {
