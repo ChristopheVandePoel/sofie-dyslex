@@ -244,6 +244,16 @@ body {
   position: fixed;
   right: 2px;
   width: 80px;
+
+
+  @media (max-width: 1000px) {
+  }
+
+  @media (min-width: 2000px) {
+    right: 1vh;
+  }
+
+  top: 1vh;
 }
 
 
@@ -252,8 +262,8 @@ body {
   flex-direction: row;
   z-index: 999;
   position: fixed;
-  right: 2px;
-  bottom: 2px;
+  right: 1vh;
+  bottom: 1vh;
 }
 
 .dark-mode {

@@ -37,6 +37,13 @@ export default {
   /* Non-prefixed version, currently
     supported by Chrome, Opera and Firefox */
 
+  @media (max-width: 1000px) {
+    padding: 1px 5px 3px;
+  }
+
+  @media (min-width: 2000px) {
+    padding: 3px 8px 4px;
+  }
 
   &:hover {
     background-color: #cccccc;

@@ -191,7 +191,7 @@ export default {
 
 <style lang="scss" scoped>
 .tools__container {
-  padding: 10px;
+  padding: 0 10px 10px;
   left: -2px;
   position: fixed;
   z-index: 100;
@@ -201,6 +201,11 @@ export default {
     left: -400px;
     overflow: hidden;
     transition: left 0.5s ease;
+
+
+    @media (min-width: 2000px) {
+      left: -600px;
+    }
   }
 
   .tools-icon-button {
@@ -215,6 +220,10 @@ export default {
       left: 30px;
       overflow: hidden;
       transition: left 0.5s ease;
+
+      @media (min-width: 2000px) {
+        left: 40px;
+      }
     }
     .tools-icon-button {
       transition: transform 0.5s ease;

@@ -416,6 +416,7 @@ export default {
 
 <style lang="scss" scoped>
 $height: 180px;
+$largeHeight: 220px;
 
 .bottom-menu__container {
   position: fixed;
@@ -424,6 +425,11 @@ $height: 180px;
   transition: all 0.5s ease;
   padding-bottom: 8px;
   z-index: 10;
+
+
+  @media (min-width: 2000px) {
+    bottom: -$largeHeight;
+  }
 
   .bottom-menu__button-row {
     transition: width 0.2s ease;

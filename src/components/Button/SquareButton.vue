@@ -10,11 +10,10 @@ export default {
 
 <style lang="scss" scoped>
   .square-button {
-    width: 55px;
-    height: 30px;
+    width: 55px;;
     font-size: 12px;
     text-transform: uppercase;
-    background-color: none;
+    background-color: transparent;
     color: black;
     display: flex;
     align-content: center;
@@ -22,8 +21,19 @@ export default {
     justify-content: center;
     cursor: pointer;
 
+
+    @media (max-width: 1000px) {
+      font-size: 10px;
+      width: 40px;
+    }
+
+    @media (min-width: 2000px) {
+      font-size: 18px;
+      width: 65px;
+    }
+
     &:hover {
-      background-color: none;
+      background-color: transparent;
     }
   }
 

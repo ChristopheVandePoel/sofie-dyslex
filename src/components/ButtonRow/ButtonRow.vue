@@ -100,7 +100,17 @@ export default {
 
   .row-title {
     max-height: 12px;
-    padding: 4px 5px 6px;
+    padding: 2px 5px 4px;
+  }
+}
+@media (min-width: 2000px) {
+  .tool__buttons--row {
+    font-size: 18px;
+  }
+
+  .row-title {
+    max-height: 15px;
+    padding: 7px 10px 9px;
   }
 }
 

@@ -211,6 +211,9 @@ export default {
     overflow: hidden;
     &.isVisible {
       width: 25px;
+      @media (min-width: 2000px) {
+        width: 34px;
+      }
     }
   }
 
@@ -221,6 +224,12 @@ export default {
     height: 12px; /* Safari line-height bugfix */
   }
 
+  .isActive {
+    .tool-name {
+      margin-right: 0;
+    }
+  }
+
 
   @media (max-width: 1000px) {
     .tool-name {
@@ -228,6 +237,14 @@ export default {
       margin-right: 10px;
       padding-bottom: 0;
       height: 12px; /* Safari line-height bugfix */
+    }
+  }
+  @media (min-width: 2000px) {
+    .tool-name {
+      margin-left: 20px;
+      margin-right: 20px;
+      padding: 0px 0 5px;
+      height: 14px; /* Safari line-height bugfix */
     }
   }
 
@@ -278,6 +295,10 @@ export default {
         @media (max-width: 1000px) {
           width: 120px;
         }
+
+        @media (min-width: 2000px) {
+          width: 190px;
+        }
       }
 
       &.hideLables {
@@ -291,7 +312,7 @@ export default {
     overflow: hidden;
     text-align: center;
     font-size: 10px;
-    width: 30px;
+    width: 45px;
   }
   .tool-low {
     margin-right: 5px;
@@ -304,6 +325,14 @@ export default {
     .tool-low,
     .tool-high {
       font-size: 9px;
+      margin-top: -1px;
+    }
+  }
+
+  @media (min-width: 2000px) {
+    .tool-low,
+    .tool-high {
+      font-size: 12px;
     }
   }
 }

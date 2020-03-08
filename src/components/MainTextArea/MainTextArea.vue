@@ -263,10 +263,14 @@ export default {
     onInput(event) {
       const text = event.target.innerText;
 
+      let isProbablyTwoLines = true;
       // 1.1 is the safari-is-a-pos factor.
-      const isProbablyTwoLines = text.trim(/\s+/).match(/\n/)
-        || (event.target.offsetHeight / parseFloat(event.target.style.lineHeight))
-          > parseFloat(event.target.style.fontSize) * 1.1;
+      if (event.target.firstChild) {
+        isProbablyTwoLines = text.trim(/\s+/).match(/\n/)
+          || (event.target.offsetHeight / parseFloat(event.target.style.lineHeight))
+            > parseFloat(window.getComputedStyle(event.target.firstChild).fontSize) * 1.1;
+      }
+
 
       if (event.inputType === 'insertParagraph') {
         this.switchBySentences({ toValue: 'sentences' });
@@ -1434,6 +1438,18 @@ div.word {
   .isA {
     .conv {
       width: 1.4em !important;
+    }
+  }
+}
+
+.textarea-container {
+  > * {
+    @media (max-width: 1000px) {
+      font-size: 70%;
+    }
+
+    @media (min-width: 2000px) {
+      font-size: 170%;
     }
   }
 }

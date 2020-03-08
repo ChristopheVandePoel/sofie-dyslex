@@ -51,6 +51,16 @@ export default {
     background-repeat: no-repeat;
     padding: 5px;
 
+    @media (max-width: 1000px) {
+      width: 8px;
+      height: 8px;
+    }
+
+    @media (min-width: 2000px) {
+      width: 20px;
+      height: 20px;
+    }
+
     img {
       width: 100%;
       height: 100%;
