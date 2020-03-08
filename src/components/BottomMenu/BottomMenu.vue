@@ -470,6 +470,10 @@ $largeHeight: 220px;
     flex-direction: column;
     transition: all 0.5s ease;
     opacity: 0;
+
+    @media (min-width: 2000px) {
+      margin-left: 40px
+    }
   }
 }
 </style>
