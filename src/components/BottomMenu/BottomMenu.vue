@@ -211,7 +211,7 @@
           type="letters"
           name="Weight"
           id="weight"
-          :start-value="getLetterValue('weight')"
+          :start-value="getLetterValue('weight') || 100"
           :active="getLetterActivity('weight')"
         />
         <SliderButton

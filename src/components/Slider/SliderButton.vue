@@ -129,11 +129,16 @@ export default {
     },
     tick(newTick, oldTick) {
       if (this.active && this.type && this.isPlaying && newTick !== oldTick) {
-        const absoluteTick = this.min === 0 ? Math.abs(newTick) : newTick;
-        const newValue = Math.floor(((this.manualValue === null ? this.value : this.manualValue) * absoluteTick) / 100);
+        const absoluteTick = this.min >= 0 ? Math.abs(newTick) : newTick;
+        let newValue = Math.floor(((this.manualValue === null ? this.value : this.manualValue) * absoluteTick) / 100);
+
+        // hacky exception for weight right now:
+        if (this.id === 'weight') {
+          newValue = Math.ceil(newValue / 100) * 100;
+        }
 
         if (this.manualValue === null) {
-          this.manualValue = newValue;
+          this.manualValue = this.savedValue || this.value;
         }
 
         this.value = newValue;
