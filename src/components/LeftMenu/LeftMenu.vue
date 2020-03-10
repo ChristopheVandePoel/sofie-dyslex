@@ -27,10 +27,9 @@
           :active="generalState.font === 'monospace'"
           @click.native="setGeneral({ font: 'monospace' })"
         >
-          Monotype
+          Monospace
         </Button>
         <Button
-          disable
           :active="generalState.font === 'script'"
           @click.native="setGeneral({ font: 'script' })"
         >
@@ -99,7 +98,6 @@
           Right
         </Button>
         <Button
-          disable
           :active="generalState.alignment === 'block'"
           @click.native="setGeneral({ alignment: 'block' })"
         >
