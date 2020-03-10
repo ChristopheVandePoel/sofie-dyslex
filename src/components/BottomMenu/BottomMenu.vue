@@ -17,6 +17,13 @@
         />
         <SliderButton
           type="letters"
+          name="Decrease"
+          id="decrease"
+          :start-value="getLetterValue('decrease')"
+          :active="getLetterActivity('decrease')"
+        />
+        <SliderButton
+          type="letters"
           name="Diphthong"
           id="letters-diphtong"
           :start-value="getLetterValue('letters-diphtong')"
@@ -42,13 +49,6 @@
           id="multiply"
           :start-value="getLetterValue('multiply')"
           :active="getLetterActivity('multiply')"
-        />
-        <SliderButton
-          type="letters"
-          name="Decrease"
-          id="decrease"
-          :start-value="getLetterValue('decrease')"
-          :active="getLetterActivity('decrease')"
         />
         <SliderButton
           type="letters"
@@ -160,7 +160,7 @@
           :min="-100"
           :max="100"
           type="words"
-          name="Interspace"
+          name="Wordspace"
           id="interspace"
           :start-value="getWordValue('interspace') || 0"
           :active="getWordActivity('interspace') && (enabledSentences || enabledWords)"
