@@ -205,6 +205,7 @@
         />
         <SliderButton disable type="faces" name="Serifs" id="serifs" />
         <SliderButton
+          disable
           :min="100"
           :max="800"
           :step="100"
